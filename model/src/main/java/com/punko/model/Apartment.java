@@ -1,3 +1,4 @@
+package com.punko.model;
 
 public class Apartment {
 
@@ -5,16 +6,16 @@ public class Apartment {
 
     private Integer apartmentNumber;
 
-    private Integer amountPlaces;
+//    private Integer amountPlaces;
 
     private String apartmentClass;
 
     public Apartment() {
     }
 
-    public Apartment(Integer apartmentNumber, Integer amountPlaces, String apartmentClass) {
+    public Apartment(Integer apartmentNumber, String apartmentClass) {
         this.apartmentNumber = apartmentNumber;
-        this.amountPlaces = amountPlaces;
+//        this.amountPlaces = amountPlaces;
         this.apartmentClass = apartmentClass;
     }
 
@@ -34,13 +35,13 @@ public class Apartment {
         this.apartmentNumber = apartmentNumber;
     }
 
-    public Integer getAmountPlaces() {
-        return amountPlaces;
-    }
-
-    public void setAmountPlaces(Integer amountPlaces) {
-        this.amountPlaces = amountPlaces;
-    }
+//    public Integer getAmountPlaces() {
+//        return amountPlaces;
+//    }
+//
+//    public void setAmountPlaces(Integer amountPlaces) {
+//        this.amountPlaces = amountPlaces;
+//    }
 
     public String getApartmentClass() {
         return apartmentClass;
@@ -55,7 +56,6 @@ public class Apartment {
         return "Apartment{" +
                 "apartmentId=" + apartmentId +
                 ", apartmentNumber=" + apartmentNumber +
-                ", amountPlaces=" + amountPlaces +
                 ", apartmentClass='" + apartmentClass + '\'' +
                 '}';
     }

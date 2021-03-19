@@ -1,3 +1,5 @@
+package com.punko.model;
+
 import java.time.LocalDate;
 
 public class Resident {

@@ -1,11 +1,14 @@
+package com.punko.model;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 
 public class ApartmentTest {
 
     @Test
     public void getApartmentNumberConstructor() {
-        Apartment apartment = new Apartment(101, 3, "Medium");
+        Apartment apartment = new Apartment(101, "Medium");
         Assertions.assertEquals(101, apartment.getApartmentNumber());
     }
 
@@ -16,3 +19,4 @@ public class ApartmentTest {
         Assertions.assertEquals("Luxury", apartment.getApartmentClass());
     }
 }
+
