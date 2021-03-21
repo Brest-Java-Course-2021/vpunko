@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -38,6 +39,9 @@ public class ApartmentDaoJdbc implements ApartmentDao {
 
     @Value("${apartment.delete}")
     private String deleteApartmentSQL;
+
+    @Value("${apartment.count}")
+    private String countSQL;
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -109,5 +113,11 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         LOGGER.debug("Delete apartment by id: {}", apartmentId);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
         return namedParameterJdbcTemplate.update(deleteApartmentSQL, sqlParameterSource);
+    }
+
+    @Override
+    public Integer count() {
+        LOGGER.debug("count()");
+        return namedParameterJdbcTemplate.queryForObject(countSQL, new HashMap<>(), Integer.class);
     }
 }

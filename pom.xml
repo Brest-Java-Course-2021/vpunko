@@ -14,6 +14,8 @@
         <module>model</module>
         <module>dao-api</module>
         <module>dao</module>
+        <module>service-api</module>
+        <module>service</module>
 
     </modules>
 
@@ -56,7 +58,11 @@
             <artifactId>dao</artifactId>
             <version>${project.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.punko</groupId>
+            <artifactId>service-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>

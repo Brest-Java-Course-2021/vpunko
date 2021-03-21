@@ -1,9 +1,10 @@
-package com.punko.dao;
+package com.punko;
 
 import com.punko.model.Apartment;
+
 import java.util.List;
 
-public interface ApartmentDao {
+public interface ApartmentService {
 
     List<Apartment> findAll();
 

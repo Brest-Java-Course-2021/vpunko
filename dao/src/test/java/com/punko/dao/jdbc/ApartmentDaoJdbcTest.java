@@ -12,7 +12,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml", "classpath*:dao.xml"})
@@ -25,7 +24,7 @@ class ApartmentDaoJdbcTest {
     public void findAllTest() {
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
-        assertTrue(apartmentList.size() > 0);
+        Assertions.assertTrue(apartmentList.size() > 0);
         apartmentList.stream().forEach(System.out::println);
     }
 
@@ -33,12 +32,12 @@ class ApartmentDaoJdbcTest {
     public void findByIdTest() {
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
-        assertTrue(apartmentList.size() > 0);
+        Assertions.assertTrue(apartmentList.size() > 0);
 
         Integer apartmentId = apartmentList.get(0).getApartmentId();
         Apartment apartment = apartmentDao.findById(apartmentId);
-        assertNotNull(apartment);
-        assertEquals(apartment.getApartmentNumber(), apartmentList.get(0).getApartmentNumber());
+        Assertions.assertNotNull(apartment);
+        Assertions.assertEquals(apartment.getApartmentNumber(), apartmentList.get(0).getApartmentNumber());
     }
 
     @Test
@@ -50,12 +49,12 @@ class ApartmentDaoJdbcTest {
     public void createTest() {
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
-        assertTrue(apartmentList.size() > 0);
+        Assertions.assertTrue(apartmentList.size() > 0);
 
         apartmentDao.create(new Apartment(110, "MEDIUM"));
 
         List<Apartment> realApartment = apartmentDao.findAll();
-        assertEquals(realApartment.size(), apartmentList.size()+1);
+        Assertions.assertEquals(realApartment.size(), apartmentList.size()+1);
         realApartment.stream().forEach(System.out::println);
     }
 
@@ -63,7 +62,7 @@ class ApartmentDaoJdbcTest {
     public void createWithTheSameNumberTest() {
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
-        assertTrue(apartmentList.size() > 0);
+        Assertions.assertTrue(apartmentList.size() > 0);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             apartmentDao.create(new Apartment(110, "MEDIUM"));
@@ -75,21 +74,21 @@ class ApartmentDaoJdbcTest {
     public void updateApartmentTest() {
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
-        assertTrue(apartmentList.size() > 0);
+        Assertions.assertTrue(apartmentList.size() > 0);
 
         Apartment apartment = apartmentList.get(0);
         apartment.setApartmentNumber(110);
 
         apartmentDao.update(apartment);
         Apartment realApartment = apartmentDao.findById(apartment.getApartmentId());
-        assertEquals(110, realApartment.getApartmentNumber());
+        Assertions.assertEquals(110, realApartment.getApartmentNumber());
         Assertions.assertEquals(apartment, realApartment);
     }
 
     @Test
     public void updateApartmentWithTheSameNumberTest() {
         List<Apartment> apartmentList = apartmentDao.findAll();
-        assertTrue(apartmentList.size() > 0);
+        Assertions.assertTrue(apartmentList.size() > 0);
 
         Apartment apartment = apartmentList.get(0);
         apartment.setApartmentNumber(apartmentList.get(1).getApartmentNumber());
@@ -101,13 +100,22 @@ class ApartmentDaoJdbcTest {
     @Test
     public void deleteApartmentTest() {
         List<Apartment> apartmentList = apartmentDao.findAll();
-        assertTrue(apartmentList.size() > 0);
+        Assertions.assertTrue(apartmentList.size() > 0);
 
         Apartment apartment = apartmentList.get(0);
         apartmentDao.delete(apartment.getApartmentId());
         List<Apartment> realApartment = apartmentDao.findAll();
 
-        assertEquals(realApartment.size() + 1, apartmentList.size());
+        Assertions.assertEquals(realApartment.size() + 1, apartmentList.size());
+    }
+
+    @Test
+    public void countApartmentTest() {
+        List<Apartment> apartmentList = apartmentDao.findAll();
+        Assertions.assertTrue(apartmentList.size() > 0);
+
+        int count = apartmentDao.count();
+        Assertions.assertEquals(apartmentList.size(), count);
     }
 
 }
