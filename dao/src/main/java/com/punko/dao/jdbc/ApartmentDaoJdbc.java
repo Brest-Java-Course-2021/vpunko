@@ -30,6 +30,15 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     @Value("${apartment.create}")
     private String createSQL;
 
+    @Value("${apartment.check.number}")
+    private String checkNumberSQL;
+
+    @Value("${apartment.updateNumber}")
+    private String updateApartmentNumberSQL;
+
+    @Value("${apartment.delete}")
+    private String deleteApartmentSQL;
+
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
@@ -61,6 +70,10 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     public Integer create(Apartment apartment) {
 //        add KeyHolder for return id of new Apartment
         LOGGER.debug("Create apartment: {}", apartment);
+        if (!isTheNumberUnique(apartment)) {
+            LOGGER.warn("Apartment with that name is already exist: {}", apartment);
+            throw new IllegalArgumentException("Apartment with that name is already exist");
+        }
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber())
                                                 .addValue("APARTMENT_CLASS", apartment.getApartmentClass());
@@ -71,13 +84,30 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         return apartmentId;
     }
 
-    @Override
-    public Integer update(Apartment apartment) {
-        return null;
+    private boolean isTheNumberUnique(Apartment apartment){
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber());
+        return namedParameterJdbcTemplate.queryForObject(checkNumberSQL, sqlParameterSource, Integer.class) == 0;
     }
 
+    //create Final variables for ApartmentClass and check input for them.
+    //create check for update number on the exist number
+    @Override
+    public Integer update(Apartment apartment) {
+        LOGGER.debug("Update apartment: {}", apartment);
+        if (!isTheNumberUnique(apartment)) {
+            LOGGER.warn("Apartment with that name is already exist: {}", apartment);
+            throw new IllegalArgumentException("Apartment with that name is already exist");
+        }
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber())
+                .addValue("APARTMENT_ID", apartment.getApartmentId());
+        return namedParameterJdbcTemplate.update(updateApartmentNumberSQL, sqlParameterSource);
+    }
+
+    //made in Resident FK: on delete set null.
     @Override
     public Integer delete(Integer apartmentId) {
-        return null;
+        LOGGER.debug("Delete apartment by id: {}", apartmentId);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
+        return namedParameterJdbcTemplate.update(deleteApartmentSQL, sqlParameterSource);
     }
 }

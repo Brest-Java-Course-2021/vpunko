@@ -59,4 +59,55 @@ class ApartmentDaoJdbcTest {
         realApartment.stream().forEach(System.out::println);
     }
 
+    @Test
+    public void createWithTheSameNumberTest() {
+        List<Apartment> apartmentList = apartmentDao.findAll();
+        Assertions.assertNotNull(apartmentList);
+        assertTrue(apartmentList.size() > 0);
+
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            apartmentDao.create(new Apartment(110, "MEDIUM"));
+            apartmentDao.create(new Apartment(110, "MEDIUM"));
+        });
+    }
+
+    @Test
+    public void updateApartmentTest() {
+        List<Apartment> apartmentList = apartmentDao.findAll();
+        Assertions.assertNotNull(apartmentList);
+        assertTrue(apartmentList.size() > 0);
+
+        Apartment apartment = apartmentList.get(0);
+        apartment.setApartmentNumber(110);
+
+        apartmentDao.update(apartment);
+        Apartment realApartment = apartmentDao.findById(apartment.getApartmentId());
+        assertEquals(110, realApartment.getApartmentNumber());
+        Assertions.assertEquals(apartment, realApartment);
+    }
+
+    @Test
+    public void updateApartmentWithTheSameNumberTest() {
+        List<Apartment> apartmentList = apartmentDao.findAll();
+        assertTrue(apartmentList.size() > 0);
+
+        Apartment apartment = apartmentList.get(0);
+        apartment.setApartmentNumber(apartmentList.get(1).getApartmentNumber());
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            apartmentDao.update(apartment);
+        });
+    }
+
+    @Test
+    public void deleteApartmentTest() {
+        List<Apartment> apartmentList = apartmentDao.findAll();
+        assertTrue(apartmentList.size() > 0);
+
+        Apartment apartment = apartmentList.get(0);
+        apartmentDao.delete(apartment.getApartmentId());
+        List<Apartment> realApartment = apartmentDao.findAll();
+
+        assertEquals(realApartment.size() + 1, apartmentList.size());
+    }
+
 }
