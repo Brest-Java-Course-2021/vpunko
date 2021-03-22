@@ -1,11 +1,16 @@
-package com.punko;
+package com.punko.service;
 
+import com.punko.ApartmentService;
 import com.punko.dao.ApartmentDao;
 import com.punko.model.Apartment;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-public class ApartmentServiceImp implements ApartmentService{
+@Service
+@Transactional
+public class ApartmentServiceImp implements ApartmentService {
 
     private final ApartmentDao apartmentDao;
 

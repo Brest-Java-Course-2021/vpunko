@@ -8,8 +8,17 @@
         <property name="locations">
             <list>
                 <value>classpath:dao.properties</value>
+                <value>classpath:daoResident.properties</value>
             </list>
         </property>
     </bean>
+
+<!--    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">-->
+<!--        <property name="locations">-->
+<!--            <list>-->
+<!--                <value>classpath:daoResident.properties</value>-->
+<!--            </list>-->
+<!--        </property>-->
+<!--    </bean>-->
 
 </beans>

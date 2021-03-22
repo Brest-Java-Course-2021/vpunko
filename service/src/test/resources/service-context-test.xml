@@ -9,11 +9,19 @@
     </bean>
 
     <bean id="apartmentDao" class="com.punko.dao.jdbc.ApartmentDaoJdbc">
-        <constructor-arg ref="namedParameterJdbcTemplate"/>
+        <constructor-arg ref="namedParameterJdbcTemplate" />
     </bean>
 
-    <bean id="residentDao" class="com.punko.dao.jdbc.ResidentDaoJdbc">
-        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    <bean id="apartmentDtoDao" class="com.punko.dao.jdbc.ApartmentDtoDaoJdbc">
+        <constructor-arg ref="namedParameterJdbcTemplate" />
+    </bean>
+
+    <bean id="apartmentService" class="com.punko.service.ApartmentServiceImp">
+        <constructor-arg name="apartmentDao" ref="apartmentDao"/>
+    </bean>
+
+    <bean id="apartmentDtoService" class="com.punko.service.ApartmentDtoServiceImpl">
+        <constructor-arg name="apartmentDaoDto" ref="apartmentDtoDao"/>
     </bean>
 
 </beans>

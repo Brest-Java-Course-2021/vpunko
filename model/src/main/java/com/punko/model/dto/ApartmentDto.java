@@ -1,8 +1,9 @@
-package com.punko.model;
+package com.punko.model.dto;
 
-import java.util.Objects;
+import java.math.BigDecimal;
+import java.time.LocalDate;
 
-public class Apartment {
+public class ApartmentDto {
 
     private Integer apartmentId;
 
@@ -10,10 +11,15 @@ public class Apartment {
 
     private String apartmentClass;
 
-    public Apartment() {
+    //should be number?
+//    private LocalDate avgTime;
+//    private BigDecimal avgTime;
+    private LocalDate maxDepartureTime;
+
+    public ApartmentDto() {
     }
 
-    public Apartment(Integer apartmentNumber, String apartmentClass) {
+    public ApartmentDto(Integer apartmentNumber, String apartmentClass) {
         this.apartmentNumber = apartmentNumber;
         this.apartmentClass = apartmentClass;
     }
@@ -42,25 +48,37 @@ public class Apartment {
         this.apartmentClass = apartmentClass;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Apartment apartment = (Apartment) o;
-        return Objects.equals(apartmentId, apartment.apartmentId) && Objects.equals(apartmentNumber, apartment.apartmentNumber) && Objects.equals(apartmentClass, apartment.apartmentClass);
+    public LocalDate getMaxDepartureTime() {
+        return maxDepartureTime;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(apartmentId, apartmentNumber, apartmentClass);
+    public void setMaxDepartureTime(LocalDate maxDepartureTime) {
+        this.maxDepartureTime = maxDepartureTime;
     }
+
+    //    public BigDecimal getAvgTime() {
+//        return avgTime;
+//    }
+//
+//    public void setAvgTime(BigDecimal avgTime) {
+//        this.avgTime = avgTime;
+//    }
+
+    //    public LocalDate getAvgTime() {
+//        return avgTime;
+//    }
+//
+//    public void setAvgTime(LocalDate avgTime) {
+//        this.avgTime = avgTime;
+//    }
 
     @Override
     public String toString() {
-        return "Apartment{" +
+        return "ApartmentDto{" +
                 "apartmentId=" + apartmentId +
                 ", apartmentNumber=" + apartmentNumber +
                 ", apartmentClass='" + apartmentClass + '\'' +
+                ", avgTime=" + maxDepartureTime +
                 '}';
     }
 }

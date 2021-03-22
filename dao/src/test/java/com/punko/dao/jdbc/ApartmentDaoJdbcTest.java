@@ -65,8 +65,8 @@ class ApartmentDaoJdbcTest {
         Assertions.assertTrue(apartmentList.size() > 0);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            apartmentDao.create(new Apartment(110, "MEDIUM"));
-            apartmentDao.create(new Apartment(110, "MEDIUM"));
+            apartmentDao.create(new Apartment(10, "MEDIUM"));
+            apartmentDao.create(new Apartment(10, "MEDIUM"));
         });
     }
 
@@ -77,11 +77,11 @@ class ApartmentDaoJdbcTest {
         Assertions.assertTrue(apartmentList.size() > 0);
 
         Apartment apartment = apartmentList.get(0);
-        apartment.setApartmentNumber(110);
+        apartment.setApartmentNumber(200);
 
         apartmentDao.update(apartment);
         Apartment realApartment = apartmentDao.findById(apartment.getApartmentId());
-        Assertions.assertEquals(110, realApartment.getApartmentNumber());
+        Assertions.assertEquals(200, realApartment.getApartmentNumber());
         Assertions.assertEquals(apartment, realApartment);
     }
 
