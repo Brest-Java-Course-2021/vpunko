@@ -8,8 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
+import java.math.BigInteger;
+import java.util.HashMap;
 import java.util.List;
 
 public class ResidentDaoJdbc implements ResidentDao {
@@ -32,4 +36,6 @@ public class ResidentDaoJdbc implements ResidentDao {
         LOGGER.debug("find all resident: ");
         return namedParameterJdbcTemplate.query(findAlResidentSQL, rowMapper);
     }
+
+
 }

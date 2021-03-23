@@ -1,8 +1,8 @@
-package com.punko.model;
+package com.punko.model.dto;
 
 import java.time.LocalDate;
 
-public class Resident {
+public class ResidentDto {
 
     private Integer residentId;
 
@@ -12,24 +12,18 @@ public class Resident {
 
     private String email;
 
-    private LocalDate arrivalTime;
+//    private Long avgTime;
 
-    private LocalDate departureTime;
+    private LocalDate avgTime;
 
-    private Integer apartmentId;
-
-    public Resident() {
+    public ResidentDto() {
     }
 
-    public Resident(String firstName, String lastName, String email, LocalDate arrivalTime, LocalDate departureTime) {
+    public ResidentDto(String firstName, String lastName, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.arrivalTime = arrivalTime;
-        this.departureTime = departureTime;
     }
-
-    //constructor?
 
     public Integer getResidentId() {
         return residentId;
@@ -62,41 +56,33 @@ public class Resident {
     public void setEmail(String email) {
         this.email = email;
     }
+//
+//    public Long getAvgTime() {
+//        return avgTime;
+//    }
+//
+//
+//    public void setAvgTime(Long avgTime) {
+//        this.avgTime = avgTime;
+//    }
 
-    public LocalDate getArrivalTime() {
-        return arrivalTime;
+
+    public LocalDate getAvgTime() {
+        return avgTime;
     }
 
-    public void setArrivalTime(LocalDate arrivalTime) {
-        this.arrivalTime = arrivalTime;
-    }
-
-    public LocalDate getDepartureTime() {
-        return departureTime;
-    }
-
-    public void setDepartureTime(LocalDate departureTime) {
-        this.departureTime = departureTime;
-    }
-
-    public Integer getApartmentId() {
-        return apartmentId;
-    }
-
-    public void setApartmentId(Integer apartmentId) {
-        this.apartmentId = apartmentId;
+    public void setAvgTime(LocalDate avgTime) {
+        this.avgTime = avgTime;
     }
 
     @Override
     public String toString() {
-        return "Resident{" +
+        return "ResidentDto{" +
                 "residentId=" + residentId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", arrivalTime=" + arrivalTime +
-                ", departureTime=" + departureTime +
-                ", apartmentId=" + apartmentId +
+                ", avgTime=" + avgTime +
                 '}';
     }
 }
