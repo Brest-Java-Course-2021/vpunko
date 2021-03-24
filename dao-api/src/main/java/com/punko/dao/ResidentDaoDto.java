@@ -9,7 +9,4 @@ public interface ResidentDaoDto {
 
     List<ResidentDto> findAvgDate();
 
-    Long findAvg(Integer id);
-
-    List<ResidentDto> findMaxDate();
 }

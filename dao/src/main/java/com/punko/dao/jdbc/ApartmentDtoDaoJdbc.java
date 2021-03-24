@@ -18,11 +18,8 @@ public class ApartmentDtoDaoJdbc implements ApartmentDaoDto {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentDtoDaoJdbc.class);
 
-//    @Value("${apartment.dto.getAvgTime}")
-//    private String findAllWithAvgTimeSQL;
-
-    @Value("${apartment.dto.max.departure.date}")
-    private String findAllWithMaxDepDate;
+    @Value("${apartment.dto.getAvgTime}")
+    private String findAllWithAvgTimeSQL;
 
     public ApartmentDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -31,7 +28,7 @@ public class ApartmentDtoDaoJdbc implements ApartmentDaoDto {
     @Override
     public List<ApartmentDto> findAllWithAvgTime() {
         LOGGER.debug("find all apartments with avgTime");
-        return namedParameterJdbcTemplate.query(findAllWithMaxDepDate,
+        return namedParameterJdbcTemplate.query(findAllWithAvgTimeSQL,
                 BeanPropertyRowMapper.newInstance(ApartmentDto.class));
     }
 }

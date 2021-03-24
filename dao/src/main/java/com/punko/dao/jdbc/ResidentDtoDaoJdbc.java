@@ -22,12 +22,6 @@ public class ResidentDtoDaoJdbc implements ResidentDaoDto {
     @Value("${resident.avg.diff.time}")
     private String findAllAvgDateSQL;
 
-    @Value("${resident.avg}")
-    private String findAvgDate;
-
-    @Value("${resident.max.date}")
-    private String findMaxDate;
-
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(ResidentDto.class);
@@ -43,14 +37,4 @@ public class ResidentDtoDaoJdbc implements ResidentDaoDto {
         return namedParameterJdbcTemplate.query(findAllAvgDateSQL, rowMapper);
     }
 
-    public Long findAvg(Integer id) {
-        LOGGER.debug("find all avg(Date): ");
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("RESIDENT_ID", id);
-        return namedParameterJdbcTemplate.queryForObject(findAvgDate, sqlParameterSource, Long.class);
-    }
-
-    public List<ResidentDto> findMaxDate() {
-        LOGGER.debug("find all avg(Date): ");
-        return namedParameterJdbcTemplate.query(findMaxDate, rowMapper);
-    }
 }

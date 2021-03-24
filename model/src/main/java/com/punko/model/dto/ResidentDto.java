@@ -12,9 +12,7 @@ public class ResidentDto {
 
     private String email;
 
-//    private Long avgTime;
-
-    private LocalDate avgTime;
+    private Long avgTime;
 
     public ResidentDto() {
     }
@@ -56,22 +54,12 @@ public class ResidentDto {
     public void setEmail(String email) {
         this.email = email;
     }
-//
-//    public Long getAvgTime() {
-//        return avgTime;
-//    }
-//
-//
-//    public void setAvgTime(Long avgTime) {
-//        this.avgTime = avgTime;
-//    }
 
-
-    public LocalDate getAvgTime() {
+    public Long getAvgTime() {
         return avgTime;
     }
 
-    public void setAvgTime(LocalDate avgTime) {
+    public void setAvgTime(Long avgTime) {
         this.avgTime = avgTime;
     }
 

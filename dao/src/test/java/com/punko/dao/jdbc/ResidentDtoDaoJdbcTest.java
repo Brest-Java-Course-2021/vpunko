@@ -22,27 +22,9 @@ public class ResidentDtoDaoJdbcTest {
     @Test
     public void findAvgDateTest() {
         List<ResidentDto> residentList = residentDaoDto.findAvgDate();
+        residentList.stream().forEach(System.out::println);
         Assertions.assertNotNull(residentList);
         Assertions.assertTrue(residentList.size() > 0);
     }
-
-    @Test
-    public void findMaxDateTest() {
-        List<ResidentDto> residentList = residentDaoDto.findMaxDate();
-        Assertions.assertNotNull(residentList);
-        Assertions.assertTrue(residentList.size() > 0);
-    }
-
-
-//    @Test
-//    public void findAvgTest() {
-//        List<Resident> residentList = residentDaoDto.findAll();
-//        Assertions.assertNotNull(residentList);
-//        Assertions.assertTrue(residentList.size() > 0);
-//
-//        Integer id = residentList.get(0).getResidentId();
-//        Long avg = residentDaoDto.findAvg(id);
-//        Assertions.assertNotNull(avg);
-//    }
 
 }
