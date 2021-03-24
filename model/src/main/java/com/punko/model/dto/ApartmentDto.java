@@ -12,9 +12,7 @@ public class ApartmentDto {
     private String apartmentClass;
 
     //should be number?
-//    private LocalDate avgTime;
-//    private BigDecimal avgTime;
-    private LocalDate maxDepartureTime;
+    private Long avgTime;
 
     public ApartmentDto() {
     }
@@ -48,29 +46,14 @@ public class ApartmentDto {
         this.apartmentClass = apartmentClass;
     }
 
-    public LocalDate getMaxDepartureTime() {
-        return maxDepartureTime;
+        public Long getAvgTime() {
+        return avgTime;
     }
 
-    public void setMaxDepartureTime(LocalDate maxDepartureTime) {
-        this.maxDepartureTime = maxDepartureTime;
+    public void setAvgTime(Long avgTime) {
+        this.avgTime = avgTime;
     }
 
-    //    public BigDecimal getAvgTime() {
-//        return avgTime;
-//    }
-//
-//    public void setAvgTime(BigDecimal avgTime) {
-//        this.avgTime = avgTime;
-//    }
-
-    //    public LocalDate getAvgTime() {
-//        return avgTime;
-//    }
-//
-//    public void setAvgTime(LocalDate avgTime) {
-//        this.avgTime = avgTime;
-//    }
 
     @Override
     public String toString() {
@@ -78,7 +61,7 @@ public class ApartmentDto {
                 "apartmentId=" + apartmentId +
                 ", apartmentNumber=" + apartmentNumber +
                 ", apartmentClass='" + apartmentClass + '\'' +
-                ", avgTime=" + maxDepartureTime +
+                ", avgTime=" + avgTime +
                 '}';
     }
 }
