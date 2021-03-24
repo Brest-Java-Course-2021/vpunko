@@ -54,6 +54,9 @@ public class ApartmentDto {
         this.avgTime = avgTime;
     }
 
+
+
+
     @Override
     public String toString() {
         return "ApartmentDto{" +

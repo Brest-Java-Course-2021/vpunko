@@ -59,6 +59,10 @@ public class ResidentDto {
         return avgTime;
     }
 
+
+
+
+
     public void setAvgTime(Long avgTime) {
         this.avgTime = avgTime;
     }

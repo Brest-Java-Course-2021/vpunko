@@ -28,7 +28,7 @@ public class ApartmentDtoServiceTest {
         Assertions.assertNotNull(apartmentDtoList);
         Assertions.assertTrue(apartmentDtoList.size() > 0);
 
-        apartmentDtoList.stream().forEach(System.out::println);
+
     }
 }
 

@@ -22,9 +22,9 @@ public class ResidentDtoDaoJdbcTest {
     @Test
     public void findAvgDateTest() {
         List<ResidentDto> residentList = residentDaoDto.findAvgDate();
-        residentList.stream().forEach(System.out::println);
         Assertions.assertNotNull(residentList);
         Assertions.assertTrue(residentList.size() > 0);
     }
+
 
 }
