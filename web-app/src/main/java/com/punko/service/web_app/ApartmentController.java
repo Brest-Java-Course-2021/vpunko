@@ -30,4 +30,5 @@ public class ApartmentController {
         model.addAttribute("apartments", apartmentDtoService.findAllWithAvgTime());
         return "apartments";
     }
+
 }
