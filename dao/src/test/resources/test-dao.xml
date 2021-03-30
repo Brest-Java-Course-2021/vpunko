@@ -12,6 +12,10 @@
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
+    <bean id="apartmentDaoDto" class="com.punko.dao.jdbc.ApartmentDtoDaoJdbc">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
     <bean id="residentDao" class="com.punko.dao.jdbc.ResidentDaoJdbc">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>

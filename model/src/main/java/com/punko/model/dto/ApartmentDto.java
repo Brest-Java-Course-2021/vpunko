@@ -17,11 +17,6 @@ public class ApartmentDto {
     public ApartmentDto() {
     }
 
-    public ApartmentDto(Integer apartmentNumber, String apartmentClass) {
-        this.apartmentNumber = apartmentNumber;
-        this.apartmentClass = apartmentClass;
-    }
-
     public Integer getApartmentId() {
         return apartmentId;
     }
