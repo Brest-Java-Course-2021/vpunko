@@ -36,21 +36,21 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-<!--    <bean id="apartmentDao" class="com.punko.dao.jdbc.ApartmentDaoJdbc">-->
-<!--        <constructor-arg ref="namedParameterJdbcTemplate" />-->
-<!--    </bean>-->
+    <bean id="apartmentDao" class="com.punko.dao.jdbc.ApartmentDaoJdbc">
+        <constructor-arg ref="namedParameterJdbcTemplate" />
+    </bean>
 
-<!--    <bean id="apartmentDaoDto" class="com.punko.dao.jdbc.ApartmentDtoDaoJdbc">-->
-<!--        <constructor-arg ref="namedParameterJdbcTemplate" />-->
-<!--    </bean>-->
+    <bean id="apartmentDaoDto" class="com.punko.dao.jdbc.ApartmentDtoDaoJdbc">
+        <constructor-arg ref="namedParameterJdbcTemplate" />
+    </bean>
 
-<!--    <bean id="apartmentService" class="com.punko.service.ApartmentServiceImp">-->
-<!--        <constructor-arg name="apartmentDao" ref="apartmentDao" />-->
-<!--    </bean>-->
+    <bean id="apartmentService" class="com.punko.service.ApartmentServiceImp">
+        <constructor-arg name="apartmentDao" ref="apartmentDao" />
+    </bean>
 
-<!--    <bean id="apartmentDtoService" class="com.punko.service.ApartmentDtoServiceImpl">-->
-<!--        <constructor-arg name="apartmentDaoDto" ref="apartmentDaoDto" />-->
-<!--    </bean>-->
+    <bean id="apartmentDtoService" class="com.punko.service.ApartmentDtoServiceImpl">
+        <constructor-arg name="apartmentDaoDto" ref="apartmentDaoDto" />
+    </bean>
 
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"
