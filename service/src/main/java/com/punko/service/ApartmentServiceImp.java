@@ -3,6 +3,7 @@ package com.punko.service;
 import com.punko.ApartmentService;
 import com.punko.dao.ApartmentDao;
 import com.punko.model.Apartment;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,7 +15,7 @@ public class ApartmentServiceImp implements ApartmentService {
 
     private final ApartmentDao apartmentDao;
 
-
+    @Autowired
     public ApartmentServiceImp(ApartmentDao apartmentDao) {
         this.apartmentDao = apartmentDao;
     }

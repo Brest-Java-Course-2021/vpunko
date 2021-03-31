@@ -15,42 +15,11 @@
     <!-- Use @MVC annotations -->
     <mvc:annotation-driven/>
 
-    <mvc:resources mapping="/resources/**" location="/static/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
 
     <!-- Component scan for @Controller, @Service... annotations -->
     <context:component-scan base-package="com.punko*"/>
 
-    <import resource="classpath*:test-db.xml"/>
-
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <list>
-                <value>classpath:application.properties</value>
-                <value>classpath:dao.properties</value>
-                <value>classpath:daoResident.properties</value>
-            </list>
-        </property>
-    </bean>
-
-    <bean id="namedParameterJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
-
-    <bean id="apartmentDao" class="com.punko.dao.jdbc.ApartmentDaoJdbc">
-        <constructor-arg ref="namedParameterJdbcTemplate" />
-    </bean>
-
-    <bean id="apartmentDaoDto" class="com.punko.dao.jdbc.ApartmentDtoDaoJdbc">
-        <constructor-arg ref="namedParameterJdbcTemplate" />
-    </bean>
-
-    <bean id="apartmentService" class="com.punko.service.ApartmentServiceImp">
-        <constructor-arg name="apartmentDao" ref="apartmentDao" />
-    </bean>
-
-    <bean id="apartmentDtoService" class="com.punko.service.ApartmentDtoServiceImpl">
-        <constructor-arg name="apartmentDaoDto" ref="apartmentDaoDto" />
-    </bean>
 
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"

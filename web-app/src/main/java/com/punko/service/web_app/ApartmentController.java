@@ -18,49 +18,76 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/apartments")
 public class ApartmentController {
 
-    @Autowired
-    ApartmentService apartmentService;
-
-    @RequestMapping("")
-    public String showAllApartment(Model model) {
-        List<Apartment> apartmentList = apartmentService.findAll();
-        model.addAttribute("allApartments", apartmentList);
-
+    /**
+     * Goto apartments list page.
+     *
+     * @return view name
+     */
+    @GetMapping(value = "/apartments")
+    public final String apartments(Model model) {
         return "apartments";
     }
 
-    @RequestMapping("/addApartment")
-    public String addApartment(Model model) {
-        Apartment apartment = new Apartment();
-        model.addAttribute("addApartmentAttribute", apartment);
-        return "apartmentPage";
-    }
-
-    @RequestMapping("/saveApartment")
-    public String saveApartment(@ModelAttribute("addApartmentAttribute") Apartment apartment) {
-        apartmentService.create(apartment);
-        return "redirect:/apartments";
-    }
-
     /**
-     *  name of attribute must be the same like in addApartment
-     *  because they return the same jsp page
+     * Goto edit apartment page.
+     *
+     * @return view name
      */
-    @RequestMapping("/updateApartment/{id}")
-    public String updateApartment(@PathVariable int id, Model model) {
-        Apartment apartment = apartmentService.findById(id);
-        model.addAttribute("addApartmentAttribute", apartment);
+    @GetMapping("/apartment/{id}")
+    public final String gotoEditApartmentPage(@PathVariable Integer id, Model model) {
         return "apartmentPage";
     }
 
-    @RequestMapping("/deleteApartment/{id}")
-    public String deleteApartment(@PathVariable int id) {
-        apartmentService.delete(id);
-        return "redirect:/apartments";
+    @GetMapping("/apartment/add")
+    public final String gotoAddApartmentPage(Model model) {
+        return "apartmentPage";
     }
+
+
 
 }
+
+//    @Autowired
+//    ApartmentService apartmentService;
+//
+//    @RequestMapping("")
+//    public String showAllApartment(Model model) {
+//        List<Apartment> apartmentList = apartmentService.findAll();
+//        model.addAttribute("allApartments", apartmentList);
+//
+//        return "apartments";
+//    }
+//
+//    @RequestMapping("/addApartment")
+//    public String addApartment(Model model) {
+//        Apartment apartment = new Apartment();
+//        model.addAttribute("addApartmentAttribute", apartment);
+//        return "apartmentPage";
+//    }
+//
+//    @RequestMapping("/saveApartment")
+//    public String saveApartment(@ModelAttribute("addApartmentAttribute") Apartment apartment) {
+//        apartmentService.create(apartment);
+//        return "redirect:/apartments";
+//    }
+//
+//    /**
+//     *  name of attribute must be the same like in addApartment
+//     *  because they return the same jsp page
+//     */
+//    @RequestMapping("/updateApartment/{id}")
+//    public String updateApartment(@PathVariable int id, Model model) {
+//        Apartment apartment = apartmentService.findById(id);
+//        model.addAttribute("addApartmentAttribute", apartment);
+//        return "apartmentPage";
+//    }
+//
+//    @RequestMapping("/deleteApartment/{id}")
+//    public String deleteApartment(@PathVariable int id) {
+//        apartmentService.delete(id);
+//        return "redirect:/apartments";
+//    }
+//}
 

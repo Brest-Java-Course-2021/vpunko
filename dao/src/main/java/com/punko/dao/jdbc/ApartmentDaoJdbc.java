@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
-@Repository
 public class ApartmentDaoJdbc implements ApartmentDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentDaoJdbc.class);
@@ -44,9 +43,9 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     @Value("${apartment.count}")
     private String countSQL;
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
+     RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
 
     public ApartmentDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;

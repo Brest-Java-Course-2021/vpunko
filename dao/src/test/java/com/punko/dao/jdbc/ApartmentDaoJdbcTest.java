@@ -25,7 +25,6 @@ class ApartmentDaoJdbcTest {
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
         Assertions.assertTrue(apartmentList.size() > 0);
-        apartmentList.stream().forEach(System.out::println);
     }
 
     @Test

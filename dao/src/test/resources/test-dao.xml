@@ -20,8 +20,5 @@
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-    <bean id="residentDaoDto" class="com.punko.dao.jdbc.ResidentDtoDaoJdbc">
-        <constructor-arg ref="namedParameterJdbcTemplate"/>
-    </bean>
 
 </beans>
