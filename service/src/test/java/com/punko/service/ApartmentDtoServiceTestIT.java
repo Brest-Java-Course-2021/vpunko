@@ -17,7 +17,7 @@ import java.util.List;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:service-context-test.xml", "classpath*:dao.xml"})
 @Transactional
-public class ApartmentDtoServiceTest {
+public class ApartmentDtoServiceTestIT {
 
     @Autowired
     ApartmentDtoService apartmentDtoService;

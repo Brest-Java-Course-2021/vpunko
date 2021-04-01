@@ -1,8 +1,5 @@
 package com.punko.model.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
-
 public class ApartmentDto {
 
     private Integer apartmentId;
@@ -11,8 +8,10 @@ public class ApartmentDto {
 
     private String apartmentClass;
 
-    //should be number?
-    private Long avgTime;
+    /**
+     * Time between ArrivalTime and DepartureTime
+     */
+    private Long avgDifferenceBetweenTime;
 
     public ApartmentDto() {
     }
@@ -41,12 +40,12 @@ public class ApartmentDto {
         this.apartmentClass = apartmentClass;
     }
 
-        public Long getAvgTime() {
-        return avgTime;
+        public Long getAvgDifferenceBetweenTime() {
+        return avgDifferenceBetweenTime;
     }
 
-    public void setAvgTime(Long avgTime) {
-        this.avgTime = avgTime;
+    public void setAvgDifferenceBetweenTime(Long avgDifferenceBetweenTime) {
+        this.avgDifferenceBetweenTime = avgDifferenceBetweenTime;
     }
 
 
@@ -58,7 +57,7 @@ public class ApartmentDto {
                 "apartmentId=" + apartmentId +
                 ", apartmentNumber=" + apartmentNumber +
                 ", apartmentClass='" + apartmentClass + '\'' +
-                ", avgTime=" + avgTime +
+                ", avgTime=" + avgDifferenceBetweenTime +
                 '}';
     }
 }

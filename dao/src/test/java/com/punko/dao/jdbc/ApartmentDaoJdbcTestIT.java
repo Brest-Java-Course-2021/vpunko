@@ -15,7 +15,7 @@ import java.util.List;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml", "classpath*:dao.xml"})
-class ApartmentDaoJdbcTest {
+class ApartmentDaoJdbcTestIT {
 
     @Autowired
     private ApartmentDao apartmentDao;

@@ -13,7 +13,6 @@ import java.util.List;
 @Transactional
 public class ApartmentDtoServiceImpl implements ApartmentDtoService {
 
-
     private final ApartmentDaoDto apartmentDaoDto;
 
     public ApartmentDtoServiceImpl(ApartmentDaoDto apartmentDaoDto) {

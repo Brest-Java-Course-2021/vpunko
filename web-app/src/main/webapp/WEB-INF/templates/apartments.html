@@ -81,17 +81,18 @@
                         <tr>
                             <th>№ Apartment</th>
                             <th>Apartment's class</th>
-<!--                            <th>AVG time of stay</th>    -->
+                            <th>AVG time of stay</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>101</td>
-                            <td>Luxury</td>
-<!--                            <td>16</td>-->
+                        <tr th:each="apartments : ${apartmentsAttribute}">
+                            <td th:text="${apartments.apartmentNumber}">101</td>
+                            <td th:text="${apartments.apartmentClass}">Luxury</td>
+                            <td th:text="${apartments.avgDifferenceBetweenTime}">16</td>
                             <td class="text-end">
                                 <a href="apartmentPage.html"
+                                   th:href="@{|/apartment/${apartments.apartmentId}|}"
                                    class="btn-sm btn-outline-secondary"
                                    title="Edit department">
                                     <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
@@ -103,7 +104,7 @@
                                     </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>102</td>
                             <td>Medium</td>
 <!--                            <td>33.6</td>-->
@@ -120,7 +121,7 @@
                                     </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>103</td>
                             <td>Cheap</td>
 <!--                            <td>null</td>-->

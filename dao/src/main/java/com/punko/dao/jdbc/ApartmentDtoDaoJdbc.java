@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
+@Component
 public class ApartmentDtoDaoJdbc implements ApartmentDaoDto {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;

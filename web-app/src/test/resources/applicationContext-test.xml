@@ -40,17 +40,17 @@
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
-<!--    <bean id="apartmentDtoDao" class="com.punko.dao.jdbc.ApartmentDtoDaoJdbc">-->
-<!--        <constructor-arg ref="namedParameterJdbcTemplate"/>-->
-<!--    </bean>-->
+    <!--    <bean id="apartmentDtoDao" class="com.punko.dao.jdbc.ApartmentDtoDaoJdbc">-->
+    <!--        <constructor-arg ref="namedParameterJdbcTemplate"/>-->
+    <!--    </bean>-->
 
     <bean id="apartmentService" class="com.punko.service.ApartmentServiceImp">
         <constructor-arg name="apartmentDao" ref="apartmentDao"/>
     </bean>
 
-<!--    <bean id="apartmentDtoService" class="com.punko.service.ApartmentDtoServiceImpl">-->
-<!--        <constructor-arg name="apartmentDtoDao" ref="apartmentDtoDao"/>-->
-<!--    </bean>-->
+    <!--    <bean id="apartmentDtoService" class="com.punko.service.ApartmentDtoServiceImpl">-->
+    <!--        <constructor-arg name="apartmentDtoDao" ref="apartmentDtoDao"/>-->
+    <!--    </bean>-->
 
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"

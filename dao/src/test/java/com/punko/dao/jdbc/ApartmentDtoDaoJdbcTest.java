@@ -2,7 +2,6 @@ package com.punko.dao.jdbc;
 
 import com.punko.dao.ApartmentDaoDto;
 import com.punko.model.dto.ApartmentDto;
-import com.punko.model.dto.ResidentDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

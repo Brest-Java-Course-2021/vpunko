@@ -1,24 +1,23 @@
 package com.punko.service.web_app;
 
 import com.punko.ApartmentDtoService;
-import com.punko.ApartmentService;
-import com.punko.dao.ApartmentDaoDto;
-import com.punko.model.Apartment;
-import com.punko.model.dto.ApartmentDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.List;
 
 @Controller
 public class ApartmentController {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentController.class);
+
+    private final ApartmentDtoService apartmentDtoService;
+
+    public ApartmentController(ApartmentDtoService apartmentDtoService) {
+        this.apartmentDtoService = apartmentDtoService;
+    }
 
     /**
      * Goto apartments list page.
@@ -27,6 +26,8 @@ public class ApartmentController {
      */
     @GetMapping(value = "/apartments")
     public final String apartments(Model model) {
+        LOGGER.debug(" show all apartments controller");
+        model.addAttribute("apartmentsAttribute", apartmentDtoService.findAllWithAvgTime());
         return "apartments";
     }
 
