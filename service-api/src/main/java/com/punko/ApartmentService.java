@@ -3,6 +3,7 @@ package com.punko;
 import com.punko.model.Apartment;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ApartmentService {
 
@@ -17,4 +18,5 @@ public interface ApartmentService {
     Integer delete(Integer apartmentId);
 
     Integer count();
+
 }

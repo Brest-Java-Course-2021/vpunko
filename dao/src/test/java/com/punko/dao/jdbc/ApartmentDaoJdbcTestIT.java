@@ -41,7 +41,7 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void findByIdExceptionTest() {
-        Assertions.assertThrows(EmptyResultDataAccessException.class, () -> { apartmentDao.findById(999); } );
+        Assertions.assertThrows(IllegalArgumentException.class, () -> { apartmentDao.findById(999); } );
     }
 
     @Test
@@ -82,6 +82,16 @@ class ApartmentDaoJdbcTestIT {
         Apartment realApartment = apartmentDao.findById(apartment.getApartmentId());
         Assertions.assertEquals(200, realApartment.getApartmentNumber());
         Assertions.assertEquals(apartment, realApartment);
+    }
+
+    @Test
+    public void updateApartmentWithTheSameNumberButDiffClassTest() {
+        List<Apartment> apartmentList = apartmentDao.findAll();
+        Assertions.assertTrue(apartmentList.size() > 0);
+
+        Apartment apartment = apartmentList.get(0);
+        apartment.setApartmentClass(apartmentList.get(1).getApartmentClass());
+        Assertions.assertEquals(apartment.getApartmentClass(), apartmentList.get(1).getApartmentClass());
     }
 
     @Test

@@ -2,6 +2,7 @@ package com.punko.dao;
 
 import com.punko.model.Apartment;
 import java.util.List;
+import java.util.Optional;
 
 public interface ApartmentDao {
 
@@ -34,7 +35,7 @@ public interface ApartmentDao {
 
     /**
      * delete Apartment bu Id
-     * @param  ApartmentID
+     * @param  apartmentId
      * @return Integer
      */
     Integer delete(Integer apartmentId);

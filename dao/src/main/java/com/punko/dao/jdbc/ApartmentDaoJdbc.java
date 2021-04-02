@@ -5,6 +5,7 @@ import com.punko.model.Apartment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -14,9 +15,8 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+
 
 public class ApartmentDaoJdbc implements ApartmentDao {
 
@@ -43,9 +43,9 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     @Value("${apartment.count}")
     private String countSQL;
 
-     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-     RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
+    RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
 
     public ApartmentDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -61,6 +61,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     @Override
     public Apartment findById(Integer apartmentId) {
         LOGGER.debug("Find by id: {}", apartmentId);
+        isApartmentIdCorrect(apartmentId);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
         Apartment apartment = (Apartment) namedParameterJdbcTemplate.queryForObject(findByIdSQL, sqlParameterSource, rowMapper);
         return apartment;
@@ -68,7 +69,6 @@ public class ApartmentDaoJdbc implements ApartmentDao {
 
     /**
      * add KeyHolder for return id of new Apartment
-     *
      */
     @Override
     public Integer create(Apartment apartment) {
@@ -80,7 +80,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         }
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber())
-                                                .addValue("APARTMENT_CLASS", apartment.getApartmentClass());
+                .addValue("APARTMENT_CLASS", apartment.getApartmentClass());
         namedParameterJdbcTemplate.update(createSQL, sqlParameterSource, keyHolder);
         Integer apartmentId = Objects.requireNonNull(keyHolder.getKey()).intValue();
         apartment.setApartmentId(apartmentId);
@@ -88,21 +88,18 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         return apartmentId;
     }
 
-    private boolean isTheNumberUnique(Apartment apartment){
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber());
-        return namedParameterJdbcTemplate.queryForObject(checkNumberSQL, sqlParameterSource, Integer.class) == 0;
-    }
 
     //create Final variables for ApartmentClass and check input for them.
     //create check for update number on the exist number
     @Override
     public Integer update(Apartment apartment) {
         LOGGER.debug("Update apartment: {}", apartment);
-        if (!isTheNumberUnique(apartment)) {
-            LOGGER.warn("Apartment with that name is already exist: {}", apartment);
-            throw new IllegalArgumentException("Apartment with that name is already exist");
+        if (!isNumberTheSameButDifferentClass(apartment)) {
+            LOGGER.warn("Apartment with that number is already exist: {}", apartment);
+            throw new IllegalArgumentException("Apartment with that number is already exist");
         }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber())
+                .addValue("APARTMENT_CLASS", apartment.getApartmentClass())
                 .addValue("APARTMENT_ID", apartment.getApartmentId());
         return namedParameterJdbcTemplate.update(updateApartmentNumberSQL, sqlParameterSource);
     }
@@ -120,4 +117,31 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         LOGGER.debug("count()");
         return namedParameterJdbcTemplate.queryForObject(countSQL, new HashMap<>(), Integer.class);
     }
+
+    private boolean isTheNumberUnique(Apartment apartment) {
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber());
+        return namedParameterJdbcTemplate.queryForObject(checkNumberSQL, sqlParameterSource, Integer.class) == 0;
+    }
+
+    private boolean isNumberTheSameButDifferentClass(Apartment apartment) {
+        Apartment apartmentFromDB = findById(apartment.getApartmentId());
+        if (apartmentFromDB.getApartmentNumber().equals(apartment.getApartmentNumber())) {
+            return true;
+        }
+        return isTheNumberUnique(apartment);
+
+    }
+
+    private void isApartmentIdCorrect(int id) {
+        List<Apartment> apartmentList = namedParameterJdbcTemplate.query(selectSQL, rowMapper);
+        List<Integer> integerList = new ArrayList<>(apartmentList.size());
+        for (Apartment apartment : apartmentList) {
+            integerList.add(apartment.getApartmentId());
+        }
+        if (!integerList.contains(id)) {
+            throw new IllegalArgumentException("Apartment with that name is already exist");
+        }
+    }
+
+
 }
