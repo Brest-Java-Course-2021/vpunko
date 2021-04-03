@@ -12,6 +12,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 
+import static com.punko.model.constants.ApartmentClassConst.*;
+
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-dao.xml", "classpath*:dao.xml"})
@@ -50,7 +52,7 @@ class ApartmentDaoJdbcTestIT {
         Assertions.assertNotNull(apartmentList);
         Assertions.assertTrue(apartmentList.size() > 0);
 
-        apartmentDao.create(new Apartment(110, "MEDIUM"));
+        apartmentDao.create(new Apartment(110, MEDIUM));
 
         List<Apartment> realApartment = apartmentDao.findAll();
         Assertions.assertEquals(realApartment.size(), apartmentList.size()+1);
@@ -64,8 +66,8 @@ class ApartmentDaoJdbcTestIT {
         Assertions.assertTrue(apartmentList.size() > 0);
 
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
-            apartmentDao.create(new Apartment(10, "MEDIUM"));
-            apartmentDao.create(new Apartment(10, "MEDIUM"));
+            apartmentDao.create(new Apartment(10, MEDIUM));
+            apartmentDao.create(new Apartment(10, MEDIUM));
         });
     }
 

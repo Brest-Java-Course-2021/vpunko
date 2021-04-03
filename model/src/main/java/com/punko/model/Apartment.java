@@ -1,14 +1,26 @@
 package com.punko.model;
 
+
+import javax.validation.constraints.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
+
+import static com.punko.model.constants.ApartmentClassConst.*;
 
 public class Apartment {
 
     private Integer apartmentId;
 
+    @Min(value = 1, message = "Apartment number should be more than 0")
+    @Max(value = 1000, message = "Apartment number should be less than 1001")
+    @NotNull(message = "Apartment number is a required field")
     private Integer apartmentNumber;
 
+    @NotBlank(message = "Apartment class is a required field")
     private String apartmentClass;
+
+    private Map<String, String> classes;
 
     public Apartment() {
     }
@@ -16,6 +28,10 @@ public class Apartment {
     public Apartment(Integer apartmentNumber, String apartmentClass) {
         this.apartmentNumber = apartmentNumber;
         this.apartmentClass = apartmentClass;
+        classes = new LinkedHashMap<>();
+        classes.put(LUXURIOUS, "LUXURIOUS");
+        classes.put(MEDIUM, "MEDIUM");
+        classes.put(CHEAP, "CHEAP");
     }
 
     public Integer getApartmentId() {
@@ -40,6 +56,14 @@ public class Apartment {
 
     public void setApartmentClass(String apartmentClass) {
         this.apartmentClass = apartmentClass;
+    }
+
+    public Map<String, String> getClasses() {
+        return classes;
+    }
+
+    public void setClasses(Map<String, String> classes) {
+        this.classes = classes;
     }
 
     @Override

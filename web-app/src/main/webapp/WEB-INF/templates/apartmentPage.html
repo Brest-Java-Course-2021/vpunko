@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
 
@@ -89,14 +89,22 @@
                                 <input class="form-control" id="field_room"
                                 type="text" value="101"
                                 th:field="*{apartmentNumber}"/>
-                                <br>
-<!--                            </div>-->
+                                <th:block th:if="${#fields.hasErrors('apartmentNumber')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{apartmentNumber}"></div>
+                                </th:block>
+                            </div>
+                            <br>
                             <div>
-                                <label class="form-label" for="field_class">Apartment class</label>
-                                <input class="form-control" id="field_class"
-                                type="text" value="Luxury"
-                                th:field="*{apartmentClass}"/>
-
+                                <label for="type">Apartment class</label>
+                                <select class="form-control" id="type" name="apartmentClass" th:field="*{apartmentClass}">
+                                    <option th:value="null" th:text="none"></option>
+                                    <option value="CHEAP">CHEAP</option>
+                                    <option value="MEDIUM">MEDIUM</option>
+                                    <option value="LUXURIOUS">LUXURIOUS</option>
+                                </select>
+                                <th:block th:if="${#fields.hasErrors('apartmentClass')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{apartmentClass}"></div>
+                                </th:block>
                             </div>
                             <br>
                             <div class="d-flex justify-content-end">

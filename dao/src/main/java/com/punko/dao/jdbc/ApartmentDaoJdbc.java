@@ -5,7 +5,7 @@ import com.punko.model.Apartment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.support.DataAccessUtils;
+
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -13,9 +13,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
+
+import static com.punko.model.constants.ApartmentClassConst.*;
 
 
 public class ApartmentDaoJdbc implements ApartmentDao {
@@ -132,16 +133,18 @@ public class ApartmentDaoJdbc implements ApartmentDao {
 
     }
 
+    //don't work
     private void isApartmentIdCorrect(int id) {
-        List<Apartment> apartmentList = namedParameterJdbcTemplate.query(selectSQL, rowMapper);
+        List<Apartment> apartmentList = findAll();
         List<Integer> integerList = new ArrayList<>(apartmentList.size());
         for (Apartment apartment : apartmentList) {
             integerList.add(apartment.getApartmentId());
         }
         if (!integerList.contains(id)) {
-            throw new IllegalArgumentException("Apartment with that name is already exist");
+            throw new IllegalArgumentException("Apartment with that id is already exist");
         }
     }
+
 
 
 }

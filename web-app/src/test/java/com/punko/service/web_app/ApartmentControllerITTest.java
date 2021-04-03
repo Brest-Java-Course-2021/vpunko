@@ -55,7 +55,7 @@ public class ApartmentControllerITTest {
                         allOf(
                                 hasProperty("apartmentId", is(1)),
                                 hasProperty("apartmentNumber", is(101)),
-                                hasProperty("apartmentClass", is("LUXURY")),
+                                hasProperty("apartmentClass", is("LUXURIOUS")),
                                 hasProperty("avgDifferenceBetweenTime", is(11L))
                         )
                 )))
@@ -123,7 +123,7 @@ public class ApartmentControllerITTest {
                 .andExpect(model().attribute("apartmentAttribute",
                         hasProperty("apartmentNumber", is(101))))
                 .andExpect(model().attribute("apartmentAttribute",
-                        hasProperty("apartmentClass", is("LUXURY"))));
+                        hasProperty("apartmentClass", is("LUXURIOUS"))));
     }
 
 //    @Test
