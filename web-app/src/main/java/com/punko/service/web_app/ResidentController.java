@@ -23,7 +23,7 @@ public class ResidentController {
     public String getAllResident(Model model) {
         LOGGER.debug("apartments()");
         List<Resident> residentList = residentService.findAll();
-        model.addAttribute("allResidents", residentList);
-        return "Residents list";
+        model.addAttribute("allResidentsAttribute", residentList);
+        return "Residents_list";
     }
 }

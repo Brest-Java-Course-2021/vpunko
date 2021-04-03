@@ -30,23 +30,9 @@
                            th:href="@{/apartments}">Apartments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Residents list.html"
+                        <a class="nav-link active" href="Residents_list.html"
                            th:href="@{/residents}">Residents</a>
                     </li>
-                    <!-- <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -85,12 +71,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Den</td>
-                            <td>Brown</td>
-                            <td>Brown@test.com</td>
-                            <td>02-01-2021</td>
-                            <td>26-01-2021</td>
+                        <tr th:each="residents : ${allResidentsAttribute}">
+                            <td th:text="${residents.firstName}">Den</td>
+                            <td th:text="${residents.lastName}">Brown</td>
+                            <td th:text="${residents.email}">Brown@test.com</td>
+                            <td th:data="${residents.arrivalTime}">02-01-2021</td>
+                            <td th:data="${residents.departureTime}">26-01-2021</td>
                             <td class="text-end">
                                 <a href="Resident.html"
                                    th:href="@{/resident}"
@@ -105,7 +91,7 @@
                                     </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>William</td>
                             <td>Collins</td>
                             <td>Collins@test.com</td>
@@ -125,7 +111,7 @@
                                     </span>
                             </td>
                         </tr>
-                        <tr>
+                        <tr th:remove="all">
                             <td>Stephen</td>
                             <td>King</td>
                             <td>King@test.com</td>
@@ -145,26 +131,26 @@
                                     </span>
                             </td>
                         </tr>
-                        <tr>
-                            <td>Margaret</td>
-                            <td>Mitchell</td>
-                            <td>Mitchell@test.com</td>
-                            <td>07-03-2021</td>
-                            <td>15-03-2021</td>
-                            <td class="text-end">
-                                <a href="Resident.html"
-                                   th:href="@{/resident/4}"
-                                   class="btn-sm btn-outline-secondary"
-                                   title="Edit resident">
-                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                        <a href="#" class="btn-sm btn-outline-secondary"
-                                           title="delete resident"><i class="bi-x"></i><span
-                                                class="d-none d-md-inline">&nbsp;Delete</span>
-                                        </a>
-                                    </span>
-                            </td>
-                        </tr>
+<!--                        <tr th:remove="all">-->
+<!--                            <td>Margaret</td>-->
+<!--                            <td>Mitchell</td>-->
+<!--                            <td>Mitchell@test.com</td>-->
+<!--                            <td>07-03-2021</td>-->
+<!--                            <td>15-03-2021</td>-->
+<!--                            <td class="text-end">-->
+<!--                                <a href="Resident.html"-->
+<!--                                   th:href="@{/resident/4}"-->
+<!--                                   class="btn-sm btn-outline-secondary"-->
+<!--                                   title="Edit resident">-->
+<!--                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>-->
+<!--                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">-->
+<!--                                        <a href="#" class="btn-sm btn-outline-secondary"-->
+<!--                                           title="delete resident"><i class="bi-x"></i><span-->
+<!--                                                class="d-none d-md-inline">&nbsp;Delete</span>-->
+<!--                                        </a>-->
+<!--                                    </span>-->
+<!--                            </td>-->
+<!--                        </tr>-->
                         </tbody>
                     </table>
                 </div>
