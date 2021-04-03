@@ -79,10 +79,10 @@ public class ApartmentController {
     }
 
     @PostMapping(value = "/apartment/{id}")
-//    public String updateApartment(Apartment apartment) {
-    public String updateApartment(@PathVariable Integer id) {
-//        if (bindingResult.hasErrors()) { return "apartmentPage";}
-        Apartment apartment = apartmentService.findById(id);
+    public String updateApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
+//    public String updateApartment(@PathVariable Integer id) {
+        if (bindingResult.hasErrors()) { return "apartmentPage";}
+//        Apartment apartment = apartmentService.findById(id);
 
             LOGGER.debug("update apartment({})", apartment);
             apartmentService.update(apartment);

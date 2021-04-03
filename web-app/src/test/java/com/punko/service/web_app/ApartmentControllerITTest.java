@@ -139,7 +139,7 @@ public class ApartmentControllerITTest {
     @Test
     public void shouldUpdateApartmentAfterEdit() throws Exception {
 
-        String testName = "LUXURY";
+        String testName = "LUXURIOUS";
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/apartment/1")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
