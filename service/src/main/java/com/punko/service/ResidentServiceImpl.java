@@ -2,6 +2,7 @@ package com.punko.service;
 
 import com.punko.ResidentService;
 import com.punko.dao.ResidentDao;
+import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public void create(Resident resident) {
         residentDao.create(resident);
+    }
+
+    @Override
+    public List<Apartment> getAllApartmentNumber() {
+        return residentDao.getAllApartmentNumber();
     }
 }

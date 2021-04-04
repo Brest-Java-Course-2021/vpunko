@@ -44,7 +44,7 @@ public class ApartmentControllerITTest {
     }
 
     @Test
-    public void shouldReturnApartmentPage() throws Exception {
+    public void shouldReturnApartmentsPage() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/apartments")
         ).andDo(MockMvcResultHandlers.print())

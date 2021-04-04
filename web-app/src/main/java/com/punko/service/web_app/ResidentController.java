@@ -33,6 +33,7 @@ public class ResidentController {
     public String gotoAddResidentPage(Model model) {
         LOGGER.debug("go to add resident page");
         model.addAttribute("residentAttribute", new Resident());
+        model.addAttribute("allApartmentNumbers", residentService.getAllApartmentNumber());
         model.addAttribute("isNew", true);
         return "Resident";
     }

@@ -30,6 +30,12 @@ public class ResidentDaoJdbc implements ResidentDao {
     @Value("${resident.create}")
     private String createResidentSQL;
 
+    @Value("${resident.allApartmentNumber}")
+    private String getAllApartmentNumberSQL;
+
+    @Value("${resident.check.number}")
+    private String checkUniqueEmailSQL;
+
 
     public ResidentDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -39,13 +45,16 @@ public class ResidentDaoJdbc implements ResidentDao {
 
     @Override
     public List<Resident> findAll() {
-        LOGGER.debug("find all resident: ");
+        LOGGER.debug("find all resident");
         return namedParameterJdbcTemplate.query(findAlResidentSQL, rowMapper);
     }
 
     @Override
     public void create(Resident resident) {
         LOGGER.debug("create resident: {}", resident);
+        if (!isEmailUnique(resident)) {
+            throw new IllegalArgumentException("Resident with this email already exist");
+        }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("FIRSTNAME", resident.getFirstName())
                             .addValue("LASTNAME", resident.getLastName())
                             .addValue("EMAIL", resident.getEmail())
@@ -53,6 +62,18 @@ public class ResidentDaoJdbc implements ResidentDao {
                             .addValue("DEPARTURE_TIME", resident.getDepartureTime())
                             .addValue("APARTMENT_NUMBER", resident.getApartmentNumber());
         namedParameterJdbcTemplate.update(createResidentSQL, sqlParameterSource);
+    }
+
+    private boolean isEmailUnique(Resident resident) {
+        LOGGER.debug("check is resident email unique: {}", resident);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("EMAIL", resident.getEmail());
+        return namedParameterJdbcTemplate.queryForObject(checkUniqueEmailSQL, sqlParameterSource, Integer.class) == 0;
+    }
+
+    @Override
+    public List<Apartment> getAllApartmentNumber() {
+        LOGGER.debug("find all apartment Number");
+        return namedParameterJdbcTemplate.query(getAllApartmentNumberSQL, rowMapper);
     }
 
 

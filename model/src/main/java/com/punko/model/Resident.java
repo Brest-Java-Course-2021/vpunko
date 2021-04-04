@@ -15,14 +15,11 @@ public class Resident {
 
     private String email;
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate arrivalTime;
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate departureTime;
-
 
     private Integer apartmentNumber;
 

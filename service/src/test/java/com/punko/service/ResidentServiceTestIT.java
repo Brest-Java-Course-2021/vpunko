@@ -1,6 +1,7 @@
 package com.punko.service;
 
 import com.punko.dao.ResidentDao;
+import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -10,7 +11,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -45,6 +45,25 @@ public class ResidentServiceTestIT {
         Assertions.assertNotNull(modifiedList);
         Assertions.assertTrue(modifiedList.size() > 0);
         Assertions.assertEquals(residentList.size() + 1, modifiedList.size());
+    }
+
+    @Test
+    public void isResidentEmailUniqueTest() {
+        List<Resident> residentList = residentDao.findAll();
+        Assertions.assertTrue(residentList.size() > 0);
+
+        LocalDate arrivalTime = LocalDate.of(2020, 03, 20);
+        LocalDate departureTime = LocalDate.of(2021, 05, 21);
+        Resident resident = new Resident("Name", "Surname", residentList.get(0).getEmail(), arrivalTime, departureTime, 102);
+        Assertions.assertThrows(IllegalArgumentException.class, () -> residentDao.create(resident));
+
+    }
+
+    @Test
+    public void getAllApartmentNumberTest() {
+        List<Apartment> residentList = residentDao.getAllApartmentNumber();
+        Assertions.assertNotNull(residentList);
+        Assertions.assertTrue(residentList.size() > 0);
     }
 
 }

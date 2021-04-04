@@ -108,16 +108,19 @@
 
                             <div>
                                 <label class="form-label" for="field_resident_apartment_number">Apartment number</label>
-                                <input class="form-control" id="field_resident_apartment_number"
-                                       type="text" value="101"
-                                       th:field="*{apartmentNumber}"     />
-<!--                                <label for="type">Apartment number</label>-->
-<!--                                <select class="form-control" id="type" name="apartmentNumber" th:field="*{apartmentNumber}">-->
-<!--                                    <option th:value="null" th:text="none"></option>-->
+<!--                                <input class="form-control" id="field_resident_apartment_number"-->
+<!--                                       type="text" value="101"-->
+<!--                                       th:field="*{apartmentNumber}"     />-->
+                                <select class="form-control" id="field_resident_apartment_number" name="apartmentNumber" th:field="*{apartmentNumber}">
+                                    <option th:value="null" th:text="none"></option>
+                                    <option th:each=" number : ${allApartmentNumbers}" th:value="${number.apartmentNumber}"
+                                            th:text="${number.apartmentNumber}">
+                                    </option>
+<!--                                    -->
 <!--                                    <option value="CHEAP">CHEAP</option>-->
 <!--                                    <option value="MEDIUM">MEDIUM</option>-->
 <!--                                    <option value="LUXURIOUS">LUXURIOUS</option>-->
-<!--                                </select>-->
+                                </select>
                             </div>
                             <br>
                             <div class="d-flex justify-content-end">

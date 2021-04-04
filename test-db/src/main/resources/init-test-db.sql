@@ -12,4 +12,4 @@ Insert into RESIDENT (RESIDENT_ID, FIRSTNAME, LASTNAME, EMAIL, ARRIVAL_TIME, DEP
 Insert into RESIDENT (RESIDENT_ID, FIRSTNAME, LASTNAME, EMAIL, ARRIVAL_TIME, DEPARTURE_TIME, APARTMENT_NUMBER)
     values(3, 'Den', 'Brown', 'denbrown@test.com', '2021-02-13', '2021-02-25', 101);
 Insert into RESIDENT (RESIDENT_ID, FIRSTNAME, LASTNAME, EMAIL, ARRIVAL_TIME, DEPARTURE_TIME, APARTMENT_NUMBER)
-    values(4, 'Erih', 'Remark', 'remark@test.com', '2021-04-13', '2021-06-01', 102);
+    values(4, 'Erich', 'Remark', 'remark@test.com', '2021-04-10', '2021-06-01', 102);

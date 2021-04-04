@@ -1,5 +1,6 @@
 package com.punko.dao;
 
+import com.punko.model.Apartment;
 import com.punko.model.Resident;
 
 import java.math.BigInteger;
@@ -10,4 +11,7 @@ public interface ResidentDao {
     List<Resident> findAll();
 
     void create(Resident resident);
+
+    List<Apartment> getAllApartmentNumber();
+
 }
