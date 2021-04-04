@@ -16,9 +16,9 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark ext-light p-1">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Hotel</a>
-            <a href="/" class="navbar-brand"><img src="../../resources/static/img/hotel.svg"
-                                                  th:src="@{/resources/static/img/hotel.svg}"
+<!--            <a class="navbar-brand" href="#">Hotel</a>-->
+            <a href="/" class="navbar-brand"><img src="../../resources/static/img/hotel_blue.svg"
+                                                  th:src="@{/resources/static/img/hotel_blue.svg}"
                                                   height="32" width="32" alt="Hotel"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -40,11 +40,11 @@
     <nav id="main-header"
          class="py-1 mb-3 navbar navbar-light bg-light text-dark">
         <div class="container-fluid">
-            <span class="navbar-brand">Residents list</span>
+            <span class="navbar-brand">List of residents</span>
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="Resident.html"
-                       th:href="@{/residents}"
+                       th:href="@{/resident}"
                        class="btn btn-light"
                        title="Add resident">
                         <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Add resident</span>
@@ -67,6 +67,7 @@
                             <th>Email</th>
                             <th>Arrival Time</th>
                             <th>Departure Time</th>
+                            <th>№ Apartment</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -75,8 +76,9 @@
                             <td th:text="${residents.firstName}">Den</td>
                             <td th:text="${residents.lastName}">Brown</td>
                             <td th:text="${residents.email}">Brown@test.com</td>
-                            <td th:data="${residents.arrivalTime}">02-01-2021</td>
-                            <td th:data="${residents.departureTime}">26-01-2021</td>
+                            <td th:text="${residents.arrivalTime}">02-01-2021</td>
+                            <td th:text="${residents.departureTime}">26-01-2021</td>
+                            <td th:text="${residents.apartmentNumber}">102</td>
                             <td class="text-end">
                                 <a href="Resident.html"
                                    th:href="@{/resident}"
@@ -131,26 +133,26 @@
                                     </span>
                             </td>
                         </tr>
-<!--                        <tr th:remove="all">-->
-<!--                            <td>Margaret</td>-->
-<!--                            <td>Mitchell</td>-->
-<!--                            <td>Mitchell@test.com</td>-->
-<!--                            <td>07-03-2021</td>-->
-<!--                            <td>15-03-2021</td>-->
-<!--                            <td class="text-end">-->
-<!--                                <a href="Resident.html"-->
-<!--                                   th:href="@{/resident/4}"-->
-<!--                                   class="btn-sm btn-outline-secondary"-->
-<!--                                   title="Edit resident">-->
-<!--                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>-->
-<!--                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">-->
-<!--                                        <a href="#" class="btn-sm btn-outline-secondary"-->
-<!--                                           title="delete resident"><i class="bi-x"></i><span-->
-<!--                                                class="d-none d-md-inline">&nbsp;Delete</span>-->
-<!--                                        </a>-->
-<!--                                    </span>-->
-<!--                            </td>-->
-<!--                        </tr>-->
+                        <tr th:remove="all">
+                            <td>Margaret</td>
+                            <td>Mitchell</td>
+                            <td>Mitchell@test.com</td>
+                            <td>07-03-2021</td>
+                            <td>15-03-2021</td>
+                            <td class="text-end">
+                                <a href="Resident.html"
+                                   th:href="@{/resident/4}"
+                                   class="btn-sm btn-outline-secondary"
+                                   title="Edit resident">
+                                    <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
+                                        <a href="#" class="btn-sm btn-outline-secondary"
+                                           title="delete resident"><i class="bi-x"></i><span
+                                                class="d-none d-md-inline">&nbsp;Delete</span>
+                                        </a>
+                                    </span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>

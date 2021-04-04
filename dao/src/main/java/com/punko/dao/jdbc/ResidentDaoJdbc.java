@@ -27,6 +27,10 @@ public class ResidentDaoJdbc implements ResidentDao {
     @Value("${resident.select}")
     private String findAlResidentSQL;
 
+    @Value("${resident.create}")
+    private String createResidentSQL;
+
+
     public ResidentDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
@@ -37,6 +41,18 @@ public class ResidentDaoJdbc implements ResidentDao {
     public List<Resident> findAll() {
         LOGGER.debug("find all resident: ");
         return namedParameterJdbcTemplate.query(findAlResidentSQL, rowMapper);
+    }
+
+    @Override
+    public void create(Resident resident) {
+        LOGGER.debug("create resident: {}", resident);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("FIRSTNAME", resident.getFirstName())
+                            .addValue("LASTNAME", resident.getLastName())
+                            .addValue("EMAIL", resident.getEmail())
+                            .addValue("ARRIVAL_TIME", resident.getArrivalTime())
+                            .addValue("DEPARTURE_TIME", resident.getDepartureTime())
+                            .addValue("APARTMENT_NUMBER", resident.getApartmentNumber());
+        namedParameterJdbcTemplate.update(createResidentSQL, sqlParameterSource);
     }
 
 

@@ -42,6 +42,32 @@ public class ApartmentController {
     }
 
     /**
+     * Goto new apartment page.
+     *
+     * @return view name
+     */
+    @GetMapping("/apartment")
+    public final String gotoAddApartmentPage(Model model) {
+        LOGGER.debug("gotoAddApartmentPage({})", model);
+        model.addAttribute("isNew", true);
+        model.addAttribute("apartmentAttribute", new Apartment());
+        return "apartmentPage";
+    }
+
+    /**
+     * Goto add apartment.
+     *
+     * @return redirect all apartments
+     */
+    @PostMapping(value = "/apartment")
+    public String addApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) { return "apartmentPage";}
+        LOGGER.debug("addApartment({})", apartment);
+        apartmentService.create(apartment);
+        return "redirect:/apartments";
+    }
+
+    /**
      * Goto edit apartment page.
      *
      * @return view name
@@ -55,27 +81,6 @@ public class ApartmentController {
             return "apartmentPage";
     }
 
-    /**
-     * Goto new apartment page.
-     *
-     * @return view name
-     */
-    @GetMapping("/apartment")
-    public final String gotoAddApartmentPage(Model model) {
-        LOGGER.debug("gotoAddApartmentPage({})", model);
-        model.addAttribute("isNew", true);
-        model.addAttribute("apartmentAttribute", new Apartment());
-        return "apartmentPage";
-    }
-
-
-    @PostMapping(value = "/apartment")
-    public String addApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) { return "apartmentPage";}
-        LOGGER.debug("addApartment({})", apartment);
-        apartmentService.create(apartment);
-        return "redirect:/apartments";
-    }
 
     @PostMapping(value = "/apartment/{id}")
     public String updateApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {

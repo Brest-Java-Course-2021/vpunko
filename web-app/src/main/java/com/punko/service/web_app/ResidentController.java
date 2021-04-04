@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -26,4 +28,21 @@ public class ResidentController {
         model.addAttribute("allResidentsAttribute", residentList);
         return "Residents_list";
     }
+
+    @GetMapping("/resident")
+    public String gotoAddResidentPage(Model model) {
+        LOGGER.debug("go to add resident page");
+        model.addAttribute("residentAttribute", new Resident());
+        model.addAttribute("isNew", true);
+        return "Resident";
+    }
+
+    @PostMapping("/resident")
+    public String saveResident(@ModelAttribute("residentAttribute") Resident resident)  {
+        LOGGER.debug("save resident: {}", resident);
+        residentService.save(resident);
+        return "redirect:/residents";
+    }
+
+
 }

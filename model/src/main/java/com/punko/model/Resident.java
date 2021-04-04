@@ -1,6 +1,9 @@
 package com.punko.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
+import java.util.Date;
 
 public class Resident {
 
@@ -12,21 +15,27 @@ public class Resident {
 
     private String email;
 
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate arrivalTime;
 
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate departureTime;
+
 
     private Integer apartmentNumber;
 
     public Resident() {
     }
 
-    public Resident(String firstName, String lastName, String email, LocalDate arrivalTime, LocalDate departureTime) {
+    public Resident(String firstName, String lastName, String email, LocalDate arrivalTime, LocalDate departureTime, Integer apartmentNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.arrivalTime = arrivalTime;
         this.departureTime = departureTime;
+        this.apartmentNumber = apartmentNumber;
     }
 
     public Integer getResidentId() {

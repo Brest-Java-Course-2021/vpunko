@@ -7,4 +7,8 @@ import java.util.List;
 public interface ResidentService {
 
     List<Resident> findAll();
+
+    void save(Resident resident);
+
+    void create(Resident resident);
 }
