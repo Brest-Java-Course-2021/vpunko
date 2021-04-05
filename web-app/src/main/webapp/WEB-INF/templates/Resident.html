@@ -74,6 +74,9 @@
                                 <input class="form-control" id="field_resident_name"
                                        type="text" value="Den"
                                        th:field="*{firstName}"   />
+                                <th:block th:if="${#fields.hasErrors('firstName')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{firstName}"></div>
+                                </th:block>
                             </div>
                             <br>
                             <div>
@@ -81,6 +84,9 @@
                                 <input class="form-control" id="field_resident_last_name"
                                        type="text" value="Brown"
                                         th:field="*{lastName}"  />
+                                <th:block th:if="${#fields.hasErrors('lastName')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{lastName}"></div>
+                                </th:block>
                             </div>
                             <br>
                             <div>
@@ -88,6 +94,10 @@
                                 <input class="form-control" id="field_resident_email"
                                        type="email" value="Brown@test.com"
                                         th:field="*{email}"     />
+                                <th:block th:if="${#fields.hasErrors('email')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{email}"></div>
+                                </th:block>
+
                             </div>
                             <br>
 
@@ -96,6 +106,9 @@
                                 <input class="form-control" id="date1"
                                        type="date" name="date"
                                        th:field="*{arrivalTime}" />
+                                <th:block th:if="${#fields.hasErrors('arrivalTime')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{arrivalTime}"></div>
+                                </th:block>
                             </div>
                             <br>
 
@@ -104,19 +117,22 @@
                                 <input class="form-control" id="date2"
                                        type="date" name="date"
                                        th:field="*{departureTime}" />
+                                <th:block th:if="${#fields.hasErrors('departureTime')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{departureTime}"></div>
+                                </th:block>
                             </div>
 
                             <div>
                                 <label class="form-label" for="field_resident_apartment_number">Apartment number</label>
-<!--                                <input class="form-control" id="field_resident_apartment_number"-->
-<!--                                       type="text" value="101"-->
-<!--                                       th:field="*{apartmentNumber}"     />-->
                                 <select class="form-control" id="field_resident_apartment_number" name="apartmentNumber" th:field="*{apartmentNumber}">
-                                    <option th:value="null" th:text="none"></option>
+                                    <option th:value="0" th:text="none"></option>
                                     <option th:each=" number : ${allApartmentNumbers}" th:value="${number.apartmentNumber}"
                                             th:text="${number.apartmentNumber}">
                                     </option>
                                 </select>
+                                <th:block th:if="${#fields.hasErrors('apartmentNumber')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{apartmentNumber}"></div>
+                                </th:block>
                             </div>
                             <br>
                             <div class="d-flex justify-content-end">

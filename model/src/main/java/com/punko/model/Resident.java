@@ -2,6 +2,7 @@ package com.punko.model;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
@@ -10,18 +11,28 @@ public class Resident {
 
     private Integer residentId;
 
+    @NotBlank(message = "First name is a required field")
+    @Size(min = 2, max = 20, message = "First name should be min 2, max 20 symbols")
     private String firstName;
 
+    @NotBlank(message = "Last name is a required field")
+    @Size(min = 2, max = 20, message = "Last name should be min 2, max 20 symbols")
     private String lastName;
 
+    @NotBlank(message = "Email name is a required field")
+    @Size(min = 2, max = 50, message = "Email name should be min 2, max 50 symbols")
+    @Email(message = "use correct email")
     private String email;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull(message = "arrival time is a required field")
     private LocalDate arrivalTime;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+    @NotNull(message = "departure time is a required field")
     private LocalDate departureTime;
 
+//    @Min(value = 1, message = "Apartment number should be more than 0") if work correct - delete
     private Integer apartmentNumber;
 
     public Resident() {

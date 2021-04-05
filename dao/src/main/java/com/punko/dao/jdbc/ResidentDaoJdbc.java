@@ -73,12 +73,6 @@ public class ResidentDaoJdbc implements ResidentDao {
         namedParameterJdbcTemplate.update(createResidentSQL, sqlParameterSource);
     }
 
-    private boolean isEmailUnique(Resident resident) {
-        LOGGER.debug("check is resident email unique: {}", resident);
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("EMAIL", resident.getEmail());
-        return namedParameterJdbcTemplate.queryForObject(checkUniqueEmailSQL, sqlParameterSource, Integer.class) == 0;
-    }
-
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment Number");
@@ -95,7 +89,7 @@ public class ResidentDaoJdbc implements ResidentDao {
     @Override
     public void updateResident(Resident resident) {
         LOGGER.debug("update resident: {}", resident);
-        if (!isEmailUnique(resident)) {
+        if (!isItTheSameEmail(resident)) {
             throw new IllegalArgumentException("Resident with this email already exist");
         }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("FIRSTNAME", resident.getFirstName())
@@ -114,6 +108,22 @@ public class ResidentDaoJdbc implements ResidentDao {
         LOGGER.debug("delete resident by id: {}", id);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("RESIDENT_ID", id);
         namedParameterJdbcTemplate.update(deleteSQL, sqlParameterSource);
+    }
+
+    private boolean isEmailUnique(Resident resident) {
+        LOGGER.debug("check is resident email unique: {}", resident);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("EMAIL", resident.getEmail());
+        return namedParameterJdbcTemplate.queryForObject(checkUniqueEmailSQL, sqlParameterSource, Integer.class) == 0;
+    }
+
+    private boolean isItTheSameEmail(Resident resident) {
+        LOGGER.debug("check for update the same email unique: {}", resident);
+        String emailFromDB = findById(resident.getResidentId()).getEmail();
+        if (emailFromDB.equals(resident.getEmail())) {
+            return true;
+        } else {
+           return isEmailUnique(resident);
+        }
     }
 
 
