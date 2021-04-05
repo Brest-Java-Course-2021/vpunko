@@ -37,7 +37,7 @@ public class ApartmentController {
     @GetMapping(value = "/apartments")
     public final String apartments(Model model) {
         LOGGER.debug(" show all apartments controller");
-        model.addAttribute("apartmentsAttribute", apartmentDtoService.findAllWithAvgTime());
+        model.addAttribute("allApartmentsAttribute", apartmentDtoService.findAllWithAvgTime());
         return "apartments";
     }
 
@@ -48,7 +48,7 @@ public class ApartmentController {
      */
     @GetMapping("/apartment")
     public final String gotoAddApartmentPage(Model model) {
-        LOGGER.debug("gotoAddApartmentPage({})", model);
+        LOGGER.debug("gotoAddApartmentPage");
         model.addAttribute("isNew", true);
         model.addAttribute("apartmentAttribute", new Apartment());
         return "apartmentPage";
@@ -74,7 +74,7 @@ public class ApartmentController {
      */
     @GetMapping(value = "/apartment/{id}")
     public final String gotoEditApartmentPage(@PathVariable Integer id, Model model) {
-        LOGGER.debug("gotoEditApartmentPAge({},{})", id, model);
+        LOGGER.debug("gotoEditApartmentPAge({})", id);
         Apartment apartment = apartmentService.findById(id);
             model.addAttribute("isNew", false);
             model.addAttribute("apartmentAttribute", apartment);
@@ -94,8 +94,8 @@ public class ApartmentController {
         }
 
     @GetMapping(value = "/apartment/{id}/delete")
-     public String deleteApartmentById(@PathVariable Integer id, Model model){
-        LOGGER.debug("delete apartment ({}, {})", id, model);
+     public String deleteApartmentById(@PathVariable Integer id){
+        LOGGER.debug("delete apartment {}", id);
         apartmentService.delete(id);
         return "redirect:/apartments";
     }

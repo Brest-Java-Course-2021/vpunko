@@ -66,4 +66,28 @@ public class ResidentServiceTestIT {
         Assertions.assertTrue(residentList.size() > 0);
     }
 
+    @Test
+    public void findByIdResidentTest() {
+        List<Resident> residentList = residentDao.findAll();
+        Assertions.assertTrue(residentList.size() > 0);
+
+        int id = residentList.get(0).getResidentId();
+        Resident resident = residentDao.findById(id);
+
+        Assertions.assertNotNull(resident);
+        Assertions.assertEquals(residentList.get(0), resident);
+    }
+
+    @Test
+    public void deleteResidentTest() {
+        List<Resident> residentList = residentDao.findAll();
+        Assertions.assertTrue(residentList.size() > 0);
+
+        residentDao.delete(residentList.get(0).getResidentId());
+        List<Resident> afterDeleteList = residentDao.findAll();
+
+        Assertions.assertEquals(residentList.size(), afterDeleteList.size() + 1);
+
+    }
+
 }

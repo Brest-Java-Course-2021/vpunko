@@ -51,7 +51,7 @@ public class ApartmentControllerITTest {
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                 .andExpect(view().name("apartments"))
-                .andExpect(model().attribute("apartmentsAttribute", hasItem(
+                .andExpect(model().attribute("allApartmentsAttribute", hasItem(
                         allOf(
                                 hasProperty("apartmentId", is(1)),
                                 hasProperty("apartmentNumber", is(101)),
@@ -59,15 +59,15 @@ public class ApartmentControllerITTest {
                                 hasProperty("avgDifferenceBetweenTime", is(11L))
                         )
                 )))
-                .andExpect(model().attribute("apartmentsAttribute", hasItem(
+                .andExpect(model().attribute("allApartmentsAttribute", hasItem(
                         allOf(
                                 hasProperty("apartmentId", is(2)),
                                 hasProperty("apartmentNumber", is(102)),
                                 hasProperty("apartmentClass", is("CHEAP")),
-                                hasProperty("avgDifferenceBetweenTime", is(108L))
+                                hasProperty("avgDifferenceBetweenTime", is(109L))
                         )
                 )))
-                .andExpect(model().attribute("apartmentsAttribute", hasItem(
+                .andExpect(model().attribute("allApartmentsAttribute", hasItem(
                         allOf(
                                 hasProperty("apartmentId", is(3)),
                                 hasProperty("apartmentNumber", is(105)),

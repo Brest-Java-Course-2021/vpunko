@@ -9,9 +9,13 @@ public interface ResidentService {
 
     List<Resident> findAll();
 
-    void save(Resident resident);
-
     void create(Resident resident);
 
     List<Apartment> getAllApartmentNumber();
+
+    Resident findById(Integer id);
+
+    void update(Resident resident);
+
+    void delete(Integer id);
 }

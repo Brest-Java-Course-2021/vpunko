@@ -4,6 +4,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Objects;
 
 public class Resident {
 
@@ -102,5 +103,18 @@ public class Resident {
                 ", departureTime=" + departureTime +
                 ", apartmentNumber=" + apartmentNumber +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Resident resident = (Resident) o;
+        return residentId.equals(resident.residentId) && firstName.equals(resident.firstName) && lastName.equals(resident.lastName) && email.equals(resident.email) && arrivalTime.equals(resident.arrivalTime) && departureTime.equals(resident.departureTime) && Objects.equals(apartmentNumber, resident.apartmentNumber);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(residentId, firstName, lastName, email, arrivalTime, departureTime, apartmentNumber);
     }
 }

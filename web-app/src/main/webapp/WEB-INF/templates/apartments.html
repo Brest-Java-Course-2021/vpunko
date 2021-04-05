@@ -72,7 +72,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="apartments : ${apartmentsAttribute}">
+                        <tr th:each="apartments : ${allApartmentsAttribute}">
                             <td th:text="${apartments.apartmentNumber}">101</td>
                             <td th:text="${apartments.apartmentClass}">Luxury</td>
                             <td th:text="${apartments.avgDifferenceBetweenTime}">16</td>
@@ -86,7 +86,7 @@
                                         th:attr="data-id=${apartments.apartmentId},
                                                  data-name=${apartments.apartmentNumber}">
                                         <a href="#" class="btn-sm btn-outline-secondary"
-                                           title="delete resident"><i class="bi-x"></i><span
+                                           title="delete apartment"><i class="bi-x"></i><span
                                                 class="d-none d-md-inline">&nbsp;Delete</span>
                                         </a>
                                     </span>
@@ -152,7 +152,7 @@
                 Please confirm delete
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="cancel" href="/residents" class="btn btn-secondary">Cancel</a>
                 <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>

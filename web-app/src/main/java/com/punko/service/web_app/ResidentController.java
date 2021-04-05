@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
@@ -39,9 +40,33 @@ public class ResidentController {
     }
 
     @PostMapping("/resident")
-    public String saveResident(@ModelAttribute("residentAttribute") Resident resident)  {
+    public String addResident(@ModelAttribute("residentAttribute") Resident resident)  {
         LOGGER.debug("save resident: {}", resident);
-        residentService.save(resident);
+        residentService.create(resident);
+        return "redirect:/residents";
+    }
+
+    @GetMapping("/resident/{id}")
+    public String gotoEditResidentPage(@PathVariable Integer id, Model model) {
+        LOGGER.debug("go to Edit Resident Page({})", id);
+        Resident resident = residentService.findById(id);
+        model.addAttribute("residentAttribute", resident);
+        model.addAttribute("allApartmentNumbers", residentService.getAllApartmentNumber());
+        model.addAttribute("isNew", false);
+        return "Resident";
+    }
+
+    @PostMapping("/resident/{id}")
+    public String editResident(@ModelAttribute("residentAttribute") Resident resident)  {
+        LOGGER.debug("edit resident: {}", resident);
+        residentService.update(resident);
+        return "redirect:/residents";
+    }
+
+    @GetMapping("/resident/{id}/delete")
+    public String deleteResident(@PathVariable Integer id) {
+        LOGGER.debug("delete resident with id = {}", id);
+        residentService.delete(id);
         return "redirect:/residents";
     }
 

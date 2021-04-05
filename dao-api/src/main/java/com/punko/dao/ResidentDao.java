@@ -14,4 +14,10 @@ public interface ResidentDao {
 
     List<Apartment> getAllApartmentNumber();
 
+    Resident findById(Integer id);
+
+    void updateResident(Resident resident);
+
+    void delete(Integer id);
+
 }
