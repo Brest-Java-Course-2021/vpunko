@@ -109,6 +109,9 @@
                                 <th:block th:if="${#fields.hasErrors('arrivalTime')}">
                                     <div th:errorclass="invalid-input" th:errors="*{arrivalTime}"></div>
                                 </th:block>
+                                <th:block th:if="${#fields.hasErrors('global')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{global}"></div>
+                                </th:block>
                             </div>
                             <br>
 
@@ -119,6 +122,9 @@
                                        th:field="*{departureTime}" />
                                 <th:block th:if="${#fields.hasErrors('departureTime')}">
                                     <div th:errorclass="invalid-input" th:errors="*{departureTime}"></div>
+                                </th:block>
+                                <th:block th:if="${#fields.hasErrors('global')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{global}"></div>
                                 </th:block>
                             </div>
 

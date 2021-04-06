@@ -1,5 +1,6 @@
 package com.punko.model;
 
+import com.punko.model.validation.CheckDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
@@ -7,6 +8,7 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.util.Objects;
 
+@CheckDate(message = "Arrival time should be before than Departure time")
 public class Resident {
 
     private Integer residentId;
