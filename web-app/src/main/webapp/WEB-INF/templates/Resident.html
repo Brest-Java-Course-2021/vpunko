@@ -15,7 +15,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark ext-light p-1">
         <div class="container-fluid">
-            <!--            <a class="navbar-brand" href="#">Hotel</a>-->
+<!--            <a class="navbar-brand" href="#">Hotel</a>-->
             <a href="/" class="navbar-brand"><img src="../../resources/static/img/hotel_blue.svg"
                                                   th:src="@{/resources/static/img/hotel_blue.svg}"
                                                   height="32" width="32" alt="Hotel"></a>
@@ -48,7 +48,7 @@
                 </li>
             </ul>
             <span class="navbar-brand me-auto"
-                  th:text="${isNew} ? 'New resident' : 'Edit resident'">Edit Resident</span>
+                th:text="${isNew} ? 'New resident' : 'Edit resident'">Edit Resident</span>
         </div>
     </nav>
 </header>
@@ -60,10 +60,10 @@
                 <div class="card">
                     <div class="card-body">
                         <form id="residentForm"
-                              th:object="${residentAttribute}"
-                              action="/apartment"
-                              th:action="@{${#httpServletRequest.servletPath}}"
-                              th:method="@{post}">
+                                th:object="${residentAttribute}"
+                                action="/apartment"
+                                th:action="@{${#httpServletRequest.servletPath}}"
+                                th:method="@{post}">
 
                             <input id="field_residentId"
                                    type="hidden"
@@ -83,7 +83,7 @@
                                 <label class="form-label" for="field_resident_last_name">Last Name</label>
                                 <input class="form-control" id="field_resident_last_name"
                                        type="text" value="Brown"
-                                       th:field="*{lastName}"  />
+                                        th:field="*{lastName}"  />
                                 <th:block th:if="${#fields.hasErrors('lastName')}">
                                     <div th:errorclass="invalid-input" th:errors="*{lastName}"></div>
                                 </th:block>
@@ -93,7 +93,7 @@
                                 <label class="form-label" for="field_resident_email">Email</label>
                                 <input class="form-control" id="field_resident_email"
                                        type="email" value="Brown@test.com"
-                                       th:field="*{email}"     />
+                                        th:field="*{email}"     />
                                 <th:block th:if="${#fields.hasErrors('email')}">
                                     <div th:errorclass="invalid-input" th:errors="*{email}"></div>
                                 </th:block>

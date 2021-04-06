@@ -76,9 +76,9 @@ public class ApartmentController {
     public final String gotoEditApartmentPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("gotoEditApartmentPAge({})", id);
         Apartment apartment = apartmentService.findById(id);
-        model.addAttribute("isNew", false);
-        model.addAttribute("apartmentAttribute", apartment);
-        return "apartmentPage";
+            model.addAttribute("isNew", false);
+            model.addAttribute("apartmentAttribute", apartment);
+            return "apartmentPage";
     }
 
 
@@ -94,7 +94,7 @@ public class ApartmentController {
     }
 
     @GetMapping(value = "/apartment/{id}/delete")
-    public String deleteApartmentById(@PathVariable Integer id){
+     public String deleteApartmentById(@PathVariable Integer id){
         LOGGER.debug("delete apartment {}", id);
         apartmentService.delete(id);
         return "redirect:/apartments";

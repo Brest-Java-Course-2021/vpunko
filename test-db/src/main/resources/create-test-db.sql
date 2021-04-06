@@ -13,6 +13,7 @@ CREATE TABLE APARTMENT
 /**
   use ON DELETE SET NULL for FK.
   when delete apartment, apartment_id in Resident table become NULL
+  use ON UPDATE CASCADE for update in foreign table
  */
 CREATE TABLE RESIDENT
 (
