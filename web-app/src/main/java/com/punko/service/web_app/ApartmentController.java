@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.Optional;
 
 @Controller
 public class ApartmentController {
@@ -38,22 +37,8 @@ public class ApartmentController {
     @GetMapping(value = "/apartments")
     public final String apartments(Model model) {
         LOGGER.debug(" show all apartments controller");
-        model.addAttribute("apartmentsAttribute", apartmentDtoService.findAllWithAvgTime());
+        model.addAttribute("allApartmentsAttribute", apartmentDtoService.findAllWithAvgTime());
         return "apartments";
-    }
-
-    /**
-     * Goto edit apartment page.
-     *
-     * @return view name
-     */
-    @GetMapping(value = "/apartment/{id}")
-    public final String gotoEditApartmentPage(@PathVariable Integer id, Model model) {
-        LOGGER.debug("gotoEditApartmentPAge({},{})", id, model);
-        Apartment apartment = apartmentService.findById(id);
-            model.addAttribute("isNew", false);
-            model.addAttribute("apartmentAttribute", apartment);
-            return "apartmentPage";
     }
 
     /**
@@ -63,13 +48,17 @@ public class ApartmentController {
      */
     @GetMapping("/apartment")
     public final String gotoAddApartmentPage(Model model) {
-        LOGGER.debug("gotoAddApartmentPage({})", model);
+        LOGGER.debug("gotoAddApartmentPage");
         model.addAttribute("isNew", true);
         model.addAttribute("apartmentAttribute", new Apartment());
         return "apartmentPage";
     }
 
-
+    /**
+     * Goto add apartment.
+     *
+     * @return redirect all apartments
+     */
     @PostMapping(value = "/apartment")
     public String addApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) { return "apartmentPage";}
@@ -78,20 +67,35 @@ public class ApartmentController {
         return "redirect:/apartments";
     }
 
+    /**
+     * Goto edit apartment page.
+     *
+     * @return view name
+     */
+    @GetMapping(value = "/apartment/{id}")
+    public final String gotoEditApartmentPage(@PathVariable Integer id, Model model) {
+        LOGGER.debug("gotoEditApartmentPAge({})", id);
+        Apartment apartment = apartmentService.findById(id);
+        model.addAttribute("isNew", false);
+        model.addAttribute("apartmentAttribute", apartment);
+        return "apartmentPage";
+    }
+
+
     @PostMapping(value = "/apartment/{id}")
     public String updateApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
 //    public String updateApartment(@PathVariable Integer id) {
         if (bindingResult.hasErrors()) { return "apartmentPage";}
 //        Apartment apartment = apartmentService.findById(id);
 
-            LOGGER.debug("update apartment({})", apartment);
-            apartmentService.update(apartment);
-            return "redirect:/apartments";
-        }
+        LOGGER.debug("update apartment({})", apartment);
+        apartmentService.update(apartment);
+        return "redirect:/apartments";
+    }
 
     @GetMapping(value = "/apartment/{id}/delete")
-     public String deleteApartmentById(@PathVariable Integer id, Model model){
-        LOGGER.debug("delete apartment ({}, {})", id, model);
+    public String deleteApartmentById(@PathVariable Integer id){
+        LOGGER.debug("delete apartment {}", id);
         apartmentService.delete(id);
         return "redirect:/apartments";
     }
@@ -141,4 +145,3 @@ public class ApartmentController {
 //        return "redirect:/apartments";
 //    }
 //}
-

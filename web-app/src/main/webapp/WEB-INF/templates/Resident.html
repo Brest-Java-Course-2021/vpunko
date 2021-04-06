@@ -15,9 +15,9 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark ext-light p-1">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Hotel</a>
-            <a href="/" class="navbar-brand"><img src="../../resources/static/img/hotel.svg"
-                                                  th:src="@{/resources/static/img/hotel.svg}"
+            <!--            <a class="navbar-brand" href="#">Hotel</a>-->
+            <a href="/" class="navbar-brand"><img src="../../resources/static/img/hotel_blue.svg"
+                                                  th:src="@{/resources/static/img/hotel_blue.svg}"
                                                   height="32" width="32" alt="Hotel"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,23 +29,9 @@
                            th:href="@{/apartments}">Apartments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="Residents%20list.html"
+                        <a class="nav-link active" href="Residents_list.html"
                            th:href="@{/residents}">Residents</a>
                     </li>
-                    <!-- <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -56,12 +42,13 @@
             <ul class="navbar-nav float-start">
                 <li class="nav-item"
                     title="Back to list">
-                    <a href="Residents%20list.html"
+                    <a href="Residents_list.html"
                        th:href="@{/residents}"
                        class="btn btn-light btn-block"><i class="bi-arrow-left"></i></a>
                 </li>
             </ul>
-            <span class="navbar-brand me-auto">Edit Resident</span>
+            <span class="navbar-brand me-auto"
+                  th:text="${isNew} ? 'New resident' : 'Edit resident'">Edit Resident</span>
         </div>
     </nav>
 </header>
@@ -72,45 +59,96 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <form>
-                            <div class="mb-0">
-                                <label class="form-label"
-                                       for="field_resident_name">First Name</label>
+                        <form id="residentForm"
+                              th:object="${residentAttribute}"
+                              action="/apartment"
+                              th:action="@{${#httpServletRequest.servletPath}}"
+                              th:method="@{post}">
+
+                            <input id="field_residentId"
+                                   type="hidden"
+                                   th:field="*{residentId}"/>
+
+                            <div>
+                                <label class="form-label" for="field_resident_name">First Name</label>
                                 <input class="form-control" id="field_resident_name"
-                                       type="text"
-                                       value="Den"/> <br>
+                                       type="text" value="Den"
+                                       th:field="*{firstName}"   />
+                                <th:block th:if="${#fields.hasErrors('firstName')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{firstName}"></div>
+                                </th:block>
                             </div>
-                            <div class="mb-0">
-                                <label for="field_resident_phone">Last Name</label>
-                                <input class="form-control" id="field_resident_phone"
-                                       type="text"
-                                       value="Brown"/> <br>
+                            <br>
+                            <div>
+                                <label class="form-label" for="field_resident_last_name">Last Name</label>
+                                <input class="form-control" id="field_resident_last_name"
+                                       type="text" value="Brown"
+                                       th:field="*{lastName}"  />
+                                <th:block th:if="${#fields.hasErrors('lastName')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{lastName}"></div>
+                                </th:block>
                             </div>
-                            <div class="mb-0">
-                                <label for="field_resident_email">Email</label>
+                            <br>
+                            <div>
+                                <label class="form-label" for="field_resident_email">Email</label>
                                 <input class="form-control" id="field_resident_email"
-                                       type="email"
-                                       value="Brown@test.com"/> <br>
+                                       type="email" value="Brown@test.com"
+                                       th:field="*{email}"     />
+                                <th:block th:if="${#fields.hasErrors('email')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{email}"></div>
+                                </th:block>
+
                             </div>
-                            <div class="mb-0">
-                                <label for="field_resident_arrival">Arrival time</label>
-                                <input class="form-control" id="field_resident_arrival"
-                                       type="date"
-                                       value="02-02-2021"/> <br>
+                            <br>
+
+                            <div>
+                                <label class="form-label" for="date1">Arrival time</label>
+                                <input class="form-control" id="date1"
+                                       type="date" name="date"
+                                       th:field="*{arrivalTime}" />
+                                <th:block th:if="${#fields.hasErrors('arrivalTime')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{arrivalTime}"></div>
+                                </th:block>
+                                <th:block th:if="${#fields.hasErrors('global')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{global}"></div>
+                                </th:block>
                             </div>
-                            <div class="mb-0">
-                                <label for="field_resident_departure">Departure time</label>
-                                <input class="form-control" id="field_resident_departure"
-                                       type="date"
-                                       value="10-11-2021"/> <br>
+                            <br>
+
+                            <div>
+                                <label for="date2">Departure time</label>
+                                <input class="form-control" id="date2"
+                                       type="date" name="date"
+                                       th:field="*{departureTime}" />
+                                <th:block th:if="${#fields.hasErrors('departureTime')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{departureTime}"></div>
+                                </th:block>
+                                <th:block th:if="${#fields.hasErrors('global')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{global}"></div>
+                                </th:block>
                             </div>
+
+                            <div>
+                                <label class="form-label" for="field_resident_apartment_number">Apartment number</label>
+                                <select class="form-control" id="field_resident_apartment_number" name="apartmentNumber" th:field="*{apartmentNumber}">
+                                    <option th:value="0" th:text="none"></option>
+                                    <option th:each=" number : ${allApartmentNumbers}" th:value="${number.apartmentNumber}"
+                                            th:text="${number.apartmentNumber}">
+                                    </option>
+                                </select>
+                                <th:block th:if="${#fields.hasErrors('apartmentNumber')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{apartmentNumber}"></div>
+                                </th:block>
+                            </div>
+                            <br>
                             <div class="d-flex justify-content-end">
-                                <a href="Residents%20list.html"
+                                <a href="Residents_list.html"
                                    th:href="@{/residents}"
                                    class="btn btn-light me-1"
                                    title="Cancel">Cancel</a>
-                                <a href="Residents%20list.html"
+                                <a href="Residents_list.html"
                                    th:href="@{/residents}"
+                                   th:onclick="@{document.forms['residentForm'].submit(); return false;}"
                                    class="btn btn-primary"
                                    title="Save employee">Save</a>
                             </div>

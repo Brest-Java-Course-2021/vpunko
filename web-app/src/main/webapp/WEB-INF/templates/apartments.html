@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
-            th:href="@{/resources/static/css/bootstrap.css}">
+          th:href="@{/resources/static/css/bootstrap.css}">
     <link rel="stylesheet" href="../../resources/static/css/style.css"
-            th:href="@{/resources/static/css/style.css}">
+          th:href="@{/resources/static/css/style.css}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <title>List of apartments</title>
@@ -18,9 +18,9 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
         <div class="container-fluid">
-<!--            <a class="navbar-brand" href="/">Hotel</a>-->
-            <a href="/" class="navbar-brand"><img src="../../resources/static/img/hotel.svg"
-                                                  th:src="@{/resources/static/img/hotel.svg}"
+            <!--            <a class="navbar-brand" href="/">Hotel</a>-->
+            <a href="/" class="navbar-brand"><img src="../../resources/static/img/hotel_blue.svg"
+                                                  th:src="@{/resources/static/img/hotel_blue.svg}"
                                                   height="32" width="32" alt="Hotel"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,26 +29,12 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link active" href="apartments.html"
-                                    th:href="@{/apartments}">Apartments</a>
+                           th:href="@{/apartments}">Apartments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="Residents%20list.html"
-                                    th:href="@{/residents}">Residents</a>
+                        <a class="nav-link" href="Residents_list.html"
+                           th:href="@{/residents}">Residents</a>
                     </li>
-                    <!-- <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                      </ul>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </li> -->
                 </ul>
             </div>
         </div>
@@ -60,7 +46,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a href="apartmentPage.html"
-                        th:href="@{/apartment}"
+                       th:href="@{/apartment}"
                        class="btn btn-light"
                        title="Add apartment">
                         <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Add apartment</span>
@@ -86,7 +72,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr th:each="apartments : ${apartmentsAttribute}">
+                        <tr th:each="apartments : ${allApartmentsAttribute}">
                             <td th:text="${apartments.apartmentNumber}">101</td>
                             <td th:text="${apartments.apartmentClass}">Luxury</td>
                             <td th:text="${apartments.avgDifferenceBetweenTime}">16</td>
@@ -97,10 +83,10 @@
                                    title="Edit department">
                                     <i class="bi-pen"></i><span class="d-none d-md-inline">&nbsp;Edit</span></a>
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
-                                        th:attr="data-id=${apartments.apartmentId},
+                                      th:attr="data-id=${apartments.apartmentId},
                                                  data-name=${apartments.apartmentNumber}">
                                         <a href="#" class="btn-sm btn-outline-secondary"
-                                           title="delete resident"><i class="bi-x"></i><span
+                                           title="delete apartment"><i class="bi-x"></i><span
                                                 class="d-none d-md-inline">&nbsp;Delete</span>
                                         </a>
                                     </span>
@@ -109,7 +95,7 @@
                         <tr th:remove="all">
                             <td>102</td>
                             <td>Medium</td>
-<!--                            <td>33.6</td>-->
+                            <!--                            <td>33.6</td>-->
                             <td class="text-end">
                                 <a href="apartmentPage.html"
                                    class="btn-sm btn-outline-secondary"
@@ -126,7 +112,7 @@
                         <tr th:remove="all">
                             <td>103</td>
                             <td>Cheap</td>
-<!--                            <td>null</td>-->
+                            <!--                            <td>null</td>-->
                             <td class="text-end">
                                 <a href="apartmentPage.html"
                                    class="btn-sm btn-outline-secondary"
@@ -166,7 +152,7 @@
                 Please confirm delete
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="cancel" href="/residents" class="btn btn-secondary">Cancel</a>
                 <a id="deleteUrl" href="#" class="btn btn-danger">Delete</a>
             </div>
         </div>

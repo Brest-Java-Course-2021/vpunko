@@ -64,8 +64,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         LOGGER.debug("Find by id: {}", apartmentId);
         isApartmentIdCorrect(apartmentId);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
-        Apartment apartment = (Apartment) namedParameterJdbcTemplate.queryForObject(findByIdSQL, sqlParameterSource, rowMapper);
-        return apartment;
+        return (Apartment) namedParameterJdbcTemplate.queryForObject(findByIdSQL, sqlParameterSource, rowMapper);
     }
 
     /**

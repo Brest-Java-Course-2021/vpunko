@@ -44,14 +44,14 @@ public class ApartmentControllerITTest {
     }
 
     @Test
-    public void shouldReturnApartmentPage() throws Exception {
+    public void shouldReturnApartmentsPage() throws Exception {
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/apartments")
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                 .andExpect(view().name("apartments"))
-                .andExpect(model().attribute("apartmentsAttribute", hasItem(
+                .andExpect(model().attribute("allApartmentsAttribute", hasItem(
                         allOf(
                                 hasProperty("apartmentId", is(1)),
                                 hasProperty("apartmentNumber", is(101)),
@@ -59,15 +59,15 @@ public class ApartmentControllerITTest {
                                 hasProperty("avgDifferenceBetweenTime", is(11L))
                         )
                 )))
-                .andExpect(model().attribute("apartmentsAttribute", hasItem(
+                .andExpect(model().attribute("allApartmentsAttribute", hasItem(
                         allOf(
                                 hasProperty("apartmentId", is(2)),
                                 hasProperty("apartmentNumber", is(102)),
                                 hasProperty("apartmentClass", is("CHEAP")),
-                                hasProperty("avgDifferenceBetweenTime", is(108L))
+                                hasProperty("avgDifferenceBetweenTime", is(109L))
                         )
                 )))
-                .andExpect(model().attribute("apartmentsAttribute", hasItem(
+                .andExpect(model().attribute("allApartmentsAttribute", hasItem(
                         allOf(
                                 hasProperty("apartmentId", is(3)),
                                 hasProperty("apartmentNumber", is(105)),
@@ -142,10 +142,10 @@ public class ApartmentControllerITTest {
         String testName = "LUXURIOUS";
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/apartment/1")
-                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-                .param("apartmentId", "1")
-                .param("apartmentNumber", "101")
-                .param("apartmentClass", testName)
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param("apartmentId", "1")
+                        .param("apartmentNumber", "101")
+                        .param("apartmentClass", testName)
         ).andExpect(status().isFound())
                 .andExpect(view().name("redirect:/apartments"))
                 .andExpect(redirectedUrl("/apartments"));

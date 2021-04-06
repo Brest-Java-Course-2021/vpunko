@@ -11,5 +11,5 @@ Insert into RESIDENT (RESIDENT_ID, FIRSTNAME, LASTNAME, EMAIL, ARRIVAL_TIME, DEP
     values(2, 'Margaret', 'Mitchell', 'margaretmitchell@test.com', '2020-10-26', '2021-04-10', 2);
 Insert into RESIDENT (RESIDENT_ID, FIRSTNAME, LASTNAME, EMAIL, ARRIVAL_TIME, DEPARTURE_TIME, APARTMENT_ID)
     values(3, 'Den', 'Brown', 'denbrown@test.com', '2021-02-13', '2021-02-25', 1);
-Insert into RESIDENT (RESIDENT_ID, FIRSTNAME, LASTNAME, EMAIL, ARRIVAL_TIME, DEPARTURE_TIME, APARTMENT_ID)
-    values(4, 'Erih', 'Remark', 'remark@test.com', '2021-04-13', '2021-06-01', 2);
+Insert into RESIDENT (RESIDENT_ID, FIRSTNAME, LASTNAME, EMAIL, ARRIVAL_TIME, DEPARTURE_TIME, APARTMENT_NUMBER)
+    values(4, 'Erich', 'Remark', 'remark@test.com', '2021-04-10', '2021-06-01', 102);
