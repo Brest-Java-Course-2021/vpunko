@@ -19,4 +19,10 @@ public interface ApartmentService {
 
     Integer count();
 
+    /**
+     * get Apartments classes
+     * @return List String
+     */
+    List<String> getAllApartmentClass();
+
 }

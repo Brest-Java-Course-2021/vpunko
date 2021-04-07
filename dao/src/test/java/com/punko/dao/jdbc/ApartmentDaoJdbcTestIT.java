@@ -43,7 +43,7 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void findByIdExceptionTest() {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> { apartmentDao.findById(999); } );
+        Assertions.assertNull(apartmentDao.findById(999));
     }
 
     @Test

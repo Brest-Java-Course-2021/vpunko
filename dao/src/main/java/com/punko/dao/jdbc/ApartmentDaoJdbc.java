@@ -62,7 +62,9 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     @Override
     public Apartment findById(Integer apartmentId) {
         LOGGER.debug("Find by id: {}", apartmentId);
-        isApartmentIdCorrect(apartmentId);
+        if (!isApartmentIdCorrect(apartmentId)) {
+            LOGGER.debug("Apartment with this id isn't exist: {}", apartmentId);
+            return null;}
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
         return (Apartment) namedParameterJdbcTemplate.queryForObject(findByIdSQL, sqlParameterSource, rowMapper);
     }
@@ -76,7 +78,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         LOGGER.debug("Create apartment: {}", apartment);
         if (!isTheNumberUnique(apartment)) {
             LOGGER.warn("Apartment with that name is already exist: {}", apartment);
-            throw new IllegalArgumentException("Apartment with that name is already exist");
+            throw new IllegalArgumentException("Apartment with this number is already exist");
         }
         KeyHolder keyHolder = new GeneratedKeyHolder();
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber())
@@ -118,6 +120,15 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         return namedParameterJdbcTemplate.queryForObject(countSQL, new HashMap<>(), Integer.class);
     }
 
+    @Override
+    public List<String> getAllApartmentClass() {
+        List<String> apartmentClassList = new ArrayList<>(3);
+        apartmentClassList.add(LUXURIOUS);
+        apartmentClassList.add(MEDIUM);
+        apartmentClassList.add(CHEAP);
+        return apartmentClassList;
+    }
+
     private boolean isTheNumberUnique(Apartment apartment) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber());
         return namedParameterJdbcTemplate.queryForObject(checkNumberSQL, sqlParameterSource, Integer.class) == 0;
@@ -133,15 +144,18 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     }
 
     //don't work
-    private void isApartmentIdCorrect(int id) {
+    private boolean isApartmentIdCorrect(int id) {
         List<Apartment> apartmentList = findAll();
         List<Integer> integerList = new ArrayList<>(apartmentList.size());
         for (Apartment apartment : apartmentList) {
             integerList.add(apartment.getApartmentId());
         }
         if (!integerList.contains(id)) {
-            throw new IllegalArgumentException("Apartment with that id is already exist");
+            LOGGER.debug("isApartmentIdCorrect method. Apartment with this id isn't exist: {}", id);
+//            throw new IllegalArgumentException("Apartment with this id is already exist");
+            return false;
         }
+        return true;
     }
 
 

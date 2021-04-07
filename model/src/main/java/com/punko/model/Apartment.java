@@ -20,18 +20,12 @@ public class Apartment {
     @NotBlank(message = "Apartment class is a required field")
     private String apartmentClass;
 
-    private Map<String, String> classes;
-
     public Apartment() {
     }
 
     public Apartment(Integer apartmentNumber, String apartmentClass) {
         this.apartmentNumber = apartmentNumber;
         this.apartmentClass = apartmentClass;
-        classes = new LinkedHashMap<>();
-        classes.put(LUXURIOUS, "LUXURIOUS");
-        classes.put(MEDIUM, "MEDIUM");
-        classes.put(CHEAP, "CHEAP");
     }
 
     public Integer getApartmentId() {
@@ -58,13 +52,6 @@ public class Apartment {
         this.apartmentClass = apartmentClass;
     }
 
-    public Map<String, String> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(Map<String, String> classes) {
-        this.classes = classes;
-    }
 
     @Override
     public boolean equals(Object o) {

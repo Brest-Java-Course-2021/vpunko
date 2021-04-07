@@ -53,4 +53,9 @@ public class ApartmentServiceImp implements ApartmentService {
         return apartmentDao.count();
     }
 
+    @Override
+    public List<String> getAllApartmentClass() {
+        return apartmentDao.getAllApartmentClass();
+    }
+
 }
