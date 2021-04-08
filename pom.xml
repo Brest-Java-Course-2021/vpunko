@@ -130,6 +130,13 @@
             </dependency>
 
             <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.11.4</version>
+            </dependency>
+
+
+            <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
                 <version>1.4.200</version>
@@ -215,7 +222,7 @@
                 <scope>test</scope>
             </dependency>
 
-            <!--        for more detais objects testing -->
+            <!--        for more details objects testing -->
             <dependency>
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-all</artifactId>

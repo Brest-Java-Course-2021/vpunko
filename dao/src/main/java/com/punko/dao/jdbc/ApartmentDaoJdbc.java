@@ -63,7 +63,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     public Apartment findById(Integer apartmentId) {
         LOGGER.debug("Find by id: {}", apartmentId);
         if (!isApartmentIdCorrect(apartmentId)) {
-            LOGGER.debug("Apartment with this id isn't exist: {}", apartmentId);
+            LOGGER.debug("Apartment with this id doesn't exist: {}", apartmentId);
             return null;}
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
         return (Apartment) namedParameterJdbcTemplate.queryForObject(findByIdSQL, sqlParameterSource, rowMapper);
