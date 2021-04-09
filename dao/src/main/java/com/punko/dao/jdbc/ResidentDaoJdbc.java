@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.List;
@@ -46,8 +47,8 @@ public class ResidentDaoJdbc implements ResidentDao {
     private String deleteSQL;
 
 
-    public ResidentDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public ResidentDaoJdbc(DataSource dataSource) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Resident.class);

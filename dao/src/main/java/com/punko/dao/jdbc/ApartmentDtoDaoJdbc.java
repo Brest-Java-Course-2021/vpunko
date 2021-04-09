@@ -10,9 +10,10 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.List;
 
-@Component
+@Repository
 public class ApartmentDtoDaoJdbc implements ApartmentDaoDto {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
@@ -22,8 +23,8 @@ public class ApartmentDtoDaoJdbc implements ApartmentDaoDto {
     @Value("${apartment.dto.getAvgTime}")
     private String findAllWithAvgTimeSQL;
 
-    public ApartmentDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public ApartmentDtoDaoJdbc(DataSource dataSource) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override

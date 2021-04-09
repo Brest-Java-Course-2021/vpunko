@@ -4,6 +4,7 @@ package com.punko.dao.jdbc.Mock;
 import com.punko.dao.jdbc.ApartmentDaoJdbc;
 import com.punko.model.Apartment;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -21,6 +22,7 @@ import static org.mockito.ArgumentMatchers.*;
 
 
 @ExtendWith(MockitoExtension.class)
+@Disabled
 public class ApartmentDaoJdbcMockTest {
 
 //    задаем заглушку для namedParameterJdbcTemplate

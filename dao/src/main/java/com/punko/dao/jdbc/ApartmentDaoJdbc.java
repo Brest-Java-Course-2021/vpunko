@@ -4,6 +4,7 @@ import com.punko.dao.ApartmentDao;
 import com.punko.model.Apartment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -13,12 +14,15 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.util.*;
 
 import static com.punko.model.constants.ApartmentClassConst.*;
 
-
+@Repository
 public class ApartmentDaoJdbc implements ApartmentDao {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentDaoJdbc.class);
@@ -48,8 +52,8 @@ public class ApartmentDaoJdbc implements ApartmentDao {
 
     RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
 
-    public ApartmentDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
-        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
+    public ApartmentDaoJdbc(DataSource dataSource) {
+        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
     @Override
