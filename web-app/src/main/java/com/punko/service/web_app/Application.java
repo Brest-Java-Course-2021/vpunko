@@ -18,9 +18,6 @@ public class Application extends SpringBootServletInitializer {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
-//        new SpringApplicationBuilder(Application.class)
-//                .web(WebApplicationType.SERVLET)
-//                .run(args);
     }
 
     //show loaded beans when app started
