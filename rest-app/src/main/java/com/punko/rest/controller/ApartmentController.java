@@ -9,6 +9,8 @@ import com.punko.rest.exceptions.apartmentExceptions.ApartmentNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,44 +39,53 @@ public class ApartmentController {
     }
 
     @GetMapping("/apartments/{id}")
-    public Apartment findByIdRest(@PathVariable Integer id) {
+    public ResponseEntity<Apartment> findByIdRest(@PathVariable Integer id) {
         LOGGER.debug("Get apartment by id: {}", id);
         //TODO
         Apartment apartment = apartmentService.findById(id);
         if (apartment == null) {
+            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             LOGGER.debug("Apartment with this id doesn't exist: {}", id);
             throw new ApartmentNotFoundException(id);
         }
-        return apartment;
+        return new ResponseEntity<>(apartment, HttpStatus.OK);
     }
 
-    @PostMapping("/apartments")
-    public Apartment addApartment(@RequestBody Apartment apartment) {
+    @PostMapping(value = "/apartments", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Integer> addApartment(@RequestBody Apartment apartment) {
         LOGGER.debug("Create apartments: {}", apartment);
         List<String> apartmentClasses = apartmentService.getAllApartmentClass();
-
-        if(!apartmentClasses.contains(apartment.getApartmentClass())) {
+        //TODO error with ResponseEntity
+        if (!apartmentClasses.contains(apartment.getApartmentClass())) {
             throw new ApartmentNoSuchClassException();
         }
-        apartmentService.create(apartment);
-        return apartment;
+        Integer id = apartmentService.create(apartment);
+        return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
 
-    @PutMapping("/apartments")
-    public Apartment updateApartment(@RequestBody Apartment apartment) {
+    @PutMapping(value = "/apartments", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Integer> updateApartment(@RequestBody Apartment apartment) {
         LOGGER.debug("Update apartments: {}", apartment);
-        apartmentService.update(apartment);
-        return apartment;
+        //TODO error with ResponseEntity
+        Integer id = apartmentService.update(apartment);
+        return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
-    @DeleteMapping("/apartments/{id}")
-    public String deleteApartmentById(@PathVariable Integer id){
+    @DeleteMapping(value = "/apartments/{id}", produces = {"application/json"})
+    public ResponseEntity<Integer> deleteApartmentById(@PathVariable Integer id) {
         LOGGER.debug("Delete apartment by id: {}", id);
         if (apartmentService.findById(id) == null) {
             LOGGER.debug("Apartment with this id doesn't exist: {}", id);
             throw new ApartmentNotFoundException(id);
         }
-        apartmentService.delete(id);
-        return "Apartment with id = " + id + " was deleted";
+        //TODO error with ResponseEntity
+        Integer result = apartmentService.delete(id);
+//        return "Apartment with id = " + id + " was deleted";
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/apartments/count")
+    public ResponseEntity<Integer> count() {
+        return new ResponseEntity<>(apartmentService.count(), HttpStatus.OK);
     }
 }
