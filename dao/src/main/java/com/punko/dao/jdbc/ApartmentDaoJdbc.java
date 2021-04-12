@@ -22,6 +22,10 @@ import java.util.*;
 
 import static com.punko.model.constants.ApartmentClassConst.*;
 
+/**
+ * Implementation of ApartmentDao Interface
+ */
+
 @Repository
 public class ApartmentDaoJdbc implements ApartmentDao {
 
@@ -56,6 +60,10 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
 
+    /**
+     * Find all Apartments
+     * @return Apartment list
+     */
     @Override
     public List<Apartment> findAll() {
         LOGGER.debug("Find all apartment");
