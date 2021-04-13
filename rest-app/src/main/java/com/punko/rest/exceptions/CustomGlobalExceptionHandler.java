@@ -26,4 +26,14 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         incorrectData.setInfo(exception.getMessage());
         return  new ResponseEntity<>(incorrectData, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler
+    public ResponseEntity<ApartmentIncorrectData> handlerIllegalArgumentException(
+            IllegalArgumentException exception) {
+        ApartmentIncorrectData incorrectData = new ApartmentIncorrectData();
+        incorrectData.setInfo(exception.getMessage() + "custom exception in DAO");
+        return  new ResponseEntity<>(incorrectData, HttpStatus.UNPROCESSABLE_ENTITY);
+    }
 }
+
+

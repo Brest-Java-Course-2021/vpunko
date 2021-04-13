@@ -5,6 +5,8 @@ import com.punko.model.Apartment;
 import com.punko.testdb.SpringJdbcConfig;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -24,11 +26,14 @@ import static com.punko.model.constants.ApartmentClassConst.*;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class ApartmentDaoJdbcTestIT {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentDaoJdbcTestIT.class);
+
     @Autowired
     private ApartmentDao apartmentDao;
 
     @Test
     public void findAllTest() {
+        LOGGER.debug("should find all apartments()");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
         Assertions.assertTrue(apartmentList.size() > 0);
@@ -36,6 +41,7 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void findByIdTest() {
+        LOGGER.debug("should find apartment by id()");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
         Assertions.assertTrue(apartmentList.size() > 0);
@@ -48,24 +54,31 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void findByIdExceptionTest() {
+        LOGGER.debug("should find exception by id()");
         Assertions.assertNull(apartmentDao.findById(999));
     }
 
     @Test
     public void createTest() {
-        List<Apartment> apartmentList = apartmentDao.findAll();
-        Assertions.assertNotNull(apartmentList);
-        Assertions.assertTrue(apartmentList.size() > 0);
-
+        LOGGER.debug("should create apartment()");
+//        List<Apartment> apartmentList = apartmentDao.findAll();
+//        Assertions.assertNotNull(apartmentList);
+//        Assertions.assertTrue(apartmentList.size() > 0);
+//
+//        apartmentDao.create(new Apartment(110, MEDIUM));
+//
+//        List<Apartment> realApartment = apartmentDao.findAll();
+//        Assertions.assertEquals(realApartment.size(), apartmentList.size()+1);
+//        realApartment.stream().forEach(System.out::println);
+        Integer countBeforeCreate = apartmentDao.count();
         apartmentDao.create(new Apartment(110, MEDIUM));
-
-        List<Apartment> realApartment = apartmentDao.findAll();
-        Assertions.assertEquals(realApartment.size(), apartmentList.size()+1);
-        realApartment.stream().forEach(System.out::println);
+        Integer countAfterCreate = apartmentDao.count();
+        Assertions.assertEquals(countBeforeCreate + 1, countAfterCreate);
     }
 
     @Test
     public void createWithTheSameNumberTest() {
+        LOGGER.debug("create apartment with same number test()");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
         Assertions.assertTrue(apartmentList.size() > 0);
@@ -78,6 +91,7 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void updateApartmentTest() {
+        LOGGER.debug("should update apartment()");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertNotNull(apartmentList);
         Assertions.assertTrue(apartmentList.size() > 0);
@@ -93,6 +107,7 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void updateApartmentWithTheSameNumberButDiffClassTest() {
+        LOGGER.debug("Update apartment with the same number but different class test");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertTrue(apartmentList.size() > 0);
 
@@ -103,6 +118,7 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void updateApartmentWithTheSameNumberTest() {
+        LOGGER.debug("Update apartment with the same number");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertTrue(apartmentList.size() > 0);
 
@@ -115,18 +131,23 @@ class ApartmentDaoJdbcTestIT {
 
     @Test
     public void deleteApartmentTest() {
+        LOGGER.debug("should delete Apartment()");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertTrue(apartmentList.size() > 0);
 
-        Apartment apartment = apartmentList.get(0);
-        apartmentDao.delete(apartment.getApartmentId());
-        List<Apartment> realApartment = apartmentDao.findAll();
+//        Apartment apartment = apartmentList.get(0);
+//        apartmentDao.delete(apartment.getApartmentId());
+//        List<Apartment> realApartment = apartmentDao.findAll();
 
-        Assertions.assertEquals(realApartment.size() + 1, apartmentList.size());
+        Integer countBeforeDelete = apartmentDao.count();
+        apartmentDao.delete(apartmentList.get(0).getApartmentId());
+        Integer countAfterDelete = apartmentDao.count();
+        Assertions.assertEquals(countBeforeDelete, countAfterDelete + 1);
     }
 
     @Test
     public void countApartmentTest() {
+        LOGGER.debug("should return count of Apartment()");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertTrue(apartmentList.size() > 0);
 

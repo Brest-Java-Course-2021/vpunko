@@ -43,22 +43,22 @@ public class ApartmentController {
         LOGGER.debug("Get apartment by id: {}", id);
         //TODO
         Apartment apartment = apartmentService.findById(id);
-        if (apartment == null) {
-            //return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            LOGGER.debug("Apartment with this id doesn't exist: {}", id);
-            throw new ApartmentNotFoundException(id);
-        }
-        return new ResponseEntity<>(apartment, HttpStatus.OK);
+//        if (apartment == null) {
+//            LOGGER.debug("Apartment with this id doesn't exist: {}", id);
+//            throw new ApartmentNotFoundException(id);
+//        }
+        return apartment != null ? new ResponseEntity<>(apartment, HttpStatus.OK)
+                                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping(value = "/apartments", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> addApartment(@RequestBody Apartment apartment) {
         LOGGER.debug("Create apartments: {}", apartment);
-        List<String> apartmentClasses = apartmentService.getAllApartmentClass();
+//        List<String> apartmentClasses = apartmentService.getAllApartmentClass();
         //TODO error with ResponseEntity
-        if (!apartmentClasses.contains(apartment.getApartmentClass())) {
-            throw new ApartmentNoSuchClassException();
-        }
+//        if (!apartmentClasses.contains(apartment.getApartmentClass())) {
+//            throw new ApartmentNoSuchClassException();
+//        }
         Integer id = apartmentService.create(apartment);
         return new ResponseEntity<>(id, HttpStatus.CREATED);
     }
@@ -74,14 +74,14 @@ public class ApartmentController {
     @DeleteMapping(value = "/apartments/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deleteApartmentById(@PathVariable Integer id) {
         LOGGER.debug("Delete apartment by id: {}", id);
-        if (apartmentService.findById(id) == null) {
-            LOGGER.debug("Apartment with this id doesn't exist: {}", id);
-            throw new ApartmentNotFoundException(id);
-        }
-        //TODO error with ResponseEntity
+//        if (apartmentService.findById(id) == null) {
+//            LOGGER.debug("Apartment with this id doesn't exist: {}", id);
+//            throw new ApartmentNotFoundException(id);
+//        }
+        //TODO like this
         Integer result = apartmentService.delete(id);
-//        return "Apartment with id = " + id + " was deleted";
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return result > 0 ? new ResponseEntity<>(result, HttpStatus.OK)
+                          : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/apartments/count")
