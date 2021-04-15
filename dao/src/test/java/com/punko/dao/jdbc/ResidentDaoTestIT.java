@@ -93,4 +93,17 @@ public class ResidentDaoTestIT {
 
     }
 
+    @Test
+    public void getAllResidentByTimeTest() {
+        LocalDate arrivalTime = LocalDate.of(2021, 01, 20);
+        LocalDate departureTime = LocalDate.of(2022, 05, 21);
+
+        List<Resident> residentList = residentDao.findAllByTime(arrivalTime, departureTime);
+        Assertions.assertNotNull(residentList);
+        Assertions.assertTrue(residentList.size() > 0);
+
+
+    }
+
+
 }

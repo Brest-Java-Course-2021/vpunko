@@ -55,7 +55,36 @@
     </nav>
 </header>
 <section id="employees">
-    <div class="container-fluid">
+<!--    <div class="container-fluid">-->
+<!--        <div class="mb-3">-->
+<!--            <form class="form-group row" th:action="@{/residents/search}"-->
+<!--                  method="get" th:object="${residentSearchByDate}">-->
+<!--                <div class="col-sm-2">-->
+<!--                    <label for="from" th:text="from">From:</label>-->
+<!--                    <input id="from" class="form-control form-control-sm" type="date" th:field="*{arrivalTime}"/>-->
+<!--                </div>-->
+<!--                <div class="col-sm-2">-->
+<!--                    <label for="to" th:text="to">To:</label>-->
+<!--                    <input id="to" class="form-control form-control-sm" type="date" th:field="*{departureTime}"/>-->
+<!--                </div>-->
+<!--                <div class="col-sm-4">-->
+<!--                    <br>-->
+<!--                    <a href="Residents_list.html"-->
+<!--                       th:href="@{/residents/search}"-->
+<!--                       class="btn-sm btn-outline-secondary"-->
+<!--                       title="Search">-->
+<!--                        <i class="bi-plus"></i>&nbsp;<span class="d-none d-sm-inline">Search</span>-->
+<!--                    </a>-->
+<!--&lt;!&ndash;                    <button type="submit" class="btn btn-primary btn-sm">Search</button>&ndash;&gt;-->
+<!--                </div>-->
+<!--            </form>-->
+<!--        </div>-->
+    <form class="d-flex" th:action="@{/residents/search}" th:method="get">
+        <input class="form-control me-2" name="arrivalTime" type="date" aria-label="Date" autofocus required>
+        <input class="form-control me-2" name="departureTime" type="date" aria-label="Date" autofocus required>
+        <button class="btn btn-outline-success text-nowrap" type="submit">Search
+        </button>
+    </form>
         <div class="row">
             <div class="col">
                 <div class="card">

@@ -3,12 +3,15 @@ package com.punko;
 
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
+import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,5 +85,16 @@ public class ResidentServiceRest implements ResidentService {
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Resident> entity = new HttpEntity<>(headers);
         restTemplate.exchange(url + "/" + id, HttpMethod.DELETE, entity, Resident.class);
+    }
+
+    @Override
+    public List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate) {
+        LOGGER.debug("find resident by time: {}, {}", residentSearchByDate.getArrivalTime(), residentSearchByDate.getDepartureTime());
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<ResidentSearchByDate> entity = new HttpEntity<>(residentSearchByDate, headers);
+        ResponseEntity<List<Resident>> response = restTemplate.exchange(url + "/search" ,
+                HttpMethod.POST, entity, new ParameterizedTypeReference<List<Resident>>(){});
+        return response.getBody();
     }
 }

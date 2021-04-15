@@ -4,6 +4,7 @@ import com.punko.model.Apartment;
 import com.punko.model.Resident;
 
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ResidentDao {
@@ -19,5 +20,7 @@ public interface ResidentDao {
     void updateResident(Resident resident);
 
     void delete(Integer id);
+
+    List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime);
 
 }

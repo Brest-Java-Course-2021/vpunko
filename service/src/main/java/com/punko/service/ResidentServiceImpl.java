@@ -4,12 +4,14 @@ import com.punko.ResidentService;
 import com.punko.dao.ResidentDao;
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
+import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -49,5 +51,10 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public void delete(Integer id) {
         residentDao.delete(id);
+    }
+
+    @Override
+    public List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate) {
+        return residentDao.findAllByTime(residentSearchByDate.getArrivalTime(), residentSearchByDate.getDepartureTime());
     }
 }

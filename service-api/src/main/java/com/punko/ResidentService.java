@@ -2,7 +2,9 @@ package com.punko;
 
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
+import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface ResidentService {
@@ -18,4 +20,6 @@ public interface ResidentService {
     void update(Resident resident);
 
     void delete(Integer id);
+
+    List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate);
 }

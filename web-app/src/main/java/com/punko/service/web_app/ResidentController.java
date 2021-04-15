@@ -2,18 +2,18 @@ package com.punko.service.web_app;
 
 import com.punko.ResidentService;
 import com.punko.model.Resident;
+import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -26,9 +26,10 @@ public class ResidentController {
 
     @GetMapping("/residents")
     public String getAllResident(Model model) {
-        LOGGER.debug("apartments()");
+        LOGGER.debug("find all residents()");
         List<Resident> residentList = residentService.findAll();
         model.addAttribute("allResidentsAttribute", residentList);
+        model.addAttribute(new ResidentSearchByDate());
         return "Residents_list";
     }
 
@@ -80,6 +81,25 @@ public class ResidentController {
         LOGGER.debug("delete resident with id = {}", id);
         residentService.delete(id);
         return "redirect:/residents";
+    }
+
+//    @GetMapping("/residents/search")
+//    public String searchAllResidentByDate(ResidentSearchByDate residentSearch, Model model) {
+//        LOGGER.debug("search residents by time()");
+//        List<Resident> residentListByTime = residentService.findAllByTime(residentSearch);
+//        model.addAttribute("allResidentsAttribute", residentListByTime);
+//        return "Residents_list";
+//    }
+
+    @GetMapping("/residents/search")
+    public String searchAllResidentByDate(@RequestParam("arrivalTime") LocalDate arrivalTime,
+                                          @RequestParam("departureTime") LocalDate departureTime,
+                                          Model model) {
+        LOGGER.debug("search residents by time()");
+        ResidentSearchByDate residentSearch = new ResidentSearchByDate(arrivalTime, departureTime);
+        List<Resident> residentListByTime = residentService.findAllByTime(residentSearch);
+        model.addAttribute("allResidentsAttribute", residentListByTime);
+        return "Residents_list";
     }
 
 

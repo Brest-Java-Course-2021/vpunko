@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,6 +46,9 @@ public class ResidentDaoJdbc implements ResidentDao {
 
     @Value("${resident.delete}")
     private String deleteSQL;
+
+    @Value("${resident.find.by.time}")
+    private String findByTimeSQL;
 
 
     public ResidentDaoJdbc(DataSource dataSource) {
@@ -109,6 +113,14 @@ public class ResidentDaoJdbc implements ResidentDao {
         LOGGER.debug("delete resident by id: {}", id);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("RESIDENT_ID", id);
         namedParameterJdbcTemplate.update(deleteSQL, sqlParameterSource);
+    }
+
+    @Override
+    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
+        LOGGER.debug("find resident by time: {}, {}", arrivalTime, departureTime);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("ARRIVAL_TIME", arrivalTime)
+                .addValue("DEPARTURE_TIME", departureTime);
+        return namedParameterJdbcTemplate.query(findByTimeSQL, sqlParameterSource, rowMapper);
     }
 
     private boolean isEmailUnique(Resident resident) {
