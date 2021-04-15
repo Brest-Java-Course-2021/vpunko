@@ -23,7 +23,6 @@
         <module>service</module>
         <module>web-app</module>
         <module>rest-app</module>
-        <module>rest</module>
         <module>service-rest</module>
     </modules>
 
@@ -272,20 +271,20 @@
                     </execution>
                 </executions>
             </plugin>
-            <!-- Embedded Jetty HTTP Server for testing war application -->
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>10.0.1</version>
-                <configuration>
-                    <webApp>
-                        <contextPath>/</contextPath>
-                    </webApp>
-                    <httpConnector>
-                        <port>8080</port>
-                    </httpConnector>
-                </configuration>
-            </plugin>
+<!--            &lt;!&ndash; Embedded Jetty HTTP Server for testing war application &ndash;&gt;-->
+<!--            <plugin>-->
+<!--                <groupId>org.eclipse.jetty</groupId>-->
+<!--                <artifactId>jetty-maven-plugin</artifactId>-->
+<!--                <version>10.0.1</version>-->
+<!--                <configuration>-->
+<!--                    <webApp>-->
+<!--                        <contextPath>/</contextPath>-->
+<!--                    </webApp>-->
+<!--                    <httpConnector>-->
+<!--                        <port>8080</port>-->
+<!--                    </httpConnector>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
 
             <!--            для запуска тестов-->
             <plugin>
