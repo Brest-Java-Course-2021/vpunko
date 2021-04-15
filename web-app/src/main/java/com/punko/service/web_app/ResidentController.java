@@ -45,6 +45,7 @@ public class ResidentController {
     public String addResident(@Valid @ModelAttribute("residentAttribute") Resident resident, BindingResult bindingResult, Model model)  {
         if (bindingResult.hasErrors()) {
             model.addAttribute("allApartmentNumbers", residentService.getAllApartmentNumber());
+            model.addAttribute("isNew", true);
             return "Resident";
         }
         LOGGER.debug("save resident: {}", resident);
@@ -66,6 +67,7 @@ public class ResidentController {
     public String editResident(@Valid @ModelAttribute("residentAttribute") Resident resident, BindingResult bindingResult, Model model)  {
         if (bindingResult.hasErrors()) {
             model.addAttribute("allApartmentNumbers", residentService.getAllApartmentNumber());
+            model.addAttribute("isNew", false);
             return "Resident";
         }
         LOGGER.debug("edit resident: {}", resident);

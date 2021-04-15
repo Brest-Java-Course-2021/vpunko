@@ -41,11 +41,17 @@ public class ResidentServiceRest implements ResidentService {
         restTemplate.postForEntity(url, resident, Resident.class);
     }
 
+    //    @Override
+//    public List<Apartment> getAllApartmentNumber() {
+//        LOGGER.debug("find all apartment numbers() ");
+//        ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
+//        return (List<Apartment>) responseEntity.getBody();
+//    }
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment numbers() ");
-        ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
-        return (List<Apartment>) responseEntity.getBody();
+        List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
+        return apartmentsNumber;
     }
 
     @Override
