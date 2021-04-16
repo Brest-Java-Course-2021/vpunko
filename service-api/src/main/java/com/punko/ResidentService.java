@@ -21,5 +21,7 @@ public interface ResidentService {
 
     void delete(Integer id);
 
-    List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate);
+//    List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate);
+
+    List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime);
 }

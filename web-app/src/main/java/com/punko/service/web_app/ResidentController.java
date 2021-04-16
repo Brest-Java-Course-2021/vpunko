@@ -83,21 +83,13 @@ public class ResidentController {
         return "redirect:/residents";
     }
 
-//    @GetMapping("/residents/search")
-//    public String searchAllResidentByDate(ResidentSearchByDate residentSearch, Model model) {
-//        LOGGER.debug("search residents by time()");
-//        List<Resident> residentListByTime = residentService.findAllByTime(residentSearch);
-//        model.addAttribute("allResidentsAttribute", residentListByTime);
-//        return "Residents_list";
-//    }
 
     @GetMapping("/residents/search")
-    public String searchAllResidentByDate(@RequestParam("arrivalTime") LocalDate arrivalTime,
-                                          @RequestParam("departureTime") LocalDate departureTime,
+    public String searchAllResidentByDate(@RequestParam("arrivalTime") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
+                                          @RequestParam("departureTime") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime,
                                           Model model) {
-        LOGGER.debug("search residents by time()");
-        ResidentSearchByDate residentSearch = new ResidentSearchByDate(arrivalTime, departureTime);
-        List<Resident> residentListByTime = residentService.findAllByTime(residentSearch);
+        LOGGER.debug("search residents by date()");
+        List<Resident> residentListByTime = residentService.findAllByTime(arrivalTime, departureTime);
         model.addAttribute("allResidentsAttribute", residentListByTime);
         return "Residents_list";
     }

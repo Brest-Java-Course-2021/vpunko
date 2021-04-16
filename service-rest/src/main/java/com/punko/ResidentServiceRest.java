@@ -7,10 +7,13 @@ import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
@@ -19,12 +22,9 @@ public class ResidentServiceRest implements ResidentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResidentServiceRest.class);
 
-    private String url;
+    private final String url;
 
     private RestTemplate restTemplate;
-
-    @Autowired
-    private ResidentService residentService;
 
     public ResidentServiceRest(String url, RestTemplate restTemplate) {
         this.url = url;
@@ -88,13 +88,14 @@ public class ResidentServiceRest implements ResidentService {
     }
 
     @Override
-    public List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate) {
-        LOGGER.debug("find resident by time: {}, {}", residentSearchByDate.getArrivalTime(), residentSearchByDate.getDepartureTime());
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<ResidentSearchByDate> entity = new HttpEntity<>(residentSearchByDate, headers);
-        ResponseEntity<List<Resident>> response = restTemplate.exchange(url + "/search" ,
-                HttpMethod.POST, entity, new ParameterizedTypeReference<List<Resident>>(){});
-        return response.getBody();
+    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
+        ResponseEntity<List<Resident>> responseSearch = restTemplate.exchange(
+                url + "/search?arrivalTime={arrivalTime}&departureTime={departureTime}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                },
+                arrivalTime, departureTime);
+        return responseSearch.getBody();
     }
 }
