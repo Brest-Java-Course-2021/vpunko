@@ -53,11 +53,6 @@ public class ResidentServiceImpl implements ResidentService {
         residentDao.delete(id);
     }
 
-//    @Override
-//    public List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate) {
-//        return residentDao.findAllByTime(residentSearchByDate.getArrivalTime(), residentSearchByDate.getDepartureTime());
-//    }
-
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
         return residentDao.findAllByTime(arrivalTime, departureTime);

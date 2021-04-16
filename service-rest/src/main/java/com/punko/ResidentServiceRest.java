@@ -79,18 +79,14 @@ public class ResidentServiceRest implements ResidentService {
     @Override
     public void delete(Integer id) {
         LOGGER.debug("delete resident({})", id);
-//        restTemplate.delete(url + "/" + id);
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Resident> entity = new HttpEntity<>(headers);
-        restTemplate.exchange(url + "/" + id, HttpMethod.DELETE, entity, Resident.class);
+        restTemplate.delete(url + "/" + id);
     }
 
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
+        String searchUrl = "/search?arrivalTime={arrivalTime}&departureTime={departureTime}";
         ResponseEntity<List<Resident>> responseSearch = restTemplate.exchange(
-                url + "/search?arrivalTime={arrivalTime}&departureTime={departureTime}",
+                url + searchUrl,
                 HttpMethod.GET,
                 null,
                 new ParameterizedTypeReference<>() {

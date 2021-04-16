@@ -5,8 +5,12 @@ import com.punko.model.Resident;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -52,5 +56,15 @@ public class ResidentController {
         //TODO mistakes
         residentService.delete(id);
         return "Resident with id = " + id + " was deleted";
+    }
+
+    @GetMapping(value = "/search", produces = {"application/json"})
+    public ResponseEntity<List<Resident>> searchAllResidentByDate(
+            @RequestParam("arrivalTime") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
+            @RequestParam("departureTime") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime) {
+        List<Resident> residents = residentService.findAllByTime(arrivalTime, departureTime);
+        LOGGER.debug("Found residents by date of manufacture with parameters start => {} and end => {} In the amount of {} ", arrivalTime, departureTime, residents.size());
+        LOGGER.info("View start URL method GET(REST)  => ( 'transport/search' ) with parameters start => {} and end => {}", arrivalTime, departureTime);
+        return new ResponseEntity<>(residents, HttpStatus.FOUND);
     }
 }
