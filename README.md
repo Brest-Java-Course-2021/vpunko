@@ -15,7 +15,7 @@ mvn clean install
 ```
 
 ## Start application
-###Start Rest application
+### Start Rest application
 
 To start Rest server:
 
@@ -25,7 +25,7 @@ java -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar
 
 Server up on [http://localhost:8090/apartments](http://localhost:8090/apartments).
 
-###Start Web application
+### Start Web application
 To start Web application:
 
 ```
