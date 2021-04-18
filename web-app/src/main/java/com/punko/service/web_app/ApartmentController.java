@@ -76,6 +76,9 @@ public class ApartmentController {
     public final String gotoEditApartmentPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("gotoEditApartmentPAge({})", id);
         Apartment apartment = apartmentService.findById(id);
+        if (apartment == null) {
+            return "redirect:/apartments";
+        }
             model.addAttribute("isNew", false);
             model.addAttribute("apartmentAttribute", apartment);
             return "apartmentPage";

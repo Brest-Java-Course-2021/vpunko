@@ -84,11 +84,11 @@ public class ResidentController {
     }
 
 
-    @GetMapping("/residents/search")
-    public String searchAllResidentByDate(@RequestParam("arrivalTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate arrivalTime,
-                                          @RequestParam("departureTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureTime,
+    @GetMapping("/search")
+    public String searchAllResidentByDate(@RequestParam(value = "arrivalTime", required = false)  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
+                                          @RequestParam(value = "departureTime", required = false)  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime,
                                           Model model) {
-        LOGGER.debug("search residents by date()");
+        LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
         List<Resident> residentListByTime = residentService.findAllByTime(arrivalTime, departureTime);
         model.addAttribute("allResidentsAttribute", residentListByTime);
         return "Residents_list";

@@ -55,7 +55,7 @@
     </nav>
 </header>
 <section id="employees">
-    <form class="d-flex" th:action="@{/residents/search}" th:method="get">
+    <form class="d-flex" th:action="@{/search}" th:method="@{get}">
         <div class="col-sm-2">
             <input class="form-control form-control-sm" name="arrivalTime" type="date" aria-label="Date" autofocus required>
         </div>

@@ -102,7 +102,6 @@ public class ResidentDaoTestIT {
         Assertions.assertNotNull(residentList);
         Assertions.assertTrue(residentList.size() > 0);
 
-
     }
 
 

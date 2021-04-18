@@ -1,9 +1,9 @@
 package com.punko.config;
 
 import com.punko.ApartmentDtoService;
-import com.punko.ApartmentDtoServiceRest;
+import com.punko.rest.service.ApartmentDtoServiceRest;
 import com.punko.ApartmentService;
-import com.punko.ApartmentServiceRest;
+import com.punko.rest.service.ApartmentServiceRest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.SimpleClientHttpRequestFactory;

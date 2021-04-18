@@ -1,74 +1,57 @@
 package com.punko.service.web_app;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.punko.ApartmentDtoService;
 import com.punko.ApartmentService;
 import com.punko.model.Apartment;
 import com.punko.model.dto.ApartmentDto;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.client.ExpectedCount;
-import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.context.WebApplicationContext;
 
-import java.net.URI;
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
-import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.isA;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
-@SpringBootTest
-public class ApartmentControllerITTest {
-
-    private static final String APARTMENT_DTO_URL = "http://localhost:8090/apartments/dto";
-    private static final String APARTMENT_URL = "http://localhost:8090/apartments";
+@WebMvcTest(ApartmentController.class)
+public class ApartmentControllerTest {
 
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
     private MockMvc mockMvc;
 
-    @Autowired
+    @MockBean
     private ApartmentService apartmentService;
 
-    @Autowired
-    RestTemplate restTemplate;
+    @MockBean
+    private ApartmentDtoService apartmentDtoService;
 
-     private MockRestServiceServer mockServer;
-
-    private ObjectMapper mapper = new ObjectMapper();
-
-    @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-        mockServer = MockRestServiceServer.createServer(restTemplate);
-    }
+    @Captor
+    private ArgumentCaptor<Apartment> captor;
 
     @Test
     public void shouldReturnApartmentsPage() throws Exception {
         ApartmentDto dto1 = createApartmentDto(1, 101, "LUXURIOUS", 11L);
         ApartmentDto dto2 = createApartmentDto(2, 102, "CHEAP", 109L);
         ApartmentDto dto3 = createApartmentDto(3, 105, "MEDIUM", null);
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(APARTMENT_DTO_URL)))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(Arrays.asList(dto1, dto2, dto3)))
-                );
-
+        Mockito.when(apartmentDtoService.findAllWithAvgTime()).thenReturn(Arrays.asList(dto1, dto2, dto3));
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/apartments")
         ).andDo(MockMvcResultHandlers.print())
@@ -100,7 +83,6 @@ public class ApartmentControllerITTest {
                         )
                 )))
         ;
-        mockServer.verify();
     }
 
     @Test
@@ -113,17 +95,11 @@ public class ApartmentControllerITTest {
                 .andExpect(view().name("apartmentPage"))
                 .andExpect(model().attribute("isNew", is(true)))
                 .andExpect(model().attribute("apartmentAttribute", isA(Apartment.class)));
+        verifyNoMoreInteractions(apartmentService, apartmentDtoService);
     }
 
     @Test
     public void shouldAddNewApartment() throws Exception {
-
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(APARTMENT_URL)))
-                .andExpect(method(HttpMethod.POST))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body("1")
-                );
 
         mockMvc.perform(
                 MockMvcRequestBuilders.post("/apartment")
@@ -134,22 +110,19 @@ public class ApartmentControllerITTest {
                 .andExpect(view().name("redirect:/apartments"))
                 .andExpect(redirectedUrl("/apartments"));
 
-        mockServer.verify();
+        verify(apartmentService).create(captor.capture());
+
+        Apartment apartment = captor.getValue();
+        Assertions.assertEquals(10, apartment.getApartmentNumber());
+        Assertions.assertEquals("MEDIUM", apartment.getApartmentClass());
     }
 
     @Test
     public void shouldOpenEditApartmentPageById() throws Exception {
         Apartment apartment = createApartment(1, 101, "LUXURIOUS");
-
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(APARTMENT_URL + "/"
-                + apartment.getApartmentId())))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body(mapper.writeValueAsString(apartment))
-                );
+        when(apartmentService.findById(any())).thenReturn(apartment);
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/apartment/1")
+                MockMvcRequestBuilders.get("/apartment/" + apartment.getApartmentId())
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
@@ -161,32 +134,22 @@ public class ApartmentControllerITTest {
                         hasProperty("apartmentNumber", is(apartment.getApartmentNumber()))))
                 .andExpect(model().attribute("apartmentAttribute",
                         hasProperty("apartmentClass", is(apartment.getApartmentClass()))));
-        mockServer.verify();
     }
 
-    @Test
+    //TODO fix
+        @Test
     public void shouldReturnApartmentPageIfApartmentNotFoundById() throws Exception {
         int id = 99999;
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(APARTMENT_URL + "/" + id)))
-                .andExpect(method(HttpMethod.GET))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                );
         mockMvc.perform(
                 MockMvcRequestBuilders.get("/apartment/" + id)
         ).andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isFound())
                 .andExpect(MockMvcResultMatchers.redirectedUrl("/apartments"));
+        verify(apartmentService).findById(id);
     }
 
     @Test
     public void shouldUpdateApartmentAfterEdit() throws Exception {
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(APARTMENT_URL)))
-                .andExpect(method(HttpMethod.PUT))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body("1")
-                );
 
         String testName = "LUXURIOUS";
         mockMvc.perform(
@@ -199,25 +162,22 @@ public class ApartmentControllerITTest {
                 .andExpect(view().name("redirect:/apartments"))
                 .andExpect(redirectedUrl("/apartments"));
 
-        mockServer.verify();
+       verify(apartmentService).update(captor.capture());
+
+       Apartment apartment = captor.getValue();
+       Assertions.assertEquals(testName, apartment.getApartmentClass());
     }
 
     @Test
     public void shouldDeleteApartment() throws Exception {
-        int id = 3;
-        mockServer.expect(ExpectedCount.once(), requestTo(new URI(APARTMENT_URL + "/" + id)))
-                .andExpect(method(HttpMethod.DELETE))
-                .andRespond(withStatus(HttpStatus.OK)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .body("1")
-                );
+
         mockMvc.perform(
-                MockMvcRequestBuilders.get("/apartment/" + id + "/delete")
+                MockMvcRequestBuilders.get("/apartment/3/delete")
         ).andExpect(status().isFound())
                 .andExpect(view().name("redirect:/apartments"))
                 .andExpect(redirectedUrl("/apartments"));
 
-        mockServer.verify();
+        verify(apartmentService).delete(3);
     }
 
     private Apartment createApartment(int id, int number, String apartmentClass) {
@@ -236,5 +196,4 @@ public class ApartmentControllerITTest {
         apartmentDto.setAvgDifferenceBetweenTime(avgDiffTime);
         return apartmentDto;
     }
-
 }
