@@ -54,21 +54,27 @@ public class ApartmentController {
     @PostMapping(value = "/apartments", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> addApartment(@RequestBody Apartment apartment) {
         LOGGER.debug("Create apartments: {}", apartment);
-//        List<String> apartmentClasses = apartmentService.getAllApartmentClass();
-        //TODO error with ResponseEntity
-//        if (!apartmentClasses.contains(apartment.getApartmentClass())) {
-//            throw new ApartmentNoSuchClassException();
-//        }
+        List<String> apartmentClasses = apartmentService.getAllApartmentClass();
+        if (!apartmentClasses.contains(apartment.getApartmentClass())) {
+            throw new ApartmentNoSuchClassException();
+        }
+
         Integer id = apartmentService.create(apartment);
-        return new ResponseEntity<>(id, HttpStatus.CREATED);
+        return id > 0 ? new ResponseEntity<>(id, HttpStatus.CREATED)
+                      : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping(value = "/apartments", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> updateApartment(@RequestBody Apartment apartment) {
         LOGGER.debug("Update apartments: {}", apartment);
-        //TODO error with ResponseEntity
+        List<String> apartmentClasses = apartmentService.getAllApartmentClass();
+        if (!apartmentClasses.contains(apartment.getApartmentClass())) {
+            throw new ApartmentNoSuchClassException();
+        }
+
         Integer id = apartmentService.update(apartment);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return id > 0 ? new ResponseEntity<>(id, HttpStatus.CREATED)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping(value = "/apartments/{id}", produces = {"application/json"})

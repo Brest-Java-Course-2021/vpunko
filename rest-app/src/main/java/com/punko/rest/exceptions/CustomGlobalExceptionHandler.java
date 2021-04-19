@@ -19,6 +19,14 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
         return  new ResponseEntity<>(incorrectData, HttpStatus.NOT_FOUND);
     }
 
+//    @ExceptionHandler
+//    public ResponseEntity<ApartmentIncorrectData> handlerForCreateWithExistSomething(
+//            ApartmentNotFoundException exception ) {
+//        ApartmentIncorrectData incorrectData = new ApartmentIncorrectData();
+//        incorrectData.setInfo(exception.getMessage());
+//        return  new ResponseEntity<>(incorrectData, HttpStatus.NOT_FOUND);
+//    }
+
     @ExceptionHandler
     public ResponseEntity<ApartmentIncorrectData> handlerApartmentWrongClassException(
             ApartmentNoSuchClassException exception ) {
@@ -31,7 +39,7 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
     public ResponseEntity<ApartmentIncorrectData> handlerIllegalArgumentException(
             IllegalArgumentException exception) {
         ApartmentIncorrectData incorrectData = new ApartmentIncorrectData();
-        incorrectData.setInfo(exception.getMessage() + "custom exception in DAO");
+        incorrectData.setInfo(exception.getMessage() + " - custom exception in DAO");
         return  new ResponseEntity<>(incorrectData, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }

@@ -62,6 +62,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
 
     /**
      * Find all Apartments
+     *
      * @return Apartment list
      */
     @Override
@@ -76,7 +77,8 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         LOGGER.debug("Find by id: {}", apartmentId);
         if (!isApartmentIdCorrect(apartmentId)) {
             LOGGER.debug("Apartment with this id doesn't exist: {}", apartmentId);
-            return null;}
+            return null;
+        }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
         return (Apartment) namedParameterJdbcTemplate.queryForObject(findByIdSQL, sqlParameterSource, rowMapper);
     }
@@ -110,7 +112,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         LOGGER.debug("Update apartment: {}", apartment);
         if (!isNumberTheSameButDifferentClass(apartment)) {
             LOGGER.warn("Apartment with that number is already exist: {}", apartment);
-            throw new IllegalArgumentException("Apartment with that number is already exist");
+            throw new IllegalArgumentException("Apartment with number = " + apartment.getApartmentNumber() + " is already exist");
         }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber())
                 .addValue("APARTMENT_CLASS", apartment.getApartmentClass())
@@ -122,6 +124,10 @@ public class ApartmentDaoJdbc implements ApartmentDao {
     @Override
     public Integer delete(Integer apartmentId) {
         LOGGER.debug("Delete apartment by id: {}", apartmentId);
+        if (!isApartmentIdCorrect(apartmentId)) {
+            LOGGER.warn("There isn't apartment with id = {}", apartmentId);
+            throw new IllegalArgumentException("There isn't apartment with id = " + apartmentId);
+        }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_ID", apartmentId);
         return namedParameterJdbcTemplate.update(deleteApartmentSQL, sqlParameterSource);
     }
@@ -141,6 +147,15 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         return apartmentClassList;
     }
 
+    //I'm using my custom exception in CustomGlobalExceptionHandler
+//    private boolean isApartmentClassCorrectValue(Apartment apartment) {
+//        List<String> apartmentClassList = new ArrayList<>(3);
+//        apartmentClassList.add(LUXURIOUS);
+//        apartmentClassList.add(MEDIUM);
+//        apartmentClassList.add(CHEAP);
+//        return apartmentClassList.contains(apartment.getApartmentClass());
+//    }
+
     private boolean isTheNumberUnique(Apartment apartment) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber());
         return namedParameterJdbcTemplate.queryForObject(checkNumberSQL, sqlParameterSource, Integer.class) == 0;
@@ -152,8 +167,8 @@ public class ApartmentDaoJdbc implements ApartmentDao {
             return true;
         }
         return isTheNumberUnique(apartment);
-
     }
+
 
     //don't work
     private boolean isApartmentIdCorrect(int id) {
@@ -169,7 +184,6 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         }
         return true;
     }
-
 
 
 }
