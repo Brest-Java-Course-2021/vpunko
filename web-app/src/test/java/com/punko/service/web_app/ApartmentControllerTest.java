@@ -20,16 +20,11 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Arrays;
 
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.hasItem;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
-import static org.hamcrest.Matchers.isEmptyOrNullString;
+import static org.hamcrest.Matchers.*;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 @WebMvcTest(ApartmentController.class)
 public class ApartmentControllerTest {
@@ -136,7 +131,6 @@ public class ApartmentControllerTest {
                         hasProperty("apartmentClass", is(apartment.getApartmentClass()))));
     }
 
-    //TODO fix
         @Test
     public void shouldReturnApartmentPageIfApartmentNotFoundById() throws Exception {
         int id = 99999;

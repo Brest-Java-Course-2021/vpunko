@@ -31,15 +31,15 @@ public class Resident {
 
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull(message = "arrival time is a required field")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate arrivalTime;
 
 //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull(message = "departure time is a required field")
-//    @JsonDeserialize(using = LocalDateDeserializer.class)
-//    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate departureTime;
 

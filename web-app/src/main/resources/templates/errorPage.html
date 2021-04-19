@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../static/css/bootstrap.css"
+          th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../static/css/style.css"
+          th:href="@{/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>List of apartments</title>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a href="/" class="navbar-brand"><img src="../static/img/hotel_blue.svg"
+                                                  th:src="@{/img/hotel_blue.svg}"
+                                                  height="32" width="32" alt="Hotel"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <h3>
+                        <font color="#f0f8ff">
+                            Hotel page error
+                        </font>
+                    </h3>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+</header>
+
+        <h1>Oops, Something went wrong.</h1>
+        <div><div>
+
+            <h3> You can return on the Apartment page here:
+                <a class="nav-link active" href="apartments.html"
+                   th:href="@{/apartments}">Apartments</a>
+            </h3>
+
+<script src="../static/js/bootstrap.bundle.min.js"
+        th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script src="../static/js/jquery-3.4.1.slim.min.js"
+        th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+
+
+</body>
+</html>

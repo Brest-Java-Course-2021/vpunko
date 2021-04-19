@@ -58,6 +58,10 @@ public class ResidentController {
     public String gotoEditResidentPage(@PathVariable Integer id, Model model) {
         LOGGER.debug("go to Edit Resident Page({})", id);
         Resident resident = residentService.findById(id);
+        if (resident == null) {
+//            TODO write error create custim page for it
+            return "redirect:/residents";
+        }
         model.addAttribute("residentAttribute", resident);
         model.addAttribute("allApartmentNumbers", residentService.getAllApartmentNumber());
         model.addAttribute("isNew", false);
