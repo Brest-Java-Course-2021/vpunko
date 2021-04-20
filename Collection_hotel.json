@@ -1,0 +1,623 @@
+{
+	"info": {
+		"_postman_id": "439487c4-34f6-4f86-90b3-0c9290a0ff3f",
+		"name": "Epam project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Resident",
+			"item": [
+				{
+					"name": "Get all Residents",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Residents by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/residents/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Residents by id that doesn't exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/residents/100000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents",
+								"100000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Residents sort by date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/residents/?arrivalTime=2021-03-30&departureTime=2021-04-30",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents",
+								""
+							],
+							"query": [
+								{
+									"key": "arrivalTime",
+									"value": "2021-03-30"
+								},
+								{
+									"key": "departureTime",
+									"value": "2021-04-30"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Resident",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"firstName\": \"Vitaliy\",\n\"lastName\": \"Punko\",\n\"email\": \"test@test.com\",\n\"arrivalTime\": [2021,\n3,\n13\n],\n\"departureTime\": [2021,\n3,\n23\n],\n\"apartmentNumber\": 101\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Resident with the same email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"firstName\": \"Vitaliy\",\n\"lastName\": \"Punko\",\n\"email\": \"test@test.com\",\n\"arrivalTime\": [2021,\n3,\n13\n],\n\"departureTime\": [2021,\n3,\n23\n],\n\"apartmentNumber\": 101\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Resident with doesn't exist apartment's number",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"firstName\": \"Vitaliy\",\n\"lastName\": \"Punko\",\n\"email\": \"testNewTest@test.com\",\n\"arrivalTime\": [2021,\n3,\n13\n],\n\"departureTime\": [2021,\n3,\n23\n],\n\"apartmentNumber\": 999\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Resident when ArrivalTime after DepartureTime",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"firstName\": \"Vitaliy\",\n\"lastName\": \"Punko\",\n\"email\": \"test@test.com\",\n\"arrivalTime\": [2025,\n3,\n13\n],\n\"departureTime\": [2021,\n3,\n23\n],\n\"apartmentNumber\": 101\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Resident",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"residentId\": 2,\n\"firstName\": \"Margaret\",\n\"lastName\": \"Mitchell\",\n\"email\": \"margaret@test.com\",\n\"arrivalTime\": [\n2020,\n10,\n26\n],\n\"departureTime\": [\n2021,\n4,\n10\n],\n\"apartmentNumber\": 105\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Resident with wrong Apartment number",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"residentId\": 2,\n\"firstName\": \"Margaret\",\n\"lastName\": \"Mitchell\",\n\"email\": \"margaret@test.com\",\n\"arrivalTime\": [\n2020,\n10,\n26\n],\n\"departureTime\": [\n2021,\n4,\n10\n],\n\"apartmentNumber\": 999\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Resident when ArrivalTime after DepartureTime",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"residentId\": 2,\n\"firstName\": \"Margaret\",\n\"lastName\": \"Mitchell\",\n\"email\": \"margaret@test.com\",\n\"arrivalTime\": [\n2025,\n10,\n26\n],\n\"departureTime\": [\n2021,\n4,\n10\n],\n\"apartmentNumber\": 105\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/residents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Resident",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/residents/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Resident with wrong id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/residents/9999",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"residents",
+								"9999"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Apartment",
+			"item": [
+				{
+					"name": "Get all Apartments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/apartments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Apartments DTO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/apartments/dto",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Apartment by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/apartments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Apartment by id that doesn't exist",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/apartments/100000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments",
+								"100000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get count of Apartments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/apartments/count",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments",
+								"count"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Apartment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apartmentNumber\":\"109\",\n    \"apartmentClass\":\"MEDIUM\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/apartments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add new Apartment with wrong name class",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apartmentNumber\":\"109\",\n    \"apartmentClass\":\"Any class\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/apartments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Apartment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apartmentId\":3,\n    \"apartmentNumber\":150,\n    \"apartmentClass\":\"MEDIUM\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/apartments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Apartment with already exists number",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apartmentId\":3,\n    \"apartmentNumber\":101,\n    \"apartmentClass\":\"MEDIUM\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/apartments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Apartment with wrong class name",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"apartmentId\":3,\n    \"apartmentNumber\":109,\n    \"apartmentClass\":\"iiiiii\"\n\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8090/apartments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Apartment with wrong id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/apartments/100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments",
+								"100"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Apartment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8090/apartments/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8090",
+							"path": [
+								"apartments",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

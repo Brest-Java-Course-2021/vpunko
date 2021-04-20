@@ -16,9 +16,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class ResidentDaoJdbc implements ResidentDao {
@@ -138,27 +136,32 @@ public class ResidentDaoJdbc implements ResidentDao {
         namedParameterJdbcTemplate.update(deleteSQL, sqlParameterSource);
     }
 
-//    @Override
-//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-//        LOGGER.debug("find resident by time: {}, {}", arrivalTime, departureTime);
-//        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("ARRIVAL_TIME", arrivalTime)
-//                .addValue("DEPARTURE_TIME", departureTime);
-//        return namedParameterJdbcTemplate.query(findByTimeSQL, sqlParameterSource, rowMapper);
-//    }
-
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-        LOGGER.debug("searchByTwoDates() arrivalTime={} departureTime={}", arrivalTime, departureTime);
+        LOGGER.debug("find resident by time: {}, {}", arrivalTime, departureTime);
         if (departureTime.isBefore(arrivalTime)) {
             LOGGER.warn("searchByTwoDates() throw IllegalArgumentException because departureTime should be later than arrivalTime");
             throw new IllegalArgumentException("departureTime should be later than arrivalTime");
         }
-        Map<String, Object> parametrizedValues = new HashMap<>();
-        parametrizedValues.put("ARRIVAL_TIME", arrivalTime);
-        parametrizedValues.put("DEPARTURE_TIME", departureTime);
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(parametrizedValues);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("ARRIVAL_TIME", arrivalTime)
+                .addValue("DEPARTURE_TIME", departureTime);
         return namedParameterJdbcTemplate.query(findByTimeSQL, sqlParameterSource, rowMapper);
     }
+
+
+//    @Override
+//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
+//        LOGGER.debug("searchByTwoDates() arrivalTime={} departureTime={}", arrivalTime, departureTime);
+//        if (departureTime.isBefore(arrivalTime)) {
+//            LOGGER.warn("searchByTwoDates() throw IllegalArgumentException because departureTime should be later than arrivalTime");
+//            throw new IllegalArgumentException("departureTime should be later than arrivalTime");
+//        }
+//        Map<String, Object> parametrizedValues = new HashMap<>();
+//        parametrizedValues.put("ARRIVAL_TIME", arrivalTime);
+//        parametrizedValues.put("DEPARTURE_TIME", departureTime);
+//        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(parametrizedValues);
+//        return namedParameterJdbcTemplate.query(findByTimeSQL, sqlParameterSource, rowMapper);
+//    }
 
     @Override
     public List<Apartment> getAllApartmentNumber() {
