@@ -11,16 +11,8 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @ExceptionHandler
-    public ResponseEntity<ApartmentIncorrectData> handlerApartmentNotFoundException(
-            ApartmentNotFoundException exception ) {
-        ApartmentIncorrectData incorrectData = new ApartmentIncorrectData();
-        incorrectData.setInfo(exception.getMessage());
-        return  new ResponseEntity<>(incorrectData, HttpStatus.NOT_FOUND);
-    }
-
 //    @ExceptionHandler
-//    public ResponseEntity<ApartmentIncorrectData> handlerForCreateWithExistSomething(
+//    public ResponseEntity<ApartmentIncorrectData> handlerApartmentNotFoundException(
 //            ApartmentNotFoundException exception ) {
 //        ApartmentIncorrectData incorrectData = new ApartmentIncorrectData();
 //        incorrectData.setInfo(exception.getMessage());

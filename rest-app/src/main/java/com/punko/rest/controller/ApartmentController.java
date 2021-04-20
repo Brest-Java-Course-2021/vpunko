@@ -5,7 +5,6 @@ import com.punko.ApartmentService;
 import com.punko.model.Apartment;
 import com.punko.model.dto.ApartmentDto;
 import com.punko.rest.exceptions.apartmentExceptions.ApartmentNoSuchClassException;
-import com.punko.rest.exceptions.apartmentExceptions.ApartmentNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,12 +42,8 @@ public class ApartmentController {
         LOGGER.debug("Get apartment by id: {}", id);
         //TODO
         Apartment apartment = apartmentService.findById(id);
-//        if (apartment == null) {
-//            LOGGER.debug("Apartment with this id doesn't exist: {}", id);
-//            throw new ApartmentNotFoundException(id);
-//        }
         return apartment != null ? new ResponseEntity<>(apartment, HttpStatus.OK)
-                                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PostMapping(value = "/apartments", consumes = {"application/json"}, produces = {"application/json"})
@@ -58,10 +53,9 @@ public class ApartmentController {
         if (!apartmentClasses.contains(apartment.getApartmentClass())) {
             throw new ApartmentNoSuchClassException();
         }
-
         Integer id = apartmentService.create(apartment);
         return id > 0 ? new ResponseEntity<>(id, HttpStatus.CREATED)
-                      : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping(value = "/apartments", consumes = {"application/json"}, produces = {"application/json"})
@@ -71,7 +65,6 @@ public class ApartmentController {
         if (!apartmentClasses.contains(apartment.getApartmentClass())) {
             throw new ApartmentNoSuchClassException();
         }
-
         Integer id = apartmentService.update(apartment);
         return id > 0 ? new ResponseEntity<>(id, HttpStatus.CREATED)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -80,14 +73,10 @@ public class ApartmentController {
     @DeleteMapping(value = "/apartments/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deleteApartmentById(@PathVariable Integer id) {
         LOGGER.debug("Delete apartment by id: {}", id);
-//        if (apartmentService.findById(id) == null) {
-//            LOGGER.debug("Apartment with this id doesn't exist: {}", id);
-//            throw new ApartmentNotFoundException(id);
-//        }
         //TODO like this
         Integer result = apartmentService.delete(id);
         return result > 0 ? new ResponseEntity<>(result, HttpStatus.OK)
-                          : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/apartments/count")

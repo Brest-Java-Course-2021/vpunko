@@ -14,8 +14,8 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.math.BigInteger;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,6 +57,7 @@ public class ResidentDaoJdbc implements ResidentDao {
     }
 
     private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Resident.class);
+    private RowMapper rowMapperApartment = BeanPropertyRowMapper.newInstance(Apartment.class);
 
     @Override
     public List<Resident> findAll() {
@@ -70,24 +71,27 @@ public class ResidentDaoJdbc implements ResidentDao {
         if (!isEmailUnique(resident)) {
             throw new IllegalArgumentException("Resident with this email already exist");
         }
+        if (!isApartmentNumberCorrect(resident)) {
+            LOGGER.debug("Apartment with this number doesn't exist: {}", resident.getApartmentNumber());
+            throw new IllegalArgumentException("Apartment with this number doesn't exist : "
+                    + resident.getApartmentNumber() + ". Please, enter the correct number");
+        }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("FIRSTNAME", resident.getFirstName())
-                            .addValue("LASTNAME", resident.getLastName())
-                            .addValue("EMAIL", resident.getEmail())
-                            .addValue("ARRIVAL_TIME", resident.getArrivalTime())
-                            .addValue("DEPARTURE_TIME", resident.getDepartureTime())
-                            .addValue("APARTMENT_NUMBER", resident.getApartmentNumber());
+                .addValue("LASTNAME", resident.getLastName())
+                .addValue("EMAIL", resident.getEmail())
+                .addValue("ARRIVAL_TIME", resident.getArrivalTime())
+                .addValue("DEPARTURE_TIME", resident.getDepartureTime())
+                .addValue("APARTMENT_NUMBER", resident.getApartmentNumber());
         namedParameterJdbcTemplate.update(createResidentSQL, sqlParameterSource);
-    }
-
-    @Override
-    public List<Apartment> getAllApartmentNumber() {
-        LOGGER.debug("find all apartment Number");
-        return namedParameterJdbcTemplate.query(getAllApartmentNumberSQL, rowMapper);
     }
 
     @Override
     public Resident findById(Integer id) {
         LOGGER.debug("find resident by id: {}", id);
+        if (!isResidentIdCorrect(id)) {
+            LOGGER.debug("Resident with this id doesn't exist: {}", id);
+            throw new IllegalArgumentException("Resident with this id doesn't exist: " + id);
+        }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("RESIDENT_ID", id);
         return (Resident) namedParameterJdbcTemplate.queryForObject(findByIdSQL, sqlParameterSource, rowMapper);
     }
@@ -97,6 +101,11 @@ public class ResidentDaoJdbc implements ResidentDao {
         LOGGER.debug("update resident: {}", resident);
         if (!isItTheSameEmail(resident)) {
             throw new IllegalArgumentException("Resident with this email already exist");
+        }
+        if (!isApartmentNumberCorrect(resident)) {
+            LOGGER.debug("Apartment with this number doesn't exist: {}", resident.getApartmentNumber());
+            throw new IllegalArgumentException("Apartment with this number doesn't exist : "
+                    + resident.getApartmentNumber() + ". Please, enter the correct number");
         }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("FIRSTNAME", resident.getFirstName())
                 .addValue("LASTNAME", resident.getLastName())
@@ -112,6 +121,10 @@ public class ResidentDaoJdbc implements ResidentDao {
     @Override
     public void delete(Integer id) {
         LOGGER.debug("delete resident by id: {}", id);
+        if (!isResidentIdCorrect(id)) {
+            LOGGER.debug("Resident with this id doesn't exist: {}", id);
+            throw new IllegalArgumentException("Resident with this id doesn't exist: " + id);
+        }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("RESIDENT_ID", id);
         namedParameterJdbcTemplate.update(deleteSQL, sqlParameterSource);
     }
@@ -127,15 +140,21 @@ public class ResidentDaoJdbc implements ResidentDao {
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
         LOGGER.debug("searchByTwoDates() arrivalTime={} departureTime={}", arrivalTime, departureTime);
-        if(departureTime.isBefore(arrivalTime)) {
+        if (departureTime.isBefore(arrivalTime)) {
             LOGGER.warn("searchByTwoDates() throw IllegalArgumentException because departureTime should be later than arrivalTime");
             throw new IllegalArgumentException("departureTime should be later than arrivalTime");
         }
-        Map<String,Object> parametrizedValues = new HashMap<>();
+        Map<String, Object> parametrizedValues = new HashMap<>();
         parametrizedValues.put("ARRIVAL_TIME", arrivalTime);
         parametrizedValues.put("DEPARTURE_TIME", departureTime);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource(parametrizedValues);
-        return namedParameterJdbcTemplate.query(findByTimeSQL,sqlParameterSource,rowMapper);
+        return namedParameterJdbcTemplate.query(findByTimeSQL, sqlParameterSource, rowMapper);
+    }
+
+    @Override
+    public List<Apartment> getAllApartmentNumber() {
+        LOGGER.debug("find all apartment Number");
+        return namedParameterJdbcTemplate.query(getAllApartmentNumberSQL, rowMapperApartment);
     }
 
     private boolean isEmailUnique(Resident resident) {
@@ -150,8 +169,34 @@ public class ResidentDaoJdbc implements ResidentDao {
         if (emailFromDB.equals(resident.getEmail())) {
             return true;
         } else {
-           return isEmailUnique(resident);
+            return isEmailUnique(resident);
         }
+    }
+
+    private boolean isResidentIdCorrect(int id) {
+        List<Resident> residentList = findAll();
+        List<Integer> integerList = new ArrayList<>(residentList.size());
+        for (Resident resident : residentList) {
+            integerList.add(resident.getResidentId());
+        }
+        if (!integerList.contains(id)) {
+            LOGGER.debug("isResidentIdCorrect method. Resident with this id doesn't exist: {}", id);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isApartmentNumberCorrect(Resident resident) {
+        List<Apartment> apartmentList = namedParameterJdbcTemplate.query(getAllApartmentNumberSQL, rowMapperApartment);
+        List<Integer> integerList = new ArrayList<>(apartmentList.size());
+        for (Apartment value : apartmentList) {
+            integerList.add(value.getApartmentNumber());
+        }
+        if (!integerList.contains(resident.getApartmentNumber())) {
+            LOGGER.debug("isApartmentNumberCorrect method. Apartment with this number doesn't exist: {}", resident.getApartmentNumber());
+            return false;
+        }
+        return true;
     }
 
 

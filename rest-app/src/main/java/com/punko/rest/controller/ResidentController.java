@@ -28,34 +28,35 @@ public class ResidentController {
     }
 
     @GetMapping("/residents/{id}")
-    public Resident findResidentById(@PathVariable Integer id) {
+    public ResponseEntity<Resident> findResidentById(@PathVariable Integer id) {
         LOGGER.debug("Get resident by id: {}", id);
-        //TODO mistakes
-        return residentService.findById(id);
+        Resident resident = residentService.findById(id);
+        return resident != null ? new ResponseEntity<>(resident, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PostMapping("/residents")
-    public Resident addResident(@RequestBody Resident resident) {
+    @PostMapping(value = "/residents", consumes = {"application/json"}, produces = {"application/json"})
+    public ResponseEntity<Resident> addResident(@RequestBody Resident resident) {
         LOGGER.debug("Add new resident : {}", resident);
-        //TODO mistakes
+        //TODO create return Integer?
         residentService.create(resident);
-        return resident;
+        return new ResponseEntity<>(resident, HttpStatus.CREATED);
     }
 
     @PutMapping("/residents")
-    public Resident updateResident(@RequestBody Resident resident) {
+    public ResponseEntity<Resident> updateResident(@RequestBody Resident resident) {
         LOGGER.debug("Update resident : {}", resident);
-        //TODO mistakes
+        //TODO update return Integer?
         residentService.update(resident);
-        return resident;
+        return new ResponseEntity<>(resident, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/residents/{id}")
-    public String deleteResident(@PathVariable Integer id) {
+    public ResponseEntity<Resident> deleteResident(@PathVariable Integer id) {
         LOGGER.debug("Delete resident with id: {}", id);
         //TODO mistakes
         residentService.delete(id);
-        return "Resident with id = " + id + " was deleted";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/search", produces = {"application/json"})

@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.List;
 
-import static com.punko.model.constants.ApartmentClassConst.*;
+import static com.punko.model.constants.ApartmentClassConst.MEDIUM;
 
 
 @DataJdbcTest
@@ -55,21 +55,14 @@ class ApartmentDaoJdbcTestIT {
     @Test
     public void findByIdExceptionTest() {
         LOGGER.debug("should find exception by id()");
-        Assertions.assertNull(apartmentDao.findById(999));
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            apartmentDao.findById(999);
+        });
     }
 
     @Test
     public void createTest() {
         LOGGER.debug("should create apartment()");
-//        List<Apartment> apartmentList = apartmentDao.findAll();
-//        Assertions.assertNotNull(apartmentList);
-//        Assertions.assertTrue(apartmentList.size() > 0);
-//
-//        apartmentDao.create(new Apartment(110, MEDIUM));
-//
-//        List<Apartment> realApartment = apartmentDao.findAll();
-//        Assertions.assertEquals(realApartment.size(), apartmentList.size()+1);
-//        realApartment.stream().forEach(System.out::println);
         Integer countBeforeCreate = apartmentDao.count();
         apartmentDao.create(new Apartment(110, MEDIUM));
         Integer countAfterCreate = apartmentDao.count();
@@ -134,10 +127,6 @@ class ApartmentDaoJdbcTestIT {
         LOGGER.debug("should delete Apartment()");
         List<Apartment> apartmentList = apartmentDao.findAll();
         Assertions.assertTrue(apartmentList.size() > 0);
-
-//        Apartment apartment = apartmentList.get(0);
-//        apartmentDao.delete(apartment.getApartmentId());
-//        List<Apartment> realApartment = apartmentDao.findAll();
 
         Integer countBeforeDelete = apartmentDao.count();
         apartmentDao.delete(apartmentList.get(0).getApartmentId());

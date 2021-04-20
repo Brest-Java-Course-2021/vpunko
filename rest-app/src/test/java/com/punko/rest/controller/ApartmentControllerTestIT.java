@@ -1,9 +1,7 @@
 package com.punko.rest.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.punko.ApartmentService;
 import com.punko.model.Apartment;
 import com.punko.rest.exceptions.CustomGlobalExceptionHandler;
 import org.junit.jupiter.api.Assertions;
@@ -23,11 +21,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import static com.punko.model.constants.ApartmentClassConst.MEDIUM;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
@@ -91,7 +89,7 @@ class ApartmentControllerTestIT {
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.get(
                 APARTMENT_ENDPOINT + "/999999")
                 .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isNotFound())
+        ).andExpect(status().isUnprocessableEntity())
                 .andReturn().getResponse();
         assertNotNull(response);
     }
@@ -159,7 +157,7 @@ class ApartmentControllerTestIT {
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete(
                 APARTMENT_ENDPOINT + "/999999")
                 .accept(MediaType.APPLICATION_JSON)
-        ).andExpect(status().isNotFound())
+        ).andExpect(status().is4xxClientError())
                 .andReturn().getResponse();
         assertNotNull(response);
     }
@@ -178,19 +176,19 @@ class ApartmentControllerTestIT {
 
             //парсим json into string
             return objectMapper.readValue(response.getContentAsString(),
-                    new TypeReference<List<Apartment>>() {});
+                    new TypeReference<List<Apartment>>() {
+                    });
         }
 
         public Apartment findById(Integer apartmentId) throws Exception {
             LOGGER.debug("findById({})", apartmentId);
             MockHttpServletResponse response = mockMvc
                     .perform(get(APARTMENT_ENDPOINT + "/" + apartmentId)
-                    .accept(MediaType.APPLICATION_JSON)
-            ).andExpect(status().isOk())
+                            .accept(MediaType.APPLICATION_JSON)
+                    ).andExpect(status().isOk())
                     .andReturn().getResponse();
             return objectMapper.readValue(response.getContentAsString(), Apartment.class);
         }
-
 
 
         public Integer create(Apartment apartment) throws Exception {
@@ -213,8 +211,8 @@ class ApartmentControllerTestIT {
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(objectMapper.writeValueAsString(apartment))
                             .accept(MediaType.APPLICATION_JSON)
-                    ).andExpect(status().isOk())
-                    .andReturn().getResponse();
+                    ).andExpect(status().isCreated())
+                            .andReturn().getResponse();
             return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
 
