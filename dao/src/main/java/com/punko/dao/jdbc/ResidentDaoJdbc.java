@@ -76,6 +76,10 @@ public class ResidentDaoJdbc implements ResidentDao {
             throw new IllegalArgumentException("Apartment with this number doesn't exist : "
                     + resident.getApartmentNumber() + ". Please, enter the correct number");
         }
+        if (!isArrivalTimeBeforeDepartureTime(resident)) {
+            LOGGER.debug("Arrival time should be before than Departure time: {}, {}", resident.getArrivalTime(), resident.getDepartureTime());
+            throw new IllegalArgumentException("Arrival time (" + resident.getArrivalTime() + ") should be before than Departure time: (" + resident.getDepartureTime() + ")");
+        }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("FIRSTNAME", resident.getFirstName())
                 .addValue("LASTNAME", resident.getLastName())
                 .addValue("EMAIL", resident.getEmail())
@@ -100,12 +104,17 @@ public class ResidentDaoJdbc implements ResidentDao {
     public void updateResident(Resident resident) {
         LOGGER.debug("update resident: {}", resident);
         if (!isItTheSameEmail(resident)) {
+            LOGGER.debug("Resident with this email already exist: {}", resident.getEmail());
             throw new IllegalArgumentException("Resident with this email already exist");
         }
         if (!isApartmentNumberCorrect(resident)) {
             LOGGER.debug("Apartment with this number doesn't exist: {}", resident.getApartmentNumber());
             throw new IllegalArgumentException("Apartment with this number doesn't exist : "
                     + resident.getApartmentNumber() + ". Please, enter the correct number");
+        }
+        if (!isArrivalTimeBeforeDepartureTime(resident)) {
+            LOGGER.debug("Arrival time should be before than Departure time: {}, {}", resident.getArrivalTime(), resident.getDepartureTime());
+            throw new IllegalArgumentException("Arrival time (" + resident.getArrivalTime() + ") should be before than Departure time: (" + resident.getDepartureTime() + ")");
         }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("FIRSTNAME", resident.getFirstName())
                 .addValue("LASTNAME", resident.getLastName())
@@ -197,6 +206,10 @@ public class ResidentDaoJdbc implements ResidentDao {
             return false;
         }
         return true;
+    }
+
+    private boolean isArrivalTimeBeforeDepartureTime(Resident resident) {
+        return resident.getArrivalTime().isBefore(resident.getDepartureTime());
     }
 
 
