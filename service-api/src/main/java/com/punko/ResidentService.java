@@ -2,7 +2,6 @@ package com.punko;
 
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
-import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -24,4 +23,6 @@ public interface ResidentService {
 //    List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate);
 
     List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime);
+
+    Integer count();
 }

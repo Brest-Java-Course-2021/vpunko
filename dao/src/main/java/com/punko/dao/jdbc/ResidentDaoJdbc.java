@@ -16,6 +16,7 @@ import org.springframework.stereotype.Repository;
 import javax.sql.DataSource;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -48,6 +49,9 @@ public class ResidentDaoJdbc implements ResidentDao {
 
     @Value("${resident.find.by.time}")
     private String findByTimeSQL;
+
+    @Value("${resident.count}")
+    private String countSQL;
 
 
     public ResidentDaoJdbc(DataSource dataSource) {
@@ -167,6 +171,12 @@ public class ResidentDaoJdbc implements ResidentDao {
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment Number");
         return namedParameterJdbcTemplate.query(getAllApartmentNumberSQL, rowMapperApartment);
+    }
+
+    @Override
+    public Integer count() {
+        LOGGER.debug("count()");
+        return namedParameterJdbcTemplate.queryForObject(countSQL, new HashMap<>(), Integer.class);
     }
 
     private boolean isEmailUnique(Resident resident) {

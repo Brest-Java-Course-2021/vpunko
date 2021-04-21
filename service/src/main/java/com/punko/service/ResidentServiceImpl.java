@@ -4,7 +4,6 @@ import com.punko.ResidentService;
 import com.punko.dao.ResidentDao;
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
-import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +55,10 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
         return residentDao.findAllByTime(arrivalTime, departureTime);
+    }
+
+    @Override
+    public Integer count() {
+        return residentDao.count();
     }
 }

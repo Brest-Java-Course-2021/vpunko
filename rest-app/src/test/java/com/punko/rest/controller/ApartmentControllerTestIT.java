@@ -152,8 +152,7 @@ class ApartmentControllerTestIT {
 
     @Test
     public void shouldReturnNotFoundOnDeleteMissedApartment() throws Exception {
-
-        LOGGER.debug("shouldReturnNotFoundOnDeleteMissedDepartment()");
+        LOGGER.debug("should return not found on delete missed Apartment()");
         MockHttpServletResponse response = mockMvc.perform(MockMvcRequestBuilders.delete(
                 APARTMENT_ENDPOINT + "/999999")
                 .accept(MediaType.APPLICATION_JSON)
@@ -216,11 +215,11 @@ class ApartmentControllerTestIT {
             return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
 
-        public Integer delete(Integer departmentId) throws Exception {
-            LOGGER.debug("delete(id:{})", departmentId);
+        public Integer delete(Integer apartmentId) throws Exception {
+            LOGGER.debug("delete(id:{})", apartmentId);
             MockHttpServletResponse response = mockMvc.perform(
                     MockMvcRequestBuilders.delete(new StringBuilder(APARTMENT_ENDPOINT).append("/")
-                            .append(departmentId).toString())
+                            .append(apartmentId).toString())
                             .accept(MediaType.APPLICATION_JSON)
             ).andExpect(status().isOk())
                     .andReturn().getResponse();
@@ -237,8 +236,5 @@ class ApartmentControllerTestIT {
             return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
 
-        public List<String> getAllApartmentClass() {
-            return null;
-        }
     }
 }

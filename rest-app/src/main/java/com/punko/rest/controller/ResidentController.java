@@ -59,6 +59,11 @@ public class ResidentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/residents/count")
+    public ResponseEntity<Integer> count() {
+        return new ResponseEntity<>(residentService.count(), HttpStatus.OK);
+    }
+
     @GetMapping(value = "/search", produces = {"application/json"})
     public ResponseEntity<List<Resident>> searchAllResidentByDate(
             @RequestParam("arrivalTime") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
@@ -68,4 +73,5 @@ public class ResidentController {
         LOGGER.info("View start URL method GET(REST)  => ( 'transport/search' ) with parameters start => {} and end => {}", arrivalTime, departureTime);
         return new ResponseEntity<>(residents, HttpStatus.FOUND);
     }
+
 }
