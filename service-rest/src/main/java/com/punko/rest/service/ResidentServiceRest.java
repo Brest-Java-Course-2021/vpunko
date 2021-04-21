@@ -131,4 +131,16 @@ public class ResidentServiceRest implements ResidentService {
         return null;
     }
 
+    @Override
+    public List<Resident> orderByDate() {
+        LOGGER.debug("find all residents order by date() ");
+        String orderUrl = url + "/order";
+//        return restTemplate.exchange(url + "/order", HttpMethod.GET, null, new ParameterizedTypeReference<List<Resident>>() {
+//        }).getBody();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Apartment> entity = new HttpEntity<>(headers);
+        return restTemplate.exchange(orderUrl, HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resident>>() {
+        }).getBody();
+    }
 }

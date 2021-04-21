@@ -2,7 +2,6 @@ package com.punko.web_app;
 
 import com.punko.ResidentService;
 import com.punko.model.Resident;
-import com.punko.model.ResidentSearchByDate.ResidentSearchByDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,6 @@ public class ResidentController {
         LOGGER.debug("find all residents()");
         List<Resident> residentList = residentService.findAll();
         model.addAttribute("allResidentsAttribute", residentList);
-        model.addAttribute(new ResidentSearchByDate());
         return "Residents_list";
     }
 
@@ -98,5 +96,12 @@ public class ResidentController {
         return "Residents_list";
     }
 
+    @GetMapping("/residents/order")
+    public String getAllResidentOrderByDate(Model model) {
+        LOGGER.debug("find all residents()");
+        List<Resident> residentList = residentService.orderByDate();
+        model.addAttribute("allResidentsAttribute", residentList);
+        return "Residents_list";
+    }
 
 }

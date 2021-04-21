@@ -20,7 +20,9 @@
             <a href="/" class="navbar-brand"><img src="../../webapp/resources/static/img/hotel_blue.svg"
                                                   th:src="@{/img/hotel_blue.svg}"
                                                   height="32" width="32" alt="Hotel"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -57,10 +59,12 @@
 <section id="employees">
     <form class="d-flex" th:action="@{/search}" th:method="@{get}">
         <div class="col-sm-2">
-            <input class="form-control form-control-sm" name="arrivalTime" type="date" aria-label="Date" autofocus required>
+            <input class="form-control form-control-sm" name="arrivalTime" type="date" aria-label="Date" autofocus
+                   required>
         </div>
         <div class="col-sm-2">
-            <input class="form-control form-control-sm" name="departureTime" type="date" aria-label="Date" autofocus required>
+            <input class="form-control form-control-sm" name="departureTime" type="date" aria-label="Date" autofocus
+                   required>
         </div>
         <button type="submit" class="btn btn-outline-secondary btn-sm">Search</button>
     </form>
@@ -73,7 +77,10 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th>Arrival Time</th>
+                        <th><a class="nav-link" href="apartments.html"
+                               th:href="@{/residents/order}">order</a>
+                            Arrival Time
+                        </th>
                         <th>Departure Time</th>
                         <th>№ Apartment</th>
                         <th></th>
@@ -108,7 +115,7 @@
             </div>
         </div>
     </div>
-<!--    </div>-->
+    <!--    </div>-->
 </section>
 
 <footer>
@@ -144,7 +151,7 @@
 <script>
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
-        $(this).find('.modal-body').text('Please, confirm delete resident with name: '   + target.data('name') + '')
+        $(this).find('.modal-body').text('Please, confirm delete resident with name: ' + target.data('name') + '')
         // $(this).find('.modal-body').text('Please, confirm delete resident with first name: '   + target.data('firstName') +' and last name: ' + target.data('lastName') + '')
         document.getElementById('deleteUrl').href = '/resident/' + target.data('id') + '/delete';
     })

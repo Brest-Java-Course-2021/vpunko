@@ -25,4 +25,7 @@ public interface ResidentService {
     List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime);
 
     Integer count();
+
+    List<Resident> orderByDate();
+
 }

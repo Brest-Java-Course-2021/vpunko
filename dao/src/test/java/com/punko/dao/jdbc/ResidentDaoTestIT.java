@@ -159,4 +159,12 @@ public class ResidentDaoTestIT {
         Assertions.assertEquals(residentList.size(), count);
     }
 
+    @Test
+    public void getAllResidentOrderByDateTest() {
+        LOGGER.debug("should find all residents order by date()");
+        List<Resident> residentList = residentDao.orderByDate();
+        Assertions.assertNotNull(residentList);
+        Assertions.assertTrue(residentList.size() > 0);
+    }
+
 }

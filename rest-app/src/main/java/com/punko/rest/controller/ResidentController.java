@@ -75,4 +75,10 @@ public class ResidentController {
         return new ResponseEntity<>(residents, HttpStatus.FOUND);
     }
 
+    @GetMapping("/residents/order")
+    public List<Resident> findAllOrderByDate() {
+        LOGGER.debug("Get all residents order by date");
+        return residentService.orderByDate();
+    }
+
 }

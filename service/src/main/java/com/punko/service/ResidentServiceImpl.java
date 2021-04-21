@@ -61,4 +61,9 @@ public class ResidentServiceImpl implements ResidentService {
     public Integer count() {
         return residentDao.count();
     }
+
+    @Override
+    public List<Resident> orderByDate() {
+        return residentDao.orderByDate();
+    }
 }
