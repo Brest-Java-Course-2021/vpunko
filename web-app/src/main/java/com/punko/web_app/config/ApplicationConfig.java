@@ -14,7 +14,9 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@ComponentScan({"com.punko.service", "com.punko.dao"})
+@ComponentScan({"com.punko.dao"
+//,"com.punko.service"
+})
 public class ApplicationConfig {
 
     @Value("${rest.server.protocol}")

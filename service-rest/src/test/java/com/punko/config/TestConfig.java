@@ -1,9 +1,9 @@
 package com.punko.config;
 
 import com.punko.ApartmentDtoService;
+import com.punko.ApartmentService;
 import com.punko.ResidentService;
 import com.punko.rest.service.ApartmentDtoServiceRest;
-import com.punko.ApartmentService;
 import com.punko.rest.service.ApartmentServiceRest;
 import com.punko.rest.service.ResidentServiceRest;
 import org.springframework.context.annotation.Bean;
@@ -37,4 +37,5 @@ public class TestConfig {
     ResidentService residentService() {
         return new ResidentServiceRest(RESIDENT_URL, restTemplate());
     }
+
 }

@@ -6,7 +6,6 @@ import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -24,12 +23,6 @@ public class ResidentServiceRest implements ResidentService {
     private String url;
 
     private RestTemplate restTemplate;
-
-//    @Autowired
-//    private ResidentDao residentDao;
-
-    @Autowired
-    private ResidentService residentService;
 
     public ResidentServiceRest(String url, RestTemplate restTemplate) {
         this.url = url;
@@ -60,7 +53,6 @@ public class ResidentServiceRest implements ResidentService {
         LOGGER.debug("find all apartment numbers() ");
         List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
         return apartmentsNumber;
-//        return residentDao.getAllApartmentNumber();
     }
 
     @Override
@@ -91,33 +83,48 @@ public class ResidentServiceRest implements ResidentService {
         return result.getBody();
     }
 
-//    @Override
-//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-//        String searchUrl = "/search?arrivalTime={arrivalTime}&departureTime={departureTime}";
-//        ResponseEntity<List<Resident>> responseSearch = restTemplate.exchange(
-//                url + searchUrl,
-//                HttpMethod.GET,
-//                null,
-//                new ParameterizedTypeReference<>() {
-//                },
-//                arrivalTime, departureTime);
-//        return responseSearch.getBody();
-//    }
-
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-        LOGGER.debug("searchByTwoDates() {} {}", arrivalTime, departureTime);
-        String arrivalTimeString = arrivalTime == null ? "" : arrivalTime.toString();
-        String departureTimeString = departureTime == null ? "" : departureTime.toString();
-
-
-        String searchUrl = new StringBuilder(url)
-                .append("/search?arrivalTime=").append(arrivalTimeString)
-                .append("&departureTime=").append(departureTimeString)
-                .toString();
-        return restTemplate.exchange(searchUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<Resident>>() {
-        }).getBody();
+        String searchUrl = "/search?arrivalTime={arrivalTime}&departureTime={departureTime}";
+        ResponseEntity<List<Resident>> responseSearch = restTemplate.exchange(
+                url + searchUrl,
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<>() {
+                },
+                arrivalTime, departureTime);
+        return responseSearch.getBody();
     }
+
+//    @Override
+//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
+//        LOGGER.debug("searchByTwoDates() {} {}", arrivalTime, departureTime);
+//        String arrivalTimeString = arrivalTime == null ? "" : arrivalTime.toString();
+//        String departureTimeString = departureTime == null ? "" : departureTime.toString();
+//
+//
+//        String searchUrl = new StringBuilder(url)
+//                .append("/search?arrivalTime=").append(arrivalTimeString)
+//                .append("&departureTime=").append(departureTimeString)
+//                .toString();
+//        return restTemplate.exchange(searchUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<Resident>>() {
+//        }).getBody();
+//    }
+
+//    @Override
+//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
+//        LOGGER.debug("findAllByFilter({},{})", arrivalTime, departureTime);
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//        String stringStartDate = null;
+//        String stringEndDate = null;
+//        if (arrivalTime != null) stringStartDate = dateFormat.format(arrivalTime);
+//        if (departureTime != null) stringEndDate = dateFormat.format(departureTime);
+//        ParameterizedTypeReference<List<Resident>> typeReference = new ParameterizedTypeReference<>() {
+//        };
+//        ResponseEntity<List<Resident>> responseEntity = restTemplate.exchange(url + "?arrivalTime={arrivalTime}&departureTime={departureTime}",
+//                HttpMethod.GET, null, typeReference, stringStartDate, stringEndDate);
+//        return responseEntity.getBody();
+//    }
 
     @Override
     public Integer count() {
