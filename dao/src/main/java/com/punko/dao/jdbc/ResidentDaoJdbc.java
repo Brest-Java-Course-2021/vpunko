@@ -19,10 +19,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * Implementation of ResidentDao Interface
+ */
+
 @Repository
 public class ResidentDaoJdbc implements ResidentDao {
-
-    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResidentDaoJdbc.class);
 
@@ -53,13 +55,14 @@ public class ResidentDaoJdbc implements ResidentDao {
     @Value("${resident.count}")
     private String countSQL;
 
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Resident.class);
+    RowMapper rowMapperApartment = BeanPropertyRowMapper.newInstance(Apartment.class);
 
     public ResidentDaoJdbc(DataSource dataSource) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
-
-    private RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Resident.class);
-    private RowMapper rowMapperApartment = BeanPropertyRowMapper.newInstance(Apartment.class);
 
     @Override
     public List<Resident> findAll() {

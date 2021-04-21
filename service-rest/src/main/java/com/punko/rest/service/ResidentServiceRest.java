@@ -2,18 +2,22 @@ package com.punko.rest.service;
 
 
 import com.punko.ResidentService;
+import com.punko.dao.ResidentDao;
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
+@Service
 public class ResidentServiceRest implements ResidentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResidentServiceRest.class);
@@ -21,6 +25,9 @@ public class ResidentServiceRest implements ResidentService {
     private String url;
 
     private RestTemplate restTemplate;
+
+    @Autowired
+    private ResidentDao residentDao;
 
     public ResidentServiceRest(String url, RestTemplate restTemplate) {
         this.url = url;
@@ -49,8 +56,9 @@ public class ResidentServiceRest implements ResidentService {
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment numbers() ");
-        List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
-        return apartmentsNumber;
+//        List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
+//        return apartmentsNumber;
+        return residentDao.getAllApartmentNumber();
     }
 
     @Override

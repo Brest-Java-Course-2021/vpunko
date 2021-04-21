@@ -43,7 +43,7 @@ public class ResidentController {
     }
 
     @PostMapping("/resident")
-    public String addResident(@Valid @ModelAttribute("residentAttribute") Resident resident, BindingResult bindingResult, Model model)  {
+    public String addResident(@Valid @ModelAttribute("residentAttribute") Resident resident, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("allApartmentNumbers", residentService.getAllApartmentNumber());
             model.addAttribute("isNew", true);
@@ -59,7 +59,7 @@ public class ResidentController {
         LOGGER.debug("go to Edit Resident Page({})", id);
         Resident resident = residentService.findById(id);
         if (resident == null) {
-//            TODO write error create custim page for it
+//            TODO write error create custom page for it
             return "redirect:/residents";
         }
         model.addAttribute("residentAttribute", resident);
@@ -69,7 +69,7 @@ public class ResidentController {
     }
 
     @PostMapping("/resident/{id}")
-    public String editResident(@Valid @ModelAttribute("residentAttribute") Resident resident, BindingResult bindingResult, Model model)  {
+    public String editResident(@Valid @ModelAttribute("residentAttribute") Resident resident, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("allApartmentNumbers", residentService.getAllApartmentNumber());
             model.addAttribute("isNew", false);
@@ -89,8 +89,8 @@ public class ResidentController {
 
 
     @GetMapping("/search")
-    public String searchAllResidentByDate(@RequestParam(value = "arrivalTime", required = false)  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
-                                          @RequestParam(value = "departureTime", required = false)  @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime,
+    public String searchAllResidentByDate(@RequestParam(value = "arrivalTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
+                                          @RequestParam(value = "departureTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime,
                                           Model model) {
         LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
         List<Resident> residentListByTime = residentService.findAllByTime(arrivalTime, departureTime);

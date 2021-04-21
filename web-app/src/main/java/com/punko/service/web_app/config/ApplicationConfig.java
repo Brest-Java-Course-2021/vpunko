@@ -1,9 +1,9 @@
 package com.punko.service.web_app.config;
 
 import com.punko.ApartmentDtoService;
-import com.punko.rest.service.ApartmentDtoServiceRest;
 import com.punko.ApartmentService;
 import com.punko.ResidentService;
+import com.punko.rest.service.ApartmentDtoServiceRest;
 import com.punko.rest.service.ApartmentServiceRest;
 import com.punko.rest.service.ResidentServiceRest;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +14,7 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@ComponentScan
+@ComponentScan({"com.punko.service", "com.punko.dao"})
 public class ApplicationConfig {
 
     @Value("${rest.server.protocol}")

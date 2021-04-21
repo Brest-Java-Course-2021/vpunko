@@ -91,9 +91,9 @@ public class ResidentDaoTestIT {
     @Test
     public void getAllApartmentNumberTest() {
         LOGGER.debug("should return all apartment numbers ()");
-        List<Apartment> residentList = residentDao.getAllApartmentNumber();
-        Assertions.assertNotNull(residentList);
-        Assertions.assertTrue(residentList.size() > 0);
+        List<Apartment> apartmentList = residentDao.getAllApartmentNumber();
+        Assertions.assertNotNull(apartmentList);
+        Assertions.assertTrue(apartmentList.size() > 0);
     }
 
     @Test
