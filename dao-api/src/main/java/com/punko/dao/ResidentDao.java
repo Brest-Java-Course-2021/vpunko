@@ -18,7 +18,7 @@ public interface ResidentDao {
 
     void updateResident(Resident resident);
 
-    void delete(Integer id);
+    Integer delete(Integer id);
 
     List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime);
 

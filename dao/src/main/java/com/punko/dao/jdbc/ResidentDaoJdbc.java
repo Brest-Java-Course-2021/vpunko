@@ -130,14 +130,14 @@ public class ResidentDaoJdbc implements ResidentDao {
     }
 
     @Override
-    public void delete(Integer id) {
+    public Integer delete(Integer id) {
         LOGGER.debug("delete resident by id: {}", id);
         if (!isResidentIdCorrect(id)) {
             LOGGER.debug("Resident with this id doesn't exist: {}", id);
             throw new IllegalArgumentException("Resident with this id doesn't exist: " + id);
         }
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("RESIDENT_ID", id);
-        namedParameterJdbcTemplate.update(deleteSQL, sqlParameterSource);
+        return namedParameterJdbcTemplate.update(deleteSQL, sqlParameterSource);
     }
 
     @Override

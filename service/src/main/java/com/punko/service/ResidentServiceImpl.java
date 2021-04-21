@@ -48,8 +48,8 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public void delete(Integer id) {
-        residentDao.delete(id);
+    public Integer delete(Integer id) {
+        return residentDao.delete(id);
     }
 
     @Override

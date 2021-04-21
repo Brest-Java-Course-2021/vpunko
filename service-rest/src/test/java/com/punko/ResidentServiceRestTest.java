@@ -2,12 +2,10 @@ package com.punko;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.punko.config.TestConfig;
-import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.punko.config.TestConfig.APARTMENT_URL;
 import static com.punko.config.TestConfig.RESIDENT_URL;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
@@ -65,7 +62,7 @@ public class ResidentServiceRestTest {
                         .body(mapper.writeValueAsString(Arrays.asList(
                                 createResident(1, "Stephen", "King", "stephenking@test.com", LocalDate.of(2021, 3, 13),
                                         LocalDate.of(2021, 3, 23), 101),
-                                createResident(2,"Margaret", "Mitchell", "margaretmitchell@test.com", LocalDate.of(2020, 2, 26),
+                                createResident(2, "Margaret", "Mitchell", "margaretmitchell@test.com", LocalDate.of(2020, 2, 26),
                                         LocalDate.of(2021, 4, 10), 102))))
                 );
 
@@ -171,11 +168,11 @@ public class ResidentServiceRestTest {
                         .body(mapper.writeValueAsString("1"))
                 );
         // when
-        residentService.delete(id);
-//        TODO delete method return Integer
+        int result = residentService.delete(id);
 
         // then
         mockServer.verify();
+        assertTrue(1 == result);
     }
 
 

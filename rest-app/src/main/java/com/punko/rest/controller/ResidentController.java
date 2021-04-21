@@ -43,7 +43,7 @@ public class ResidentController {
         return new ResponseEntity<>(resident, HttpStatus.CREATED);
     }
 
-    @PutMapping("/residents")
+    @PutMapping(value = "/residents", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Resident> updateResident(@RequestBody Resident resident) {
         LOGGER.debug("Update resident : {}", resident);
         //TODO update return Integer?
@@ -51,12 +51,13 @@ public class ResidentController {
         return new ResponseEntity<>(resident, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/residents/{id}")
-    public ResponseEntity<Resident> deleteResident(@PathVariable Integer id) {
+    @DeleteMapping(value = "/residents/{id}", produces = {"application/json"})
+    public ResponseEntity<Integer> deleteResident(@PathVariable Integer id) {
         LOGGER.debug("Delete resident with id: {}", id);
         //TODO mistakes
-        residentService.delete(id);
-        return new ResponseEntity<>(HttpStatus.OK);
+        Integer result = residentService.delete(id);
+        return result > 0 ? new ResponseEntity<>(HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/residents/count")

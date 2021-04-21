@@ -18,7 +18,7 @@ public interface ResidentService {
 
     void update(Resident resident);
 
-    void delete(Integer id);
+    Integer delete(Integer id);
 
 //    List<Resident> findAllByTime(ResidentSearchByDate residentSearchByDate);
 

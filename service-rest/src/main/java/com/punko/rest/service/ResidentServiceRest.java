@@ -30,7 +30,8 @@ public class ResidentServiceRest implements ResidentService {
     @Override
     public List<Resident> findAll() {
         LOGGER.debug("find all residents() ");
-        return restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Resident>>() {}).getBody();
+        return restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<List<Resident>>() {
+        }).getBody();
     }
 
     @Override
@@ -63,8 +64,6 @@ public class ResidentServiceRest implements ResidentService {
     @Override
     public void update(Resident resident) {
         LOGGER.debug("update resident({})", resident);
-//        restTemplate.put(url, department);
-
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Resident> entity = new HttpEntity<>(resident, headers);
@@ -72,9 +71,14 @@ public class ResidentServiceRest implements ResidentService {
     }
 
     @Override
-    public void delete(Integer id) {
+    public Integer delete(Integer id) {
         LOGGER.debug("delete resident({})", id);
-        restTemplate.delete(url + "/" + id);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Apartment> entity = new HttpEntity<>(headers);
+        ResponseEntity<Integer> result =
+                restTemplate.exchange(url + "/" + id, HttpMethod.DELETE, entity, Integer.class);
+        return result.getBody();
     }
 
 //    @Override
@@ -92,16 +96,22 @@ public class ResidentServiceRest implements ResidentService {
 
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-        LOGGER.debug("searchByTwoDates() {} {}",arrivalTime, departureTime);
-        String arrivalTimeString = arrivalTime == null? "":arrivalTime.toString();
-        String departureTimeString = departureTime == null? "":departureTime.toString();
+        LOGGER.debug("searchByTwoDates() {} {}", arrivalTime, departureTime);
+        String arrivalTimeString = arrivalTime == null ? "" : arrivalTime.toString();
+        String departureTimeString = departureTime == null ? "" : departureTime.toString();
 
 
         String searchUrl = new StringBuilder(url)
                 .append("/search?arrivalTime=").append(arrivalTimeString)
                 .append("&departureTime=").append(departureTimeString)
                 .toString();
-        return restTemplate.exchange(searchUrl, HttpMethod.GET,null, new ParameterizedTypeReference<List<Resident>>(){}).getBody();
+        return restTemplate.exchange(searchUrl, HttpMethod.GET, null, new ParameterizedTypeReference<List<Resident>>() {
+        }).getBody();
+    }
+
+    @Override
+    public Integer count() {
+        return null;
     }
 
 }
