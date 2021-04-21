@@ -2,7 +2,6 @@ package com.punko.rest.service;
 
 
 import com.punko.ResidentService;
-import com.punko.dao.ResidentDao;
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.slf4j.Logger;
@@ -26,8 +25,11 @@ public class ResidentServiceRest implements ResidentService {
 
     private RestTemplate restTemplate;
 
+//    @Autowired
+//    private ResidentDao residentDao;
+
     @Autowired
-    private ResidentDao residentDao;
+    private ResidentService residentService;
 
     public ResidentServiceRest(String url, RestTemplate restTemplate) {
         this.url = url;
@@ -56,9 +58,9 @@ public class ResidentServiceRest implements ResidentService {
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment numbers() ");
-//        List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
-//        return apartmentsNumber;
-        return residentDao.getAllApartmentNumber();
+        List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
+        return apartmentsNumber;
+//        return residentDao.getAllApartmentNumber();
     }
 
     @Override

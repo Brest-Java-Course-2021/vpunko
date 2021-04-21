@@ -1,4 +1,4 @@
-package com.punko.service.web_app;
+package com.punko.web_app;
 
 import com.punko.ApartmentDtoService;
 import com.punko.ApartmentService;
@@ -61,7 +61,9 @@ public class ApartmentController {
      */
     @PostMapping(value = "/apartment")
     public String addApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) { return "apartmentPage";}
+        if (bindingResult.hasErrors()) {
+            return "apartmentPage";
+        }
         LOGGER.debug("addApartment({})", apartment);
         apartmentService.create(apartment);
         return "redirect:/apartments";
@@ -79,16 +81,18 @@ public class ApartmentController {
         if (apartment == null) {
             return "redirect:/apartments";
         }
-            model.addAttribute("isNew", false);
-            model.addAttribute("apartmentAttribute", apartment);
-            return "apartmentPage";
+        model.addAttribute("isNew", false);
+        model.addAttribute("apartmentAttribute", apartment);
+        return "apartmentPage";
     }
 
 
     @PostMapping(value = "/apartment/{id}")
     public String updateApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
 //    public String updateApartment(@PathVariable Integer id) {
-        if (bindingResult.hasErrors()) { return "apartmentPage";}
+        if (bindingResult.hasErrors()) {
+            return "apartmentPage";
+        }
 //        Apartment apartment = apartmentService.findById(id);
 
         LOGGER.debug("update apartment({})", apartment);
@@ -97,12 +101,11 @@ public class ApartmentController {
     }
 
     @GetMapping(value = "/apartment/{id}/delete")
-     public String deleteApartmentById(@PathVariable Integer id){
+    public String deleteApartmentById(@PathVariable Integer id) {
         LOGGER.debug("delete apartment {}", id);
         apartmentService.delete(id);
         return "redirect:/apartments";
     }
-
 
 
 }

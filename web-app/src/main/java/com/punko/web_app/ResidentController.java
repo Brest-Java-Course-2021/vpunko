@@ -1,4 +1,4 @@
-package com.punko.service.web_app;
+package com.punko.web_app;
 
 import com.punko.ResidentService;
 import com.punko.model.Resident;

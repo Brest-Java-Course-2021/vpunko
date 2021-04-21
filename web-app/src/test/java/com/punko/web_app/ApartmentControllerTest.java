@@ -1,4 +1,4 @@
-package com.punko.service.web_app;
+package com.punko.web_app;
 
 import com.punko.ApartmentDtoService;
 import com.punko.ApartmentService;
@@ -131,7 +131,7 @@ public class ApartmentControllerTest {
                         hasProperty("apartmentClass", is(apartment.getApartmentClass()))));
     }
 
-        @Test
+    @Test
     public void shouldReturnApartmentPageIfApartmentNotFoundById() throws Exception {
         int id = 99999;
         mockMvc.perform(
@@ -156,10 +156,10 @@ public class ApartmentControllerTest {
                 .andExpect(view().name("redirect:/apartments"))
                 .andExpect(redirectedUrl("/apartments"));
 
-       verify(apartmentService).update(captor.capture());
+        verify(apartmentService).update(captor.capture());
 
-       Apartment apartment = captor.getValue();
-       Assertions.assertEquals(testName, apartment.getApartmentClass());
+        Apartment apartment = captor.getValue();
+        Assertions.assertEquals(testName, apartment.getApartmentClass());
     }
 
     @Test

@@ -1,4 +1,4 @@
-package com.punko.service.web_app.config;
+package com.punko.web_app.config;
 
 import com.punko.ApartmentDtoService;
 import com.punko.ApartmentService;

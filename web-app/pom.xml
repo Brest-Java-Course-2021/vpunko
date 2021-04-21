@@ -131,7 +131,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>2.4.2</version>
+                <version>2.4.4</version>
                 <executions>
                     <execution>
                         <id>repackage</id>
@@ -141,7 +141,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>${start-class}</mainClass>
+                    <mainClass>com.punko.web_app.Application</mainClass>
                 </configuration>
             </plugin>
         </plugins>
