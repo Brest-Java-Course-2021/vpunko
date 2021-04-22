@@ -57,14 +57,16 @@
     </nav>
 </header>
 <section id="employees">
-    <form class="d-flex" th:action="@{/search}" th:method="@{get}">
+    <form class="d-flex"
+          action="/search"
+          th:method="@{get}">
         <div class="col-sm-2">
-            <input class="form-control form-control-sm" name="arrivalTime" type="date" aria-label="Date" autofocus
-                   required>
+            <input class="form-control form-control-sm" name="arrivalTime" type="date" aria-label="arrivalTime"
+                   id="arrivalTime">
         </div>
         <div class="col-sm-2">
-            <input class="form-control form-control-sm" name="departureTime" type="date" aria-label="Date" autofocus
-                   required>
+            <input class="form-control form-control-sm" name="departureTime" type="date" aria-label="departureTime"
+                   id="departureTime">
         </div>
         <button type="submit" class="btn btn-outline-secondary btn-sm">Search</button>
     </form>
@@ -152,7 +154,6 @@
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please, confirm delete resident with name: ' + target.data('name') + '')
-        // $(this).find('.modal-body').text('Please, confirm delete resident with first name: '   + target.data('firstName') +' and last name: ' + target.data('lastName') + '')
         document.getElementById('deleteUrl').href = '/resident/' + target.data('id') + '/delete';
     })
 </script>

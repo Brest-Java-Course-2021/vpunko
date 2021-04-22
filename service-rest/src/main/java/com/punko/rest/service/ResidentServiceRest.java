@@ -10,6 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -85,16 +86,27 @@ public class ResidentServiceRest implements ResidentService {
 
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-        String searchUrl = "/search?arrivalTime={arrivalTime}&departureTime={departureTime}";
-        ResponseEntity<List<Resident>> responseSearch = restTemplate.exchange(
-                url + searchUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<>() {
-                },
-                arrivalTime, departureTime);
-        return responseSearch.getBody();
+        String searchUrl = "http://localhost:8080/search"; //localhost?
+        String arrivalTimeString = "{arrivalTime}";
+        String departureTimeString = "{departureTime}";
+        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(searchUrl).queryParam("arrivalTime", arrivalTimeString)
+                .queryParam("departureTime", departureTimeString);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+        HttpEntity<Apartment> entity = new HttpEntity<>(headers);//delete somethings?
+        return restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resident>>() {
+        }).getBody();
     }
+
+//    @Override
+//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
+//        String searchUrl = "/search?arrivalTime={arrivalTime}&departureTime={departureTime}";
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+//        HttpEntity<Apartment> entity = new HttpEntity<>(headers);
+//        return restTemplate.exchange(searchUrl, HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resident>>() {
+//        }).getBody();
+//    }
 
 //    @Override
 //    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
@@ -135,8 +147,6 @@ public class ResidentServiceRest implements ResidentService {
     public List<Resident> orderByDate() {
         LOGGER.debug("find all residents order by date() ");
         String orderUrl = url + "/order";
-//        return restTemplate.exchange(url + "/order", HttpMethod.GET, null, new ParameterizedTypeReference<List<Resident>>() {
-//        }).getBody();
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Apartment> entity = new HttpEntity<>(headers);

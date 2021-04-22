@@ -87,14 +87,29 @@ public class ResidentController {
 
 
     @GetMapping("/search")
-    public String searchAllResidentByDate(@RequestParam(value = "arrivalTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
-                                          @RequestParam(value = "departureTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime,
+    public String searchAllResidentByDate(@RequestParam(name = "arrivalTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate arrivalTime,
+                                          @RequestParam(name = "departureTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureTime,
                                           Model model) {
         LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
+
         List<Resident> residentListByTime = residentService.findAllByTime(arrivalTime, departureTime);
         model.addAttribute("allResidentsAttribute", residentListByTime);
         return "Residents_list";
     }
+
+//    @GetMapping("/search")
+//    public String searchAllResidentByDate(@RequestParam("arrivalTime") String arrivalTime,
+//                                          @RequestParam("departureTime") String departureTime,
+//                                          Model model) {
+//        LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
+////        DateTimeFormatter dateTimeFormat = new DateTimeFormatter(DateTimeFormatter.ISO_DATE);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        LocalDate arrival = LocalDate.parse(arrivalTime, formatter);
+//        LocalDate departure = LocalDate.parse(departureTime, formatter);
+//        List<Resident> residentListByTime = residentService.findAllByTime(arrival, departure);
+//        model.addAttribute("allResidentsAttribute", residentListByTime);
+//        return "Residents_list";
+//    }
 
     @GetMapping("/residents/order")
     public String getAllResidentOrderByDate(Model model) {

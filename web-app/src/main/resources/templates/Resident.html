@@ -15,11 +15,12 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark ext-light p-1">
         <div class="container-fluid">
-<!--            <a class="navbar-brand" href="#">Hotel</a>-->
             <a href="/" class="navbar-brand"><img src="../../webapp/resources/static/img/hotel_blue.svg"
                                                   th:src="@{/img/hotel_blue.svg}"
                                                   height="32" width="32" alt="Hotel"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -48,7 +49,7 @@
                 </li>
             </ul>
             <span class="navbar-brand me-auto"
-                th:text="${isNew} ? 'New resident' : 'Edit resident'">Edit Resident</span>
+                  th:text="${isNew} ? 'New resident' : 'Edit resident'">Edit Resident</span>
         </div>
     </nav>
 </header>
@@ -60,10 +61,10 @@
                 <div class="card">
                     <div class="card-body">
                         <form id="residentForm"
-                                th:object="${residentAttribute}"
-                                action="/apartment"
-                                th:action="@{${#httpServletRequest.servletPath}}"
-                                th:method="@{post}">
+                              th:object="${residentAttribute}"
+                              action="/apartment"
+                              th:action="@{${#httpServletRequest.servletPath}}"
+                              th:method="@{post}">
 
                             <input id="field_residentId"
                                    type="hidden"
@@ -73,7 +74,7 @@
                                 <label class="form-label" for="field_resident_name">First Name</label>
                                 <input class="form-control" id="field_resident_name"
                                        type="text" value="Den"
-                                       th:field="*{firstName}"   />
+                                       th:field="*{firstName}"/>
                                 <th:block th:if="${#fields.hasErrors('firstName')}">
                                     <div th:errorclass="invalid-input" th:errors="*{firstName}"></div>
                                 </th:block>
@@ -83,7 +84,7 @@
                                 <label class="form-label" for="field_resident_last_name">Last Name</label>
                                 <input class="form-control" id="field_resident_last_name"
                                        type="text" value="Brown"
-                                        th:field="*{lastName}"  />
+                                       th:field="*{lastName}"/>
                                 <th:block th:if="${#fields.hasErrors('lastName')}">
                                     <div th:errorclass="invalid-input" th:errors="*{lastName}"></div>
                                 </th:block>
@@ -93,7 +94,7 @@
                                 <label class="form-label" for="field_resident_email">Email</label>
                                 <input class="form-control" id="field_resident_email"
                                        type="email" value="Brown@test.com"
-                                        th:field="*{email}"     />
+                                       th:field="*{email}"/>
                                 <th:block th:if="${#fields.hasErrors('email')}">
                                     <div th:errorclass="invalid-input" th:errors="*{email}"></div>
                                 </th:block>
@@ -105,7 +106,7 @@
                                 <label class="form-label" for="date1">Arrival time</label>
                                 <input class="form-control" id="date1"
                                        type="date" name="date"
-                                       th:field="*{arrivalTime}" />
+                                       th:field="*{arrivalTime}"/>
                                 <th:block th:if="${#fields.hasErrors('arrivalTime')}">
                                     <div th:errorclass="invalid-input" th:errors="*{arrivalTime}"></div>
                                 </th:block>
@@ -119,7 +120,7 @@
                                 <label for="date2">Departure time</label>
                                 <input class="form-control" id="date2"
                                        type="date" name="date"
-                                       th:field="*{departureTime}" />
+                                       th:field="*{departureTime}"/>
                                 <th:block th:if="${#fields.hasErrors('departureTime')}">
                                     <div th:errorclass="invalid-input" th:errors="*{departureTime}"></div>
                                 </th:block>
@@ -130,9 +131,11 @@
 
                             <div>
                                 <label class="form-label" for="field_resident_apartment_number">Apartment number</label>
-                                <select class="form-control" id="field_resident_apartment_number" name="apartmentNumber" th:field="*{apartmentNumber}">
+                                <select class="form-control" id="field_resident_apartment_number" name="apartmentNumber"
+                                        th:field="*{apartmentNumber}">
                                     <option th:value="0" th:text="none"></option>
-                                    <option th:each=" number : ${allApartmentNumbers}" th:value="${number.apartmentNumber}"
+                                    <option th:each=" number : ${allApartmentNumbers}"
+                                            th:value="${number.apartmentNumber}"
                                             th:text="${number.apartmentNumber}">
                                     </option>
                                 </select>
