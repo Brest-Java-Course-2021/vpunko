@@ -86,14 +86,14 @@ public class ResidentServiceRest implements ResidentService {
 
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-        String searchUrl = "http://localhost:8080/search"; //localhost?
+        String searchUrl = "http://localhost:8080/search";
         String arrivalTimeString = "{arrivalTime}";
         String departureTimeString = "{departureTime}";
         UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(searchUrl).queryParam("arrivalTime", arrivalTimeString)
                 .queryParam("departureTime", departureTimeString);
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Apartment> entity = new HttpEntity<>(headers);//delete somethings?
+        HttpEntity<Apartment> entity = new HttpEntity<>(headers);
         return restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resident>>() {
         }).getBody();
     }

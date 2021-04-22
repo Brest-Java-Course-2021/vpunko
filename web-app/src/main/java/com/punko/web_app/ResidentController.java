@@ -5,7 +5,6 @@ import com.punko.model.Resident;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,8 +86,8 @@ public class ResidentController {
 
 
     @GetMapping("/search")
-    public String searchAllResidentByDate(@RequestParam(name = "arrivalTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate arrivalTime,
-                                          @RequestParam(name = "departureTime", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate departureTime,
+    public String searchAllResidentByDate(@RequestParam(name = "arrivalTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
+                                          @RequestParam(name = "departureTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime,
                                           Model model) {
         LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
 
@@ -103,7 +102,7 @@ public class ResidentController {
 //                                          Model model) {
 //        LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
 ////        DateTimeFormatter dateTimeFormat = new DateTimeFormatter(DateTimeFormatter.ISO_DATE);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
 //        LocalDate arrival = LocalDate.parse(arrivalTime, formatter);
 //        LocalDate departure = LocalDate.parse(departureTime, formatter);
 //        List<Resident> residentListByTime = residentService.findAllByTime(arrival, departure);
