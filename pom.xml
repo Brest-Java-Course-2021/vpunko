@@ -54,14 +54,6 @@
         <dependencies>
 
             <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-framework-bom</artifactId>
-                <version>5.3.5</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-dependencies</artifactId>
                 <version>2.4.4</version>
@@ -115,21 +107,21 @@
                 <version>${project.version}</version>
             </dependency>
 
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--                <artifactId>jackson-databind</artifactId>-->
-<!--                <version>2.12.2</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-<!--                <artifactId>jackson-core</artifactId>-->
-<!--                <version>2.12.2</version>-->
-<!--            </dependency>-->
-<!--            <dependency>-->
-<!--                <groupId>com.fasterxml.jackson.datatype</groupId>-->
-<!--                <artifactId>jackson-datatype-jsr310</artifactId>-->
-<!--                <version>2.11.4</version>-->
-<!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.fasterxml.jackson.core</groupId>-->
+            <!--                <artifactId>jackson-databind</artifactId>-->
+            <!--                <version>2.12.2</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.fasterxml.jackson.core</groupId>-->
+            <!--                <artifactId>jackson-core</artifactId>-->
+            <!--                <version>2.12.2</version>-->
+            <!--            </dependency>-->
+            <!--            <dependency>-->
+            <!--                <groupId>com.fasterxml.jackson.datatype</groupId>-->
+            <!--                <artifactId>jackson-datatype-jsr310</artifactId>-->
+            <!--                <version>2.11.4</version>-->
+            <!--            </dependency>-->
 
 
             <dependency>
@@ -139,77 +131,15 @@
             </dependency>
 
             <dependency>
-                <groupId>org.thymeleaf</groupId>
-                <artifactId>thymeleaf-spring5</artifactId>
-                <version>3.0.12.RELEASE</version>
-            </dependency>
-            <!-- thymeleaf-layout-dialect -->
-            <dependency>
-                <groupId>nz.net.ultraq.thymeleaf</groupId>
-                <artifactId>thymeleaf-layout-dialect</artifactId>
-                <version>2.5.2</version>
-            </dependency>
-
-
-            <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>javax.servlet-api</artifactId>
-                <version>4.0.0</version>
-                <scope>provided</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>1.7.30</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <!--            <dependency>-->
-            <!--                <groupId>org.springframework</groupId>-->
-            <!--                <artifactId>spring-test</artifactId>-->
-            <!--                <version>${spring.version}</version>-->
-            <!--                <scope>test</scope>-->
-            <!--            </dependency>-->
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-engine</artifactId>
-                <version>${junit.version}</version>
-                <scope>test</scope>
             </dependency>
 
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-junit-jupiter</artifactId>
-                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
 
@@ -226,24 +156,6 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-validator</artifactId>
                 <version>${hibernate-validator.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-thymeleaf</artifactId>
-                <version>2.4.4</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-tomcat</artifactId>
-                <version>2.4.4</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-web</artifactId>
-                <version>2.4.4</version>
             </dependency>
 
         </dependencies>
@@ -271,20 +183,20 @@
                     </execution>
                 </executions>
             </plugin>
-<!--            &lt;!&ndash; Embedded Jetty HTTP Server for testing war application &ndash;&gt;-->
-<!--            <plugin>-->
-<!--                <groupId>org.eclipse.jetty</groupId>-->
-<!--                <artifactId>jetty-maven-plugin</artifactId>-->
-<!--                <version>10.0.1</version>-->
-<!--                <configuration>-->
-<!--                    <webApp>-->
-<!--                        <contextPath>/</contextPath>-->
-<!--                    </webApp>-->
-<!--                    <httpConnector>-->
-<!--                        <port>8080</port>-->
-<!--                    </httpConnector>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <!--            &lt;!&ndash; Embedded Jetty HTTP Server for testing war application &ndash;&gt;-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.eclipse.jetty</groupId>-->
+            <!--                <artifactId>jetty-maven-plugin</artifactId>-->
+            <!--                <version>10.0.1</version>-->
+            <!--                <configuration>-->
+            <!--                    <webApp>-->
+            <!--                        <contextPath>/</contextPath>-->
+            <!--                    </webApp>-->
+            <!--                    <httpConnector>-->
+            <!--                        <port>8080</port>-->
+            <!--                    </httpConnector>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
 
             <!--            для запуска тестов-->
             <plugin>
@@ -338,23 +250,23 @@
             <!--                        need to add site plugin-->
             <!--                        allow to deploy our application on web-server like docs
                                         and to check test coverage, doc coverage -->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>3.2.0</version>-->
-<!--                <configuration>-->
-<!--                    <additionalOptions>-package</additionalOptions>-->
-<!--                    <additionalOptions>-Xdoclint:none</additionalOptions>-->
-<!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>javadoc</goal>-->
-<!--                        </goals>-->
-<!--                        <phase>site</phase>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+            <!--                <version>3.2.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <additionalOptions>-package</additionalOptions>-->
+            <!--                    <additionalOptions>-Xdoclint:none</additionalOptions>-->
+            <!--                </configuration>-->
+            <!--                <executions>-->
+            <!--                    <execution>-->
+            <!--                        <goals>-->
+            <!--                            <goal>javadoc</goal>-->
+            <!--                        </goals>-->
+            <!--                        <phase>site</phase>-->
+            <!--                    </execution>-->
+            <!--                </executions>-->
+            <!--            </plugin>-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -393,32 +305,32 @@
     <!--    удалить потом весь javadoc?-->
     <reporting>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>3.2.0</version>-->
-<!--                <configuration>-->
-<!--                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>-->
-<!--                    <show>public</show>-->
-<!--                </configuration>-->
-<!--                <reportSets>-->
-<!--                    <reportSet>-->
-<!--                        <id>default</id>-->
-<!--                        <reports>-->
-<!--                            <report>javadoc</report>-->
-<!--                        </reports>-->
-<!--                    </reportSet>-->
-<!--                    <reportSet>-->
-<!--                        <id>aggregate</id>-->
-<!--                        <reports>-->
-<!--                            <report>aggregate</report>-->
-<!--                        </reports>-->
-<!--                    </reportSet>-->
-<!--                </reportSets>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-javadoc-plugin</artifactId>-->
+            <!--                <version>3.2.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <stylesheetfile>${basedir}/src/main/javadoc/stylesheet.css</stylesheetfile>-->
+            <!--                    <show>public</show>-->
+            <!--                </configuration>-->
+            <!--                <reportSets>-->
+            <!--                    <reportSet>-->
+            <!--                        <id>default</id>-->
+            <!--                        <reports>-->
+            <!--                            <report>javadoc</report>-->
+            <!--                        </reports>-->
+            <!--                    </reportSet>-->
+            <!--                    <reportSet>-->
+            <!--                        <id>aggregate</id>-->
+            <!--                        <reports>-->
+            <!--                            <report>aggregate</report>-->
+            <!--                        </reports>-->
+            <!--                    </reportSet>-->
+            <!--                </reportSets>-->
+            <!--            </plugin>-->
 
             <plugin>
-<!--                look code and highlight rows that plugin doesn't like-->
+                <!--                look code and highlight rows that plugin doesn't like-->
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>4.2.2</version>
@@ -428,7 +340,7 @@
                     <xmlOutputDirectory>target/site</xmlOutputDirectory>
                 </configuration>
             </plugin>
-<!--            -->
+            <!--            -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
