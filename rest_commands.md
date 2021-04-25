@@ -103,3 +103,9 @@ curl --request PUT 'http://localhost:8090/residents/' \
 ```
 curl --request DELETE 'http://localhost:8090/residents/1'
 ```
+
+#### Find residents from arrival time to departure time
+
+```
+curl --request GET 'http://localhost:8090/search?arrivalTime=2021-03-01&departureTime=2021-05-02'
+```

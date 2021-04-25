@@ -73,24 +73,23 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8090/residents/?arrivalTime=2021-03-30&departureTime=2021-04-30",
+							"raw": "http://localhost:8090/search?arrivalTime=2021-03-01&departureTime=2021-05-02",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
 							"port": "8090",
 							"path": [
-								"residents",
-								""
+								"search"
 							],
 							"query": [
 								{
 									"key": "arrivalTime",
-									"value": "2021-03-30"
+									"value": "2021-03-01"
 								},
 								{
 									"key": "departureTime",
-									"value": "2021-04-30"
+									"value": "2021-05-02"
 								}
 							]
 						}
