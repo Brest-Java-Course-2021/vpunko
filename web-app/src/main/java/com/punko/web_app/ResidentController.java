@@ -102,8 +102,7 @@ public class ResidentController {
 //                                          @RequestParam("departureTime") String departureTime,
 //                                          Model model) {
 //        LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
-////        DateTimeFormatter dateTimeFormat = new DateTimeFormatter(DateTimeFormatter.ISO_DATE);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
+//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //        LocalDate arrival = LocalDate.parse(arrivalTime, formatter);
 //        LocalDate departure = LocalDate.parse(departureTime, formatter);
 //        List<Resident> residentListByTime = residentService.findAllByTime(arrival, departure);
