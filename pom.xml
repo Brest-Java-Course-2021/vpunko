@@ -107,22 +107,6 @@
                 <version>${project.version}</version>
             </dependency>
 
-            <!--            <dependency>-->
-            <!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-            <!--                <artifactId>jackson-databind</artifactId>-->
-            <!--                <version>2.12.2</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.fasterxml.jackson.core</groupId>-->
-            <!--                <artifactId>jackson-core</artifactId>-->
-            <!--                <version>2.12.2</version>-->
-            <!--            </dependency>-->
-            <!--            <dependency>-->
-            <!--                <groupId>com.fasterxml.jackson.datatype</groupId>-->
-            <!--                <artifactId>jackson-datatype-jsr310</artifactId>-->
-            <!--                <version>2.11.4</version>-->
-            <!--            </dependency>-->
-
 
             <dependency>
                 <groupId>com.h2database</groupId>
@@ -183,20 +167,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--            &lt;!&ndash; Embedded Jetty HTTP Server for testing war application &ndash;&gt;-->
-            <!--            <plugin>-->
-            <!--                <groupId>org.eclipse.jetty</groupId>-->
-            <!--                <artifactId>jetty-maven-plugin</artifactId>-->
-            <!--                <version>10.0.1</version>-->
-            <!--                <configuration>-->
-            <!--                    <webApp>-->
-            <!--                        <contextPath>/</contextPath>-->
-            <!--                    </webApp>-->
-            <!--                    <httpConnector>-->
-            <!--                        <port>8080</port>-->
-            <!--                    </httpConnector>-->
-            <!--                </configuration>-->
-            <!--            </plugin>-->
 
             <!--            для запуска тестов-->
             <plugin>
@@ -258,25 +228,6 @@
                 <version>3.14.0</version>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>8.41</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <sourceDirectories>
-                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-                    </sourceDirectories>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
-                    <configLocation>google_checks.xml</configLocation>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -313,17 +264,6 @@
                 </configuration>
             </plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.1.2</version>
-                <configuration>
-                    <sourceDirectories>
-                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-                    </sourceDirectories>
-                    <configLocation>sun_checks.xml</configLocation>
-                </configuration>
-            </plugin>
         </plugins>
     </reporting>
 </project>

@@ -84,28 +84,11 @@ public class ResidentServiceRest implements ResidentService {
         return result.getBody();
     }
 
-//    @Override
-//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-//        String arrivalTimeString = arrivalTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        String departureTimeString = departureTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-//        String searchUrl = new StringBuilder("http://localhost:8080/")
-//                .append("/search?arrivalTime=").append(arrivalTimeString)
-//                .append("&departureTime=").append(departureTimeString)
-//                .toString();
-//        UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(searchUrl).queryParam("arrivalTime", arrivalTimeString)
-//                .queryParam("departureTime", departureTimeString);
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-//        HttpEntity<Apartment> entity = new HttpEntity<>(headers);
-//        return restTemplate.exchange(builder.build().toUri(), HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resident>>() {
-//        }).getBody();
-//    }
-
     @Override
     public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
         String arrivalTimeString = arrivalTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         String departureTimeString = departureTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        String searchUrl = "http://localhost:8080/search?arrivalTime=" + arrivalTimeString + "&departureTime=" + departureTimeString;
+        String searchUrl = "http://localhost:8090/search?arrivalTime=" + arrivalTimeString + "&departureTime=" + departureTimeString;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

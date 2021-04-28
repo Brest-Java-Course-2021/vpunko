@@ -97,19 +97,6 @@ public class ResidentController {
         return "Residents_list";
     }
 
-//    @GetMapping("/search")
-//    public String searchAllResidentByDate(@RequestParam("arrivalTime") String arrivalTime,
-//                                          @RequestParam("departureTime") String departureTime,
-//                                          Model model) {
-//        LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        LocalDate arrival = LocalDate.parse(arrivalTime, formatter);
-//        LocalDate departure = LocalDate.parse(departureTime, formatter);
-//        List<Resident> residentListByTime = residentService.findAllByTime(arrival, departure);
-//        model.addAttribute("allResidentsAttribute", residentListByTime);
-//        return "Residents_list";
-//    }
-
     @GetMapping("/residents/order")
     public String getAllResidentOrderByDate(Model model) {
         LOGGER.debug("find all residents()");

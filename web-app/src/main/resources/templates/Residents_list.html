@@ -79,8 +79,12 @@
                         <th>First Name</th>
                         <th>Last Name</th>
                         <th>Email</th>
-                        <th><a class="nav-link" href="apartments.html"
-                               th:href="@{/residents/order}">order</a>
+                        <th>
+                            <a href="apartments.html"
+                               th:href="@{/residents/order}"
+                               class="btn-sm btn-outline-secondary">
+                                <i class="bi bi-arrow-down" style="font-size: 1rem; color: gray;"></i>
+                                <span class="d-none d-md-inline"></span></a>
                             Arrival Time
                         </th>
                         <th>Departure Time</th>
