@@ -166,20 +166,6 @@ public class ResidentDaoJdbc implements ResidentDao {
         return namedParameterJdbcTemplate.query(orderBySQL, rowMapper);
     }
 
-    //    @Override
-//    public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) {
-//        LOGGER.debug("searchByTwoDates() arrivalTime={} departureTime={}", arrivalTime, departureTime);
-//        if (departureTime.isBefore(arrivalTime)) {
-//            LOGGER.warn("searchByTwoDates() throw IllegalArgumentException because departureTime should be later than arrivalTime");
-//            throw new IllegalArgumentException("departureTime should be later than arrivalTime");
-//        }
-//        Map<String, Object> parametrizedValues = new HashMap<>();
-//        parametrizedValues.put("ARRIVAL_TIME", arrivalTime);
-//        parametrizedValues.put("DEPARTURE_TIME", departureTime);
-//        SqlParameterSource sqlParameterSource = new MapSqlParameterSource(parametrizedValues);
-//        return namedParameterJdbcTemplate.query(findByTimeSQL, sqlParameterSource, rowMapper);
-//    }
-
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment Number");

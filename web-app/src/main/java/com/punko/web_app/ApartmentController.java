@@ -89,12 +89,9 @@ public class ApartmentController {
 
     @PostMapping(value = "/apartment/{id}")
     public String updateApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
-//    public String updateApartment(@PathVariable Integer id) {
         if (bindingResult.hasErrors()) {
             return "apartmentPage";
         }
-//        Apartment apartment = apartmentService.findById(id);
-
         LOGGER.debug("update apartment({})", apartment);
         apartmentService.update(apartment);
         return "redirect:/apartments";
@@ -107,47 +104,4 @@ public class ApartmentController {
         return "redirect:/apartments";
     }
 
-
 }
-
-//    @Autowired
-//    ApartmentService apartmentService;
-//
-//    @RequestMapping("")
-//    public String showAllApartment(Model model) {
-//        List<Apartment> apartmentList = apartmentService.findAll();
-//        model.addAttribute("allApartments", apartmentList);
-//
-//        return "apartments";
-//    }
-//
-//    @RequestMapping("/addApartment")
-//    public String addApartment(Model model) {
-//        Apartment apartment = new Apartment();
-//        model.addAttribute("addApartmentAttribute", apartment);
-//        return "apartmentPage";
-//    }
-//
-//    @RequestMapping("/saveApartment")
-//    public String saveApartment(@ModelAttribute("addApartmentAttribute") Apartment apartment) {
-//        apartmentService.create(apartment);
-//        return "redirect:/apartments";
-//    }
-//
-//    /**
-//     *  name of attribute must be the same like in addApartment
-//     *  because they return the same jsp page
-//     */
-//    @RequestMapping("/updateApartment/{id}")
-//    public String updateApartment(@PathVariable int id, Model model) {
-//        Apartment apartment = apartmentService.findById(id);
-//        model.addAttribute("addApartmentAttribute", apartment);
-//        return "apartmentPage";
-//    }
-//
-//    @RequestMapping("/deleteApartment/{id}")
-//    public String deleteApartment(@PathVariable int id) {
-//        apartmentService.delete(id);
-//        return "redirect:/apartments";
-//    }
-//}

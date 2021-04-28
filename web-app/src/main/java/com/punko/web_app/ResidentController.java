@@ -18,7 +18,7 @@ import java.util.List;
 @Controller
 public class ResidentController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ApartmentController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ResidentController.class);
 
     @Autowired
     ResidentService residentService;
