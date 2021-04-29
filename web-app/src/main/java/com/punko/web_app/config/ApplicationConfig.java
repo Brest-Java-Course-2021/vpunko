@@ -2,21 +2,21 @@ package com.punko.web_app.config;
 
 import com.punko.ApartmentDtoService;
 import com.punko.ApartmentService;
-import com.punko.ResidentService;
+import com.punko.dao.ResidentDao;
+import com.punko.dao.jdbc.ResidentDaoJdbc;
 import com.punko.rest.service.ApartmentDtoServiceRest;
 import com.punko.rest.service.ApartmentServiceRest;
-import com.punko.rest.service.ResidentServiceRest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
+import javax.sql.DataSource;
+
 @Configuration
-@ComponentScan({"com.punko.dao"
-//,"com.punko.service"
-})
+@ComponentScan({"com.punko.dao.jdbc", "com.punko"})
 public class ApplicationConfig {
 
     @Value("${rest.server.protocol}")
@@ -28,7 +28,7 @@ public class ApplicationConfig {
 
     @Bean
     RestTemplate restTemplate() {
-        return new RestTemplate(new SimpleClientHttpRequestFactory());
+        return new RestTemplate();
     }
 
     @Bean
@@ -43,9 +43,12 @@ public class ApplicationConfig {
         return new ApartmentServiceRest(url, restTemplate());
     }
 
+    @Autowired
+    DataSource dataSource;
+
     @Bean
-    ResidentService residentService() {
-        String url = String.format("%s://%s:%d/residents", protocol, host, port);
-        return new ResidentServiceRest(url, restTemplate());
+    ResidentDao residentDao() {
+        return new ResidentDaoJdbc(dataSource);
     }
+
 }

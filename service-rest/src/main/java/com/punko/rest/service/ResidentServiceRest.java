@@ -2,10 +2,12 @@ package com.punko.rest.service;
 
 
 import com.punko.ResidentService;
+import com.punko.dao.ResidentDao;
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -21,14 +23,28 @@ public class ResidentServiceRest implements ResidentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResidentServiceRest.class);
 
-    private String url;
+    //    @Bean
+//    ResidentService residentService() {
+//        String url = String.format("%s://%s:%d/residents", protocol, host, port);
+//        return new ResidentServiceRest(url, restTemplate());
+//    }
+//    http://localhost:8090/residents
+    private String url = "http://localhost:8090/residents";
 
+    @Autowired
     private RestTemplate restTemplate;
 
-    public ResidentServiceRest(String url, RestTemplate restTemplate) {
-        this.url = url;
+    @Autowired
+    private ResidentDao residentDao;
+
+    public ResidentServiceRest(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+
+//    public ResidentServiceRest(String url, RestTemplate restTemplate) {
+//        this.url = url;
+//        this.restTemplate = restTemplate;
+//    }
 
     @Override
     public List<Resident> findAll() {
@@ -52,7 +68,7 @@ public class ResidentServiceRest implements ResidentService {
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment numbers() ");
-        List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
+        List<Apartment> apartmentsNumber = residentDao.getAllApartmentNumber();
         return apartmentsNumber;
     }
 
@@ -102,5 +118,5 @@ public class ResidentServiceRest implements ResidentService {
     public Integer count() {
         return null;
     }
-    
+
 }

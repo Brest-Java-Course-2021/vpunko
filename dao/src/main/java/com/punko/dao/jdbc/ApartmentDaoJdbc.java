@@ -4,6 +4,7 @@ import com.punko.dao.ApartmentDao;
 import com.punko.model.Apartment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -56,6 +57,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
 
     RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
 
+    @Autowired
     public ApartmentDaoJdbc(DataSource dataSource) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
