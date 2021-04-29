@@ -23,28 +23,20 @@ public class ResidentServiceRest implements ResidentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResidentServiceRest.class);
 
-    //    @Bean
-//    ResidentService residentService() {
-//        String url = String.format("%s://%s:%d/residents", protocol, host, port);
-//        return new ResidentServiceRest(url, restTemplate());
-//    }
-//    http://localhost:8090/residents
-    private String url = "http://localhost:8090/residents";
-
-    @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-    private ResidentDao residentDao;
-
+    //    public ResidentServiceRest(String url, RestTemplate restTemplate) {
+//        this.url = url;
+//        this.restTemplate = restTemplate;
+//    }
     public ResidentServiceRest(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
-//    public ResidentServiceRest(String url, RestTemplate restTemplate) {
-//        this.url = url;
-//        this.restTemplate = restTemplate;
-//    }
+    String url = "http://localhost:8090/residents";
+
+    @Autowired
+    private ResidentDao residentDao;
 
     @Override
     public List<Resident> findAll() {
