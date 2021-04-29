@@ -4,7 +4,8 @@
 }
 
 body {
-    background-color: lightgray;
+    /*background-color: lightgray;*/
+    background-color: #eaeffa;
 }
 
 br {
@@ -13,6 +14,10 @@ br {
     margin-top: 10px; /* change this to whatever height you want it */
 }
 
-.navbar {
-    background-color: #2f855a;
+.py-1 {
+    background-color: #eaebf1;
+}
+
+.card {
+    background-color: #bacbe6;
 }
