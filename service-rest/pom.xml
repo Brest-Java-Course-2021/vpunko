@@ -24,6 +24,10 @@
             <groupId>com.punko</groupId>
             <artifactId>dao-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.punko</groupId>
+            <artifactId>dao</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>

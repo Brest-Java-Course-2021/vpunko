@@ -24,6 +24,4 @@ public interface ResidentService {
 
     Integer count();
 
-    List<Resident> orderByDate();
-
 }

@@ -2,10 +2,12 @@ package com.punko.rest.service;
 
 
 import com.punko.ResidentService;
+import com.punko.dao.ResidentDao;
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -21,14 +23,16 @@ public class ResidentServiceRest implements ResidentService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResidentServiceRest.class);
 
-    private String url;
-
     private RestTemplate restTemplate;
 
-    public ResidentServiceRest(String url, RestTemplate restTemplate) {
-        this.url = url;
+    public ResidentServiceRest(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
+
+    String url = "http://localhost:8090/residents";
+
+    @Autowired
+    private ResidentDao residentDao;
 
     @Override
     public List<Resident> findAll() {
@@ -42,17 +46,11 @@ public class ResidentServiceRest implements ResidentService {
         LOGGER.debug("create resident ({})", resident);
         restTemplate.postForEntity(url, resident, Resident.class).getBody();
     }
-
-    //    @Override
-//    public List<Apartment> getAllApartmentNumber() {
-//        LOGGER.debug("find all apartment numbers() ");
-//        ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
-//        return (List<Apartment>) responseEntity.getBody();
-//    }
+    
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment numbers() ");
-        List<Apartment> apartmentsNumber = restTemplate.getForObject(url, List.class);
+        List<Apartment> apartmentsNumber = residentDao.getAllApartmentNumber();
         return apartmentsNumber;
     }
 
@@ -103,14 +101,4 @@ public class ResidentServiceRest implements ResidentService {
         return null;
     }
 
-    @Override
-    public List<Resident> orderByDate() {
-        LOGGER.debug("find all residents order by date() ");
-        String orderUrl = url + "/order";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Apartment> entity = new HttpEntity<>(headers);
-        return restTemplate.exchange(orderUrl, HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resident>>() {
-        }).getBody();
-    }
 }

@@ -66,13 +66,4 @@ public class ApartmentDaoJdbcMockTest {
         Mockito.verifyNoMoreInteractions(namedParameterJdbcTemplate);
     }
 
-//    @Test
-//    public void createTest() {
-//
-//        Apartment apartment = new Apartment();
-//
-//        Mockito.when(namedParameterJdbcTemplate.queryForObject(any(), any(SqlParameterSource.class), eq(Integer.class))).thenReturn(0);
-//        apartmentDaoJdbc.create(apartment);
-//    }
-
 }

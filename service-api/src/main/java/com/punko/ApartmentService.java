@@ -3,7 +3,6 @@ package com.punko;
 import com.punko.model.Apartment;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ApartmentService {
 
@@ -21,6 +20,7 @@ public interface ApartmentService {
 
     /**
      * get Apartments classes
+     *
      * @return List String
      */
     List<String> getAllApartmentClass();

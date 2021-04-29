@@ -1,12 +1,11 @@
 package com.punko.model;
 
 
-import javax.validation.constraints.*;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
-
-import static com.punko.model.constants.ApartmentClassConst.*;
 
 public class Apartment {
 

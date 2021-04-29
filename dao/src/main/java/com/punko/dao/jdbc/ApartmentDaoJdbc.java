@@ -4,6 +4,7 @@ import com.punko.dao.ApartmentDao;
 import com.punko.model.Apartment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -56,6 +57,7 @@ public class ApartmentDaoJdbc implements ApartmentDao {
 
     RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
 
+    @Autowired
     public ApartmentDaoJdbc(DataSource dataSource) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
     }
@@ -145,15 +147,6 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         apartmentClassList.add(CHEAP);
         return apartmentClassList;
     }
-
-    //I'm using my custom exception in CustomGlobalExceptionHandler
-//    private boolean isApartmentClassCorrectValue(Apartment apartment) {
-//        List<String> apartmentClassList = new ArrayList<>(3);
-//        apartmentClassList.add(LUXURIOUS);
-//        apartmentClassList.add(MEDIUM);
-//        apartmentClassList.add(CHEAP);
-//        return apartmentClassList.contains(apartment.getApartmentClass());
-//    }
 
     private boolean isTheNumberUnique(Apartment apartment) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber());

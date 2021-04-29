@@ -40,16 +40,13 @@ public class ApartmentDto {
         this.apartmentClass = apartmentClass;
     }
 
-        public Long getAvgDifferenceBetweenTime() {
+    public Long getAvgDifferenceBetweenTime() {
         return avgDifferenceBetweenTime;
     }
 
     public void setAvgDifferenceBetweenTime(Long avgDifferenceBetweenTime) {
         this.avgDifferenceBetweenTime = avgDifferenceBetweenTime;
     }
-
-
-
 
     @Override
     public String toString() {

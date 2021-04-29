@@ -35,6 +35,7 @@ public class ResidentServiceRestTest {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ResidentServiceRestTest.class);
 
+
     @Autowired
     RestTemplate restTemplate;
 

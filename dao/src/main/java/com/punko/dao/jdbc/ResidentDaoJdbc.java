@@ -56,9 +56,6 @@ public class ResidentDaoJdbc implements ResidentDao {
     @Value("${resident.count}")
     private String countSQL;
 
-    @Value("${resident.order.by.date}")
-    private String orderBySQL;
-
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     RowMapper rowMapper = BeanPropertyRowMapper.newInstance(Resident.class);
@@ -158,12 +155,6 @@ public class ResidentDaoJdbc implements ResidentDao {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("ARRIVAL_TIME", arrivalTime)
                 .addValue("DEPARTURE_TIME", departureTime);
         return namedParameterJdbcTemplate.query(findByTimeSQL, sqlParameterSource, rowMapper);
-    }
-
-    @Override
-    public List<Resident> orderByDate() {
-        LOGGER.debug("find all resident");
-        return namedParameterJdbcTemplate.query(orderBySQL, rowMapper);
     }
 
     @Override

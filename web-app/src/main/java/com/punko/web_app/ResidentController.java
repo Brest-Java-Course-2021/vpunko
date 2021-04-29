@@ -97,12 +97,4 @@ public class ResidentController {
         return "Residents_list";
     }
 
-    @GetMapping("/residents/order")
-    public String getAllResidentOrderByDate(Model model) {
-        LOGGER.debug("find all residents()");
-        List<Resident> residentList = residentService.orderByDate();
-        model.addAttribute("allResidentsAttribute", residentList);
-        return "Residents_list";
-    }
-
 }
