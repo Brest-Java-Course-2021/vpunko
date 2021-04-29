@@ -12,3 +12,7 @@ br {
     content: ""; /* clears default height */
     margin-top: 10px; /* change this to whatever height you want it */
 }
+
+.navbar {
+    background-color: #2f855a;
+}

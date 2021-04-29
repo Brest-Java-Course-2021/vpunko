@@ -94,7 +94,6 @@ public class ResidentServiceRestTest {
 
         // then
         mockServer.verify();
-        //TODO create return Integer
     }
 
     @Test

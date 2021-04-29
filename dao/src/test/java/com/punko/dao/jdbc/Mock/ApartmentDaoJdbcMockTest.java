@@ -7,29 +7,28 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 
 
 @ExtendWith(MockitoExtension.class)
 @Disabled
 public class ApartmentDaoJdbcMockTest {
 
-//    задаем заглушку для namedParameterJdbcTemplate
+    //    задаем заглушку для namedParameterJdbcTemplate
     @Mock
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-//    т.к. ApartmentDaoJdbc принимает в конструкторе NPJDBCT, то мы помещаем его в это поле.
+    //    т.к. ApartmentDaoJdbc принимает в конструкторе NPJDBCT, то мы помещаем его в это поле.
 //    т.е. вместо контруктора.
     @InjectMocks
     private ApartmentDaoJdbc apartmentDaoJdbc;
@@ -51,7 +50,7 @@ public class ApartmentDaoJdbcMockTest {
         list.add(apartment);
         //задаем что должен вернуть метод query
         Mockito.when(namedParameterJdbcTemplate.query(any(), ArgumentMatchers.<RowMapper<Apartment>>any()))
-            .thenReturn(list);
+                .thenReturn(list);
 
         List<Apartment> result = apartmentDaoJdbc.findAll();
         Assertions.assertNotNull(result);
