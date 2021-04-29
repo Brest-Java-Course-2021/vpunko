@@ -24,6 +24,4 @@ public interface ResidentDao {
 
     Integer count();
 
-    List<Resident> orderByDate();
-
 }

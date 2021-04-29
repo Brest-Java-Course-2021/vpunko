@@ -128,19 +128,19 @@ public class ResidentControllerTestIT {
         Assertions.assertEquals("testName", realApartment.getFirstName());
         Assertions.assertEquals(resident, realApartment);
     }
-//
-//    @Test
-//    public void shouldDeleteResidentTest() throws Exception {
-//        LOGGER.debug("should delete Resident()");
-//        List<Resident> residentList = residentService.findAll();
-//        Assertions.assertTrue(residentList.size() > 0);
-//
-//        Integer countBeforeDelete = residentService.count();
-//        int id = residentList.get(0).getResidentId();
-//        residentService.delete(id);
-//        Integer countAfterDelete = residentService.count();
-//        Assertions.assertEquals(countBeforeDelete, countAfterDelete + 1);
-//    }
+
+    @Test
+    public void shouldDeleteResidentTest() throws Exception {
+        LOGGER.debug("should delete Resident()");
+        List<Resident> residentList = residentService.findAll();
+        Assertions.assertTrue(residentList.size() > 0);
+
+        Integer countBeforeDelete = residentService.count();
+        int id = residentList.get(0).getResidentId();
+        residentService.delete(id);
+        Integer countAfterDelete = residentService.count();
+        Assertions.assertEquals(countBeforeDelete, countAfterDelete + 1);
+    }
 
     @Test
     public void shouldReturnNotFoundOnDeleteMissedApartment() throws Exception {
@@ -206,18 +206,18 @@ public class ResidentControllerTestIT {
             return objectMapper.readValue(response.getContentAsString(), Void.class);
         }
 
-//        public Integer delete(Integer residentId) throws Exception {
-//            LOGGER.debug("delete(id:{})", residentId);
-//            MockHttpServletResponse response = mockMvc.perform(
-//                    MockMvcRequestBuilders.delete(new StringBuilder(RESIDENT_ENDPOINT).append("/")
-//                            .append(residentId).toString())
-//                            .accept(MediaType.APPLICATION_JSON)
-//            ).andExpect(status().isOk())
-//                    .andReturn().getResponse();
-//            String res = response.getContentAsString();
-//            assertNotNull(res);
-//            return objectMapper.readValue(res, Integer.class);
-//        }
+        public Integer delete(Integer residentId) throws Exception {
+            LOGGER.debug("delete(id:{})", residentId);
+            MockHttpServletResponse response = mockMvc.perform(
+                    MockMvcRequestBuilders.delete(new StringBuilder(RESIDENT_ENDPOINT).append("/")
+                            .append(residentId).toString())
+                            .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(status().isOk())
+                    .andReturn().getResponse();
+            String res = response.getContentAsString();
+            assertNotNull(res);
+            return objectMapper.readValue(res, Integer.class);
+        }
 
 
         public Integer count() throws Exception {
@@ -228,9 +228,6 @@ public class ResidentControllerTestIT {
                     .andReturn().getResponse();
             return objectMapper.readValue(response.getContentAsString(), Integer.class);
         }
-
-
     }
-
 
 }

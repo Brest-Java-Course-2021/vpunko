@@ -102,15 +102,5 @@ public class ResidentServiceRest implements ResidentService {
     public Integer count() {
         return null;
     }
-
-    @Override
-    public List<Resident> orderByDate() {
-        LOGGER.debug("find all residents order by date() ");
-        String orderUrl = url + "/order";
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        HttpEntity<Apartment> entity = new HttpEntity<>(headers);
-        return restTemplate.exchange(orderUrl, HttpMethod.GET, entity, new ParameterizedTypeReference<List<Resident>>() {
-        }).getBody();
-    }
+    
 }

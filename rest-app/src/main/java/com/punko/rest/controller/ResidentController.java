@@ -38,7 +38,6 @@ public class ResidentController {
     @PostMapping(value = "/residents", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Resident> addResident(@RequestBody Resident resident) {
         LOGGER.debug("Add new resident : {}", resident);
-        //TODO create return Integer?
         residentService.create(resident);
         return new ResponseEntity<>(resident, HttpStatus.CREATED);
     }
@@ -46,7 +45,6 @@ public class ResidentController {
     @PutMapping(value = "/residents", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Resident> updateResident(@RequestBody Resident resident) {
         LOGGER.debug("Update resident : {}", resident);
-        //TODO update return Integer?
         residentService.update(resident);
         return new ResponseEntity<>(resident, HttpStatus.CREATED);
     }
@@ -54,10 +52,7 @@ public class ResidentController {
     @DeleteMapping(value = "/residents/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deleteResident(@PathVariable Integer id) {
         LOGGER.debug("Delete resident with id: {}", id);
-        //TODO mistakes
-        Integer result = residentService.delete(id);
-        return result > 0 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(residentService.delete(id), HttpStatus.OK);
     }
 
     @GetMapping(value = "/residents/count")
@@ -74,10 +69,5 @@ public class ResidentController {
         return new ResponseEntity<>(residents, HttpStatus.FOUND);
     }
 
-    @GetMapping("/residents/order")
-    public List<Resident> findAllOrderByDate() {
-        LOGGER.debug("Get all residents order by date");
-        return residentService.orderByDate();
-    }
 
 }
