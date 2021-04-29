@@ -4,11 +4,20 @@
 }
 
 body {
-    background-color: lightgray;
+    /*background-color: lightgray;*/
+    background-color: #eaeffa;
 }
 
 br {
     display: block; /* makes it have a width */
     content: ""; /* clears default height */
     margin-top: 10px; /* change this to whatever height you want it */
+}
+
+.py-1 {
+    background-color: #eaebf1;
+}
+
+.card {
+    background-color: #bacbe6;
 }

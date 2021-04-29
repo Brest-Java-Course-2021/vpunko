@@ -7,10 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.punko.model.validation.CheckDate;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -32,21 +29,19 @@ public class Resident {
     @Email(message = "use correct email")
     private String email;
 
-    //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull(message = "arrival time is a required field")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate arrivalTime;
 
-    //    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @NotNull(message = "departure time is a required field")
     @JsonDeserialize(using = LocalDateDeserializer.class)
     @JsonSerialize(using = LocalDateSerializer.class)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate departureTime;
 
-    //    @Min(value = 1, message = "Apartment number should be more than 0") if work correct - delete
+    @Min(value = 1, message = "Apartment number is a required field")
     private Integer apartmentNumber;
 
     public Resident() {

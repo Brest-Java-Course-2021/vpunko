@@ -1,15 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-</body>
-</html><!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -20,16 +11,16 @@
           th:href="@{/css/style.css}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <title>List of apartments</title>
+   <title>Error page</title>
 </head>
 <body>
 
 <header>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary ext-dark p-1">
         <div class="container-fluid">
-            <a href="/" class="navbar-brand"><img src="../static/img/hotel_blue.svg"
-                                                  th:src="@{/img/hotel_blue.svg}"
-                                                  height="32" width="32" alt="Hotel"></a>
+           <img src="../static/img/hotel_blue.svg"
+                th:src="@{/img/hotel_blue.svg}"
+                height="32" width="32" alt="Hotel">
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

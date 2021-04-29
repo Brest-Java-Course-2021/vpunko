@@ -2,7 +2,6 @@ package com.punko;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.punko.config.TestConfig;
-import com.punko.model.Apartment;
 import com.punko.model.dto.ApartmentDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

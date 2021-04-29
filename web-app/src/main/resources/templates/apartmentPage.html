@@ -1,25 +1,27 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:form="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
 
-    <link rel="stylesheet" href="../../webapp/resources/static/css/bootstrap.css"
+    <link rel="stylesheet" href="../static/css/bootstrap.css"
           th:href="@{/css/bootstrap.css}">
-    <link rel="stylesheet" href="../../webapp/resources/static/css/style.css"
+    <link rel="stylesheet" href="../static/css/style.css"
           th:href="@{/css/style.css}">
 
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <title>Room page</title>
+    <title>Apartment page</title>
 </head>
 <body>
 <header>
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark ext-light p-1">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-secondary ext-dark p-1">
         <div class="container-fluid">
-            <a href="/" class="navbar-brand"><img src="../../webapp/resources/static/img/hotel_blue.svg"
-                                                  th:src="@{/img/hotel_blue.svg}"
-                                                  height="32" width="32" alt="Hotel"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <img src="../static/img/hotel_blue.svg"
+                 th:src="@{/img/hotel_blue.svg}"
+                 height="32" width="32" alt="Hotel">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,14 +32,14 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="Residents_list.html"
-                            th:href="@{residents}">Residents</a>
+                           th:href="@{residents}">Residents</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
     <nav id="main-header"
-         class="py-1 mb-3 navbar navbar-light bg-light text-dark">
+         class="py-1 mb-3 navbar navbar-light text-dark">
         <div class="container-fluid">
             <ul class="navbar-nav float-start">
                 <li class="nav-item"
@@ -81,7 +83,8 @@
                             <br>
                             <div>
                                 <label for="type">Apartment class</label>
-                                <select class="form-control" id="type" name="apartmentClass" th:field="*{apartmentClass}">
+                                <select class="form-control" id="type" name="apartmentClass"
+                                        th:field="*{apartmentClass}">
                                     <option th:value="null" th:text="none"></option>
                                     <option value="CHEAP">CHEAP</option>
                                     <option value="MEDIUM">MEDIUM</option>
@@ -116,9 +119,9 @@
     <p class="text-center">&copy; 2021</p>
 </footer>
 
-<script src="../../webapp/resources/static/js/bootstrap.bundle.min.js"
+<script src="../static/js/bootstrap.bundle.min.js"
         th:src="@{/js/bootstrap.bundle.min.js}"></script>
-<script src="../../webapp/resources/static/js/jquery-3.4.1.slim.min.js"
+<script src="../static/js/jquery-3.4.1.slim.min.js"
         th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
 
 </body>
