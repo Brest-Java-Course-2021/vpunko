@@ -28,6 +28,7 @@ public class ApartmentDtoServiceRest implements ApartmentDtoService {
     public List<ApartmentDto> findAllWithAvgTime() {
         LOGGER.debug("findAllWithAvgSalary()");
         return restTemplate.exchange(url, GET, null,
-                new ParameterizedTypeReference<List<ApartmentDto>>() {}).getBody();
+                new ParameterizedTypeReference<List<ApartmentDto>>() {
+                }).getBody();
     }
 }

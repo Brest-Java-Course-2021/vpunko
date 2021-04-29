@@ -69,5 +69,4 @@ public class ResidentController {
         return new ResponseEntity<>(residents, HttpStatus.FOUND);
     }
 
-
 }

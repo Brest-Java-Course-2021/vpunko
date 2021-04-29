@@ -146,15 +146,6 @@ public class ApartmentDaoJdbc implements ApartmentDao {
         return apartmentClassList;
     }
 
-    //I'm using my custom exception in CustomGlobalExceptionHandler
-//    private boolean isApartmentClassCorrectValue(Apartment apartment) {
-//        List<String> apartmentClassList = new ArrayList<>(3);
-//        apartmentClassList.add(LUXURIOUS);
-//        apartmentClassList.add(MEDIUM);
-//        apartmentClassList.add(CHEAP);
-//        return apartmentClassList.contains(apartment.getApartmentClass());
-//    }
-
     private boolean isTheNumberUnique(Apartment apartment) {
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("APARTMENT_NUMBER", apartment.getApartmentNumber());
         return namedParameterJdbcTemplate.queryForObject(checkNumberSQL, sqlParameterSource, Integer.class) == 0;

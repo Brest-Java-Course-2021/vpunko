@@ -10,11 +10,11 @@ import java.lang.annotation.*;
 @Documented
 public @interface CheckDate {
 
-    public String message() default "Arrival time should be before than Departure time";
+    String message() default "Arrival time should be before than Departure time";
 
-    public Class<?>[] groups() default {};
+    Class<?>[] groups() default {};
 
-    public Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};
 
 
 }

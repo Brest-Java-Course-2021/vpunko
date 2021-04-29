@@ -11,7 +11,7 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
-@CheckDate(message = "Arrival time should be before than Departure time")
+@CheckDate()
 public class Resident {
 
     private Integer residentId;
