@@ -25,10 +25,6 @@ public class ResidentServiceRest implements ResidentService {
 
     private RestTemplate restTemplate;
 
-    //    public ResidentServiceRest(String url, RestTemplate restTemplate) {
-//        this.url = url;
-//        this.restTemplate = restTemplate;
-//    }
     public ResidentServiceRest(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -50,13 +46,7 @@ public class ResidentServiceRest implements ResidentService {
         LOGGER.debug("create resident ({})", resident);
         restTemplate.postForEntity(url, resident, Resident.class).getBody();
     }
-
-    //    @Override
-//    public List<Apartment> getAllApartmentNumber() {
-//        LOGGER.debug("find all apartment numbers() ");
-//        ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
-//        return (List<Apartment>) responseEntity.getBody();
-//    }
+    
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment numbers() ");

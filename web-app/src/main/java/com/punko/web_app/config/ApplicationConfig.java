@@ -46,12 +46,6 @@ public class ApplicationConfig {
         return new ApartmentServiceRest(url, restTemplate());
     }
 
-//    @Bean
-//    ResidentService residentService() {
-//        String url = String.format("%s://%s:%d/residents", protocol, host, port);
-//        return new ResidentServiceRest(url, restTemplate());
-//    }
-
     @Bean
     ResidentService residentService() {
         return new ResidentServiceRest(restTemplate());

@@ -40,11 +40,6 @@ public class TestConfig {
         return new ApartmentServiceRest(APARTMENT_URL, restTemplate());
     }
 
-//    @Bean
-//    ResidentService residentService() {
-//        return new ResidentServiceRest(RESIDENT_URL, restTemplate());
-//    }
-
     @Bean
     ResidentService residentService() {
         return new ResidentServiceRest(restTemplate());
