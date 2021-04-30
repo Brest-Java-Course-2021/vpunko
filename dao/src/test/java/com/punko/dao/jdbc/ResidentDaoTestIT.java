@@ -1,5 +1,6 @@
 package com.punko.dao.jdbc;
 
+import com.punko.dao.ApartmentDao;
 import com.punko.dao.ResidentDao;
 import com.punko.model.Apartment;
 import com.punko.model.Resident;
@@ -18,9 +19,11 @@ import org.springframework.test.context.ContextConfiguration;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.punko.model.constants.ApartmentClassConst.MEDIUM;
+
 @DataJdbcTest
-@Import({ResidentDaoJdbc.class})
-@PropertySource({"classpath:daoResident.properties"})
+@Import({ResidentDaoJdbc.class, ApartmentDaoJdbc.class})
+@PropertySource({"classpath:daoResident.properties", "classpath:dao.properties"})
 @ContextConfiguration(classes = SpringJdbcConfig.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class ResidentDaoTestIT {
@@ -29,6 +32,9 @@ public class ResidentDaoTestIT {
 
     @Autowired
     ResidentDao residentDao;
+
+    @Autowired
+    private ApartmentDao apartmentDao;
 
     @Test
     public void getAllResidentTest() {
@@ -94,6 +100,12 @@ public class ResidentDaoTestIT {
         List<Apartment> apartmentList = residentDao.getAllApartmentNumber();
         Assertions.assertNotNull(apartmentList);
         Assertions.assertTrue(apartmentList.size() > 0);
+
+        apartmentDao.create(new Apartment(110, MEDIUM));
+
+        List<Apartment> changedList = residentDao.getAllApartmentNumber();
+        Assertions.assertTrue(changedList.size() > 0);
+        Assertions.assertEquals(apartmentList.size() + 1, changedList.size());
     }
 
     @Test

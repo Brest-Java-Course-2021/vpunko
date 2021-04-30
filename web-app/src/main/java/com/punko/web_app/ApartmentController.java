@@ -55,7 +55,7 @@ public class ApartmentController {
     }
 
     /**
-     * Goto add apartment.
+     * Add apartment.
      *
      * @return redirect all apartments
      */
@@ -86,7 +86,11 @@ public class ApartmentController {
         return "apartmentPage";
     }
 
-
+    /**
+     * Update apartment.
+     *
+     * @return redirect all apartments
+     */
     @PostMapping(value = "/apartment/{id}")
     public String updateApartment(@Valid @ModelAttribute("apartmentAttribute") Apartment apartment, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
@@ -97,6 +101,11 @@ public class ApartmentController {
         return "redirect:/apartments";
     }
 
+    /**
+     * Delete apartment by id.
+     *
+     * @return redirect all apartments
+     */
     @GetMapping(value = "/apartment/{id}/delete")
     public String deleteApartmentById(@PathVariable Integer id) {
         LOGGER.debug("delete apartment {}", id);

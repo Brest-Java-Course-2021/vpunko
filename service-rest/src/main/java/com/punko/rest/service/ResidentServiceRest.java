@@ -46,7 +46,7 @@ public class ResidentServiceRest implements ResidentService {
         LOGGER.debug("create resident ({})", resident);
         restTemplate.postForEntity(url, resident, Resident.class).getBody();
     }
-    
+
     @Override
     public List<Apartment> getAllApartmentNumber() {
         LOGGER.debug("find all apartment numbers() ");
