@@ -152,7 +152,7 @@
 - Arrival Time — дата прибытия постояльца.
 - Departure Time — дата отъезда.
 
-![Рис. 3.1 Добавление постояльца](doc_photos/Cut_edit_resident.jpg )
+![Рис. 3.2 Добавление постояльца](doc_photos/Cut_new_resident.jpg )
 
 Рис. 3.2 Добавление постояльца
 
@@ -182,7 +182,7 @@
 - Arrival Time — дата прибытия постояльца.
 - Departure Time — дата отъезда.
 
-![Рис. 3.1 Редактирование постояльца](doc_photos/Cut_edit_resident.jpg )
+![Рис. 3.3 Редактирование постояльца](doc_photos/Cut_edit_resident.jpg )
 
 Рис. 3.3 Редактирование постояльца
 
