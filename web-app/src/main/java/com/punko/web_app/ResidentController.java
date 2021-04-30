@@ -90,6 +90,10 @@ public class ResidentController {
     public String searchAllResidentByDate(@RequestParam(name = "arrivalTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate arrivalTime,
                                           @RequestParam(name = "departureTime", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate departureTime,
                                           Model model) {
+        if (departureTime.isBefore(arrivalTime)) {
+            LOGGER.debug("arrivalTime should be before departureTime {} {}", arrivalTime, departureTime);
+            return "errorPage";
+        }
         LOGGER.debug("search residents by date() {} {}", arrivalTime, departureTime);
 
         List<Resident> residentListByTime = residentService.findAllByTime(arrivalTime, departureTime);

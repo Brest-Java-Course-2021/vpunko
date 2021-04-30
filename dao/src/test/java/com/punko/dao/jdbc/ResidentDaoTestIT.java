@@ -153,7 +153,7 @@ public class ResidentDaoTestIT {
     @Test
     public void getAllResidentByTimeTest() {
         LOGGER.debug("should return Resident from arrivalTime to departureTime()");
-        LocalDate arrivalTime = LocalDate.of(2021, 01, 20);
+        LocalDate arrivalTime = LocalDate.of(2021, 03, 01);
         LocalDate departureTime = LocalDate.of(2022, 05, 21);
 
         List<Resident> residentList = residentDao.findAllByTime(arrivalTime, departureTime);

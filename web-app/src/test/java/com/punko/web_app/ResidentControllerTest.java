@@ -23,6 +23,7 @@ import static org.hamcrest.Matchers.isA;
 import static org.hamcrest.Matchers.*;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(ResidentController.class)
@@ -213,6 +214,24 @@ public class ResidentControllerTest {
                 .andExpect(redirectedUrl("/residents"));
 
         verify(residentService).delete(id);
+    }
+
+    @Test
+    void shouldSearchResidentByDateWithCorrectParam() throws Exception {
+        mockMvc.perform(get("/search")
+                .param("arrivalTime", String.valueOf(LocalDate.of(2021, 3, 1)))
+                .param("departureTime", String.valueOf(LocalDate.of(2021, 4, 20))))
+                .andExpect(status().isOk())
+                .andExpect(view().name("Residents_list"));
+    }
+
+    @Test
+    void shouldSearchResidentByDateWithInCorrectParam() throws Exception {
+        mockMvc.perform(get("/search")
+                .param("arrivalTime", String.valueOf(LocalDate.of(2021, 3, 1)))
+                .param("departureTime", String.valueOf(LocalDate.of(2019, 4, 20))))
+                .andExpect(status().isOk())
+                .andExpect(view().name("errorPage"));
     }
 
     private Resident createResident(int id, String firstName, String lastName, String email,

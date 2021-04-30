@@ -71,6 +71,34 @@ public class ResidentControllerTestIT {
     }
 
     @Test
+    void shouldSearchResidentsRestByDate() throws Exception {
+        LOGGER.debug("should search Resident by date test");
+
+        LocalDate arrivalTime = LocalDate.of(2021, 3, 1);
+        LocalDate departureTime = LocalDate.of(2021, 4, 23);
+
+        List<Resident> residentList = residentService.findAllByTime(arrivalTime, departureTime);
+        assertNotNull(residentList);
+        assertTrue(residentList.size() > 0);
+    }
+
+    @Test
+    void shouldSearchResidentsRestByDateIncorrectParam() throws Exception {
+        LOGGER.debug("should search Resident by date incorrect param test");
+
+        LocalDate arrivalTime = LocalDate.of(2021, 3, 1);
+        LocalDate departureTime = LocalDate.of(2019, 4, 23);
+
+        String searchUrl = "/search?arrivalTime=" + arrivalTime + "&departureTime=" + departureTime;
+        MockHttpServletResponse response = mockMvc.perform(get(searchUrl)
+                .accept(MediaType.APPLICATION_JSON)
+        ).andExpect(status().is4xxClientError())
+                .andReturn().getResponse();
+
+        assertNotNull(response);
+    }
+
+    @Test
     public void shouldFindByIdTest() throws Exception {
         LOGGER.debug("should find Resident by id test");
         List<Resident> residentList = residentService.findAll();
@@ -171,6 +199,20 @@ public class ResidentControllerTestIT {
                     });
         }
 
+        public List<Resident> findAllByTime(LocalDate arrivalTime, LocalDate departureTime) throws Exception {
+            LOGGER.debug("findAllByTime() {}, {}", arrivalTime, departureTime);
+            //without http/local
+            String searchUrl = "/search?arrivalTime=" + arrivalTime + "&departureTime=" + departureTime;
+            MockHttpServletResponse response = mockMvc.perform(get(searchUrl)
+                    .accept(MediaType.APPLICATION_JSON)
+            ).andExpect(status().is3xxRedirection())
+                    .andReturn().getResponse();
+            assertNotNull(response);
+            return objectMapper.readValue(response.getContentAsString(),
+                    new TypeReference<List<Resident>>() {
+                    });
+        }
+
         public Resident findById(Integer residentId) throws Exception {
             LOGGER.debug("findById({})", residentId);
             MockHttpServletResponse response = mockMvc
@@ -218,7 +260,6 @@ public class ResidentControllerTestIT {
             assertNotNull(res);
             return objectMapper.readValue(res, Integer.class);
         }
-
 
         public Integer count() throws Exception {
             LOGGER.debug("count()");

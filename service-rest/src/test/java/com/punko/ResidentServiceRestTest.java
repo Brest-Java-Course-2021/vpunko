@@ -52,7 +52,7 @@ public class ResidentServiceRestTest {
     }
 
     @Test
-    public void shouldFindAllApartments() throws Exception {
+    public void shouldFindAllResidents() throws Exception {
 
         LOGGER.debug("should find all residents()");
         // given
@@ -69,6 +69,36 @@ public class ResidentServiceRestTest {
 
         // when
         List<Resident> residents = residentService.findAll();
+
+        // then
+        mockServer.verify();
+        assertNotNull(residents);
+        assertTrue(residents.size() > 0);
+    }
+
+    @Test
+    public void shouldSearchResidentsByDate() throws Exception {
+        LOGGER.debug("should find all residents()");
+
+        LocalDate arrivalTime = LocalDate.of(2021, 3, 1);
+        LocalDate departureTime = LocalDate.of(2021, 6, 1);
+        // given
+        String searchUrl = "http://localhost:8090/search?arrivalTime=" + arrivalTime + "&departureTime=" + departureTime;
+        mockServer.expect(ExpectedCount.once(), requestTo(new URI(searchUrl)))
+                .andExpect(method(HttpMethod.GET))
+                .andRespond(withStatus(HttpStatus.OK)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .body(mapper.writeValueAsString(Arrays.asList(
+                                createResident(1, "Stephen", "King", "stephenking@test.com",
+                                        LocalDate.of(2021, 3, 10),
+                                        LocalDate.of(2021, 3, 30), 101),
+                                createResident(2, "Margaret", "Mitchell", "margaretmitchell@test.com",
+                                        LocalDate.of(2020, 2, 20),
+                                        LocalDate.of(2021, 10, 10), 102))))
+                );
+
+        // when
+        List<Resident> residents = residentService.findAllByTime(arrivalTime, departureTime);
 
         // then
         mockServer.verify();
